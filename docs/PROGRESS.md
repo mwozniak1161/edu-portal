@@ -12,8 +12,8 @@ _(move a task here when you start it)_
 - [x] docker-compose.yml with Postgres + pgAdmin
 - [x] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
 - [x] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
-- [ ] JWT auth: register, login, refresh token, Passport strategy
-- [ ] RolesGuard + @Roles() decorator wired to all protected routes
+- [x] JWT auth: register, login, refresh token, Passport strategy
+- [x] RolesGuard + @Roles() decorator wired to all protected routes
 
 ### 👤 Admin Panel
 - [ ] **User Management**
