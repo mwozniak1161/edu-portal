@@ -10,7 +10,7 @@ _(move a task here when you start it)_
 ### 🏗️ Foundation
 - [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
 - [x] docker-compose.yml with Postgres + pgAdmin
-- [ ] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
+- [x] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
 - [ ] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
 - [ ] JWT auth: register, login, refresh token, Passport strategy
 - [ ] RolesGuard + @Roles() decorator wired to all protected routes

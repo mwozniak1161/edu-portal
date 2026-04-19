@@ -15,6 +15,36 @@ Full-stack Educational ERP (Librus/Moodle clone) built to practice **NestJS**, *
    pnpm install
    ```
 
+2. **Copy env and configure**:
+   ```bash
+   cp .env.example .env
+   # Edit .env if you need different credentials
+   ```
+
+3. **Start the database**:
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Run database migrations**:
+   ```bash
+   cd apps/api && npx prisma migrate dev
+   ```
+
+### 🗄️ Database
+
+- **PostgreSQL 16** runs in Docker on port `5432`
+- **pgAdmin** UI available at http://localhost:5050 (credentials in `.env`)
+- Schema lives in `apps/api/prisma/schema.prisma` — Prisma is the source of truth
+- Generated client outputs to `apps/api/src/generated/prisma/`
+
+Useful Prisma commands (run from `apps/api/`):
+```bash
+npx prisma migrate dev --name <name>   # create + apply a migration
+npx prisma generate                    # regenerate the client after schema changes
+npx prisma studio                      # visual DB browser
+npx prisma migrate reset               # wipe DB and re-apply all migrations (dev only)
+```
 
 ### 🛠️ Development
 
@@ -81,3 +111,4 @@ education-portal/
 ├── docs/             # Documentation and progress tracking
 └── .claude/          # Claude Code configurations and skills
 ```
+
