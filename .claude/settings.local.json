@@ -8,7 +8,8 @@
       "Bash(pkill -f \"next dev\")",
       "Bash(curl *)",
       "Bash(git add *)",
-      "Bash(git status *)"
+      "Bash(git status *)",
+      "Bash(docker compose up *)"
     ]
   },
   "enableAllProjectMcpServers": true,
