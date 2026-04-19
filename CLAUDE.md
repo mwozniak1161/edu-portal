@@ -29,6 +29,8 @@ Stack showcases: modular NestJS, Prisma, Claude, Next.js App.
 - Auth flow: `@docs/Authentication-System.md`
 - Business logic (weighted avg, attendance guard): `@docs/core-business-logic.md`
 - Current tasks: `@docs/PROGRESS.md`
+- Reusable UI components registry: `@docs/ReusableComponents.md`
+- Design system & style guide: `@docs/StyleGuide.md`
 
 ## Rules
 See `.claude/rules/` for detailed topic rules.

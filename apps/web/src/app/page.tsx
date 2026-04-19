@@ -31,7 +31,7 @@ export default async function Home() {
     apiStatus = `✅ Connected (Status: ${res.status})`;
   } catch (err) {
     apiStatus = `❌ Connection Failed`;
-    error = err.message;
+    error = err instanceof Error ? err.message : String(err);
     console.error('API Connection Error:', err);
   }
 

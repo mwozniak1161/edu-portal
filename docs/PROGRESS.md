@@ -14,6 +14,7 @@ _(move a task here when you start it)_
 - [x] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
 - [x] JWT auth: register, login, refresh token, Passport strategy
 - [x] RolesGuard + @Roles() decorator wired to all protected routes
+- [x] Reusable UI components: shadcn primitives installed + custom composites built (see `docs/ReusableComponents.md`)
 
 ### 👤 Admin Panel
 - [ ] **User Management**

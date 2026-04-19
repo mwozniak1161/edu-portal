@@ -27,7 +27,7 @@ export async function GET() {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: `Failed to connect to NestJS backend: ${error.message}` },
+      { error: `Failed to connect to NestJS backend: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }
