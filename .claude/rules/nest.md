@@ -62,3 +62,23 @@
 - `@TranslationKey()` decorators
 - Safe string interpolation
 
+## Nest CLI Usage Guidelines
+- Use `nest generate` CLI for creating modules, controllers, services, etc.
+- Always run `nest build` before testing to ensure proper compilation
+- Use `nest start --watch` for development with hot reload
+- When creating new features, use the CLI to maintain consistent structure:
+  - `nest generate module <name>`
+  - `nest generate controller <name>`
+  - `nest generate service <name>`
+  - `nest generate class <name> --no-spec` (for DTOs/entities)
+- CLI automatically handles proper imports and follows NestJS conventions
+- After generating files with CLI, verify imports are correct and adjust as needed
+- For custom generators or schematics, document them in project-specific documentation
+
+## TypeScript Configuration for NestJS
+- Ensure `experimentalDecorators: true` and `emitDecoratorMetadata: true` are set in tsconfig.json
+- Configure TypeScript to properly resolve imports based on project structure
+- Use consistent import styles throughout the codebase
+- When working in a monorepo, ensure proper package references are configured
+- Avoid deep relative imports - prefer cleaner import patterns
+- Verify that all NestJS decorators (@Controller, @Injectable, etc.) are properly recognized by TypeScript

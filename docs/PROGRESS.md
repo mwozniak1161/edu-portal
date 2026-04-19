@@ -8,7 +8,7 @@ _(move a task here when you start it)_
 ## 📋 Backlog — MVP
 
 ### 🏗️ Foundation
-- [ ] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
+- [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
 - [ ] docker-compose.yml with Postgres + pgAdmin
 - [ ] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
 - [ ] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
@@ -92,7 +92,10 @@ _(move a task here when you start it)_
 - [ ] Captcha on login
 - [ ] Skill gap analysis (Student panel)
 - [ ] Notification preferences panel (Admin)
+- [ ] Real-time collaboration features
+- [ ] Mobile-responsive design enhancements
 
 ---
 
 ## ✅ Done
+- [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
