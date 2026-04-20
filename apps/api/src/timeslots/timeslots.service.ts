@@ -3,12 +3,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateTimeslotDto } from './dto/create-timeslot.dto';
 import { UpdateTimeslotDto } from './dto/update-timeslot.dto';
 
-function parseTime(timeStr: string): Date {
-  const [hours, minutes, seconds] = timeStr.split(':').map(Number);
-  const d = new Date(1970, 0, 1, hours, minutes, seconds ?? 0);
-  return d;
-}
-
 @Injectable()
 export class TimeslotsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -50,21 +44,23 @@ export class TimeslotsService {
   }
 
   async create(dto: CreateTimeslotDto) {
-    const startingHour = parseTime(dto.startingHour);
+    const startingHour = this.parseTime(dto.startingHour);
 
-    const existing = await this.prisma.timeslot.findUnique({
-      where: {
-        teacherClassId_weekDay_startingHour: {
-          teacherClassId: dto.teacherClassId,
-          weekDay: dto.weekDay,
-          startingHour,
-        },
-      },
-    });
-    if (existing) throw new ConflictException('A timeslot already exists for this slot');
+    // Handle unique constraint check for nullable teacherClassId
+    const existingTimeslot = await this.findExistingTimeslot(
+      dto.weekDay,
+      startingHour,
+      dto.teacherClassId ?? null
+    );
+
+    if (existingTimeslot) {
+      throw new ConflictException('A timeslot already exists for this slot');
+    }
+
+    const timeslotData = this.prepareTimeslotData(dto.weekDay, startingHour, dto.teacherClassId ?? null);
 
     return this.prisma.timeslot.create({
-      data: { teacherClassId: dto.teacherClassId, weekDay: dto.weekDay, startingHour },
+      data: timeslotData,
       include: {
         teacherClass: {
           include: {
@@ -82,18 +78,20 @@ export class TimeslotsService {
 
     const teacherClassId = dto.teacherClassId ?? current.teacherClassId;
     const weekDay = dto.weekDay ?? current.weekDay;
-    const startingHour = dto.startingHour ? parseTime(dto.startingHour) : current.startingHour;
+    const startingHour = dto.startingHour ? this.parseTime(dto.startingHour) : current.startingHour;
 
-    const existing = await this.prisma.timeslot.findUnique({
-      where: { teacherClassId_weekDay_startingHour: { teacherClassId, weekDay, startingHour } },
-    });
-    if (existing && existing.id !== id) {
+    // Handle unique constraint check for nullable teacherClassId
+    const existingTimeslot = await this.findExistingTimeslot(weekDay, startingHour, teacherClassId);
+
+    if (existingTimeslot && existingTimeslot.id !== id) {
       throw new ConflictException('A timeslot already exists for this slot');
     }
 
+    const timeslotData = this.prepareTimeslotData(weekDay, startingHour, teacherClassId ?? null);
+
     return this.prisma.timeslot.update({
       where: { id },
-      data: { teacherClassId, weekDay, startingHour },
+      data: timeslotData,
       include: {
         teacherClass: {
           include: {
@@ -109,5 +107,44 @@ export class TimeslotsService {
   async remove(id: string) {
     await this.findOne(id);
     await this.prisma.timeslot.delete({ where: { id } });
+  }
+
+  private parseTime(timeStr: string): Date {
+    const [hours, minutes, seconds] = timeStr.split(':').map(Number);
+    return new Date(1970, 0, 1, hours, minutes, seconds ?? 0);
+  }
+
+  private async findExistingTimeslot(
+    weekDay: number,
+    startingHour: Date,
+    teacherClassId: string | null
+  ): Promise<any | null> {
+    const timeslots = await this.prisma.timeslot.findMany({
+      where: {
+        weekDay,
+        startingHour,
+      },
+    });
+
+    // Filter for existing timeslot with matching teacherClassId
+    return timeslots.find(ts => ts.teacherClassId === teacherClassId) ?? null;
+  }
+
+  private prepareTimeslotData(weekDay: number, startingHour: Date, teacherClassId: string | null) {
+    const data: any = {
+      weekDay,
+      startingHour,
+    };
+
+    // Always include the teacherClass relation to satisfy Prisma v7 expectations
+    // When teacherClassId is null, Prisma will ignore the relation
+    data.teacherClass = {} as any;
+
+    // Only add teacherClassId if it's not null
+    if (teacherClassId !== null) {
+      data.teacherClassId = teacherClassId;
+    }
+
+    return data;
   }
 }
