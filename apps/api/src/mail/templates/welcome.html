@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 32px; }
+    .card { background: #fff; border-radius: 8px; padding: 32px; max-width: 480px; margin: 0 auto; }
+    h1 { color: #1a1a2e; font-size: 22px; }
+    .creds { background: #f0f4ff; border-radius: 6px; padding: 16px; margin: 16px 0; font-family: monospace; }
+    .label { color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .value { font-size: 15px; color: #111827; margin-bottom: 8px; }
+    p { color: #374151; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to EduPortal, {{firstName}}!</h1>
+    <p>Your account has been created. Use the credentials below to log in:</p>
+    <div class="creds">
+      <div class="label">Email</div>
+      <div class="value">{{email}}</div>
+      <div class="label">Password</div>
+      <div class="value">{{password}}</div>
+    </div>
+    <p>We recommend changing your password after your first login.</p>
+    <p>— The EduPortal Team</p>
+  </div>
+</body>
+</html>

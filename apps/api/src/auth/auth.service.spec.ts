@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { MailService } from '../mail/mail.service';
 import { Role } from '../generated/prisma/enums';
 import * as bcrypt from 'bcrypt';
 
@@ -22,6 +23,10 @@ const mockPrisma = {
 const mockJwt = {
   sign: jest.fn(),
   verify: jest.fn(),
+};
+
+const mockMail = {
+  sendWelcomeEmail: jest.fn().mockResolvedValue(undefined),
 };
 
 const baseUser = {
@@ -46,6 +51,7 @@ describe('AuthService', () => {
         AuthService,
         { provide: PrismaService, useValue: mockPrisma },
         { provide: JwtService, useValue: mockJwt },
+        { provide: MailService, useValue: mockMail },
       ],
     }).compile();
 
@@ -70,6 +76,45 @@ describe('AuthService', () => {
 
       expect(result).toMatchObject({ accessToken: 'access-token', refreshToken: 'refresh-token' });
       expect(mockPrisma.user.create).toHaveBeenCalledTimes(1);
+    });
+
+    it('sends welcome email after user creation', async () => {
+      mockPrisma.user.findUnique.mockResolvedValue(null);
+      mockPrisma.user.create.mockResolvedValue(baseUser);
+      mockPrisma.refreshToken.create.mockResolvedValue({ token: 'rt-uuid' });
+      mockJwt.sign.mockReturnValueOnce('access-token').mockReturnValueOnce('refresh-token');
+
+      await service.register({
+        email: 'test@example.com',
+        password: 'Password1!',
+        firstName: 'Test',
+        lastName: 'User',
+        role: Role.STUDENT,
+      });
+
+      expect(mockMail.sendWelcomeEmail).toHaveBeenCalledWith(
+        'test@example.com',
+        'Test',
+        'Password1!',
+      );
+    });
+
+    it('still returns tokens when welcome email is not awaited', async () => {
+      mockPrisma.user.findUnique.mockResolvedValue(null);
+      mockPrisma.user.create.mockResolvedValue(baseUser);
+      mockPrisma.refreshToken.create.mockResolvedValue({ token: 'rt-uuid' });
+      mockJwt.sign.mockReturnValueOnce('access-token').mockReturnValueOnce('refresh-token');
+      mockMail.sendWelcomeEmail.mockResolvedValueOnce(undefined);
+
+      const result = await service.register({
+        email: 'test@example.com',
+        password: 'Password1!',
+        firstName: 'Test',
+        lastName: 'User',
+        role: Role.STUDENT,
+      });
+
+      expect(result.accessToken).toBe('access-token');
     });
 
     it('throws ConflictException when email already exists', async () => {

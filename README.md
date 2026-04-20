@@ -31,6 +31,23 @@ Full-stack Educational ERP (Librus/Moodle clone) built to practice **NestJS**, *
    cd apps/api && npx prisma migrate dev
    ```
 
+### 📧 Email Setup
+
+Welcome emails are sent on account creation via Gmail SMTP — free, no custom domain needed.
+
+1. Enable **2-Step Verification** on your Google account (required for App Passwords)
+2. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) → create an App Password
+3. Add to `.env`:
+   ```
+   MAIL_HOST=smtp.gmail.com
+   MAIL_PORT=587
+   MAIL_USER=your-address@gmail.com
+   MAIL_PASS=xxxx xxxx xxxx xxxx   # the 16-char App Password, spaces optional
+   MAIL_FROM="EduPortal <your-address@gmail.com>"
+   ```
+
+> **Note:** Use the App Password, not your regular Gmail password. Gmail allows ~500 emails/day on a free account — more than enough for a portfolio demo.
+
 ### 🗄️ Database
 
 - **PostgreSQL 16** runs in Docker on port `5432`

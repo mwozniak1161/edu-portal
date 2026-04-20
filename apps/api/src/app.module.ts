@@ -12,9 +12,10 @@ import { AttendanceModule } from './attendance/attendance.module';
 import { GradesModule } from './grades/grades.module';
 import { LessonInstancesModule } from './lesson-instances/lesson-instances.module';
 import { TasksModule } from './tasks/tasks.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, ClassesModule, SubjectsModule, TeacherClassesModule, TimeslotsModule, AttendanceModule, GradesModule, LessonInstancesModule, TasksModule],
+  imports: [MailModule, PrismaModule, AuthModule, UsersModule, ClassesModule, SubjectsModule, TeacherClassesModule, TimeslotsModule, AttendanceModule, GradesModule, LessonInstancesModule, TasksModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -15,6 +15,18 @@
     "test:watch": "pnpm -r test:watch",
     "setup": "pnpm install"
   },
+  "pnpm": {
+    "overrides": {
+      "postcss-normalize-positions": "7.0.1",
+      "postcss-normalize-repeat-style": "7.0.1",
+      "postcss-normalize-string": "7.0.1",
+      "postcss-normalize-timing-functions": "7.0.1",
+      "postcss-normalize-unicode": "7.0.1",
+      "postcss-normalize-url": "7.0.1",
+      "postcss-normalize-whitespace": "7.0.1",
+      "postcss-normalize-display-values": "7.0.1"
+    }
+  },
   "devDependencies": {
     "typescript": "^5.4.0",
     "prettier": "^3.2.0",
