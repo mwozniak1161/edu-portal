@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
@@ -10,6 +11,8 @@ import { GenerateLessonInstancesDto } from './dto/generate-lesson-instances.dto'
 
 @Injectable()
 export class LessonInstancesService {
+  private readonly logger = new Logger(LessonInstancesService.name);
+
   constructor(private readonly prisma: PrismaService) {}
 
   private async assertTeacherOwnsTeacherClass(
@@ -147,5 +150,76 @@ export class LessonInstancesService {
     );
 
     return { created, skipped: existingCount };
+  }
+
+  /**
+   * System-level method to generate lesson instances for all teacher-classes
+   * Used by cron jobs - bypasses teacher authorization
+   */
+  async generateLessonInstancesForAllTeacherClasses(date: Date) {
+    this.logger.log(`Generating lesson instances for all teacher-classes on ${date}`);
+
+    // Get all teacher-classes with their timeslots
+    const teacherClasses = await this.prisma.teacherClass.findMany({
+      include: {
+        timeslots: true,
+      },
+    });
+
+    const targetDate = new Date(date);
+    targetDate.setHours(0, 0, 0, 0); // Normalize to start of day
+    const weekDay = targetDate.getDay();
+
+    let totalGenerated = 0;
+    let totalSkipped = 0;
+
+    // Process each teacher-class
+    for (const teacherClass of teacherClasses) {
+      // Filter timeslots for the specific weekday
+      const timeslotsForDay = teacherClass.timeslots.filter(
+        (ts) => ts.weekDay === weekDay,
+      );
+
+      if (timeslotsForDay.length === 0) {
+        continue;
+      }
+
+      // Check existing lesson instances for this teacher-class and date
+      const existingInstances = await this.prisma.lessonInstance.count({
+        where: {
+          teacherClassId: teacherClass.id,
+          date: targetDate,
+        },
+      });
+
+      const existingCount = existingInstances;
+
+      if (existingCount >= timeslotsForDay.length) {
+        totalSkipped += timeslotsForDay.length;
+        continue;
+      }
+
+      // Create missing lesson instances
+      const toCreate = timeslotsForDay.slice(existingCount);
+
+      const createdInstances = await this.prisma.$transaction(
+        toCreate.map(() =>
+          this.prisma.lessonInstance.create({
+            data: {
+              teacherClassId: teacherClass.id,
+              date: targetDate,
+            },
+          }),
+        ),
+      );
+
+      totalGenerated += createdInstances.length;
+    }
+
+    this.logger.log(
+      `Lesson instance generation completed. Generated: ${totalGenerated}, Skipped: ${totalSkipped}`,
+    );
+
+    return { generated: totalGenerated, skipped: totalSkipped };
   }
 }

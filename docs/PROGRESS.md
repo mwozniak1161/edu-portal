@@ -46,6 +46,11 @@ _(move a task here when you start it)_
 - [x] **Lesson Instance Management**
   - List timeslots as lesson instances per week
   - Click timeslot → dialog to add/edit topic + comment
+  - [x] **Automatic Lesson Instance Generation**
+    - Daily cron job generates lesson instances from TeacherClass + Timeslots
+    - Runs at 2:00 AM server time
+    - Creates lesson instances for upcoming weekdays based on existing timeslots
+    - Skips dates that already have lesson instances (no overwrite)
   - _Skip for MVP: topic suggestions from previous lessons_
 
 ### 🎓 Student Panel
