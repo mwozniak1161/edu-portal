@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "pnpm --filter @edu-portal/api start:dev",
+    "dev:web": "pnpm --filter @edu-portal/web dev",
+    "dev": "pnpm -F @edu-portal/api -F @edu-portal/web run --parallel dev:api dev:web",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format",
+    "test": "pnpm -r test",
+    "test:watch": "pnpm -r test:watch",
+    "setup": "pnpm install"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "prettier": "^3.2.0",
+    "eslint": "^8.56.0"
+  }
+}

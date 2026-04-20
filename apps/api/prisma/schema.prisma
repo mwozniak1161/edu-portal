@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  role      Role
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  classId String? @map("class_id")
+
+  studentClass   Class?         @relation("StudentClass", fields: [classId], references: [id], onDelete: SetNull)
+  teacherClasses TeacherClass[] @relation("TeacherClasses")
+  grades         Grade[]
+  attendances    Attendance[]
+  refreshTokens  RefreshToken[]
+
+  @@map("users")
+}
+
+model Class {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  students       User[]         @relation("StudentClass")
+  teacherClasses TeacherClass[]
+
+  @@map("classes")
+}
+
+model Subject {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teacherClasses TeacherClass[]
+
+  @@map("subjects")
+}
+
+model TeacherClass {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teacherId String @map("teacher_id")
+  subjectId String @map("subject_id")
+  classId   String @map("class_id")
+
+  teacher User    @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  class   Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  grades          Grade[]
+  attendances     Attendance[]
+  timeslots       Timeslot[]
+  lessonInstances LessonInstance[]
+
+  @@unique([teacherId, subjectId, classId])
+  @@map("teacher_classes")
+}
+
+model Grade {
+  id        String   @id @default(uuid())
+  value     Decimal  @db.Decimal(3, 2)
+  weight    Int      @default(1)
+  comment   String?
+  isExcluded Boolean @default(false) @map("is_excluded")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  studentId      String @map("student_id")
+  teacherClassId String @map("teacher_class_id")
+  correctionForId String? @unique @map("correction_for_id")
+
+  student      User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+  correctionFor Grade?       @relation("Correction", fields: [correctionForId], references: [id])
+  correction    Grade?       @relation("Correction")
+
+  @@map("grades")
+}
+
+model Attendance {
+  id        String           @id @default(uuid())
+  date      DateTime         @db.Date
+  status    AttendanceStatus
+  createdAt DateTime         @default(now()) @map("created_at")
+
+  studentId      String @map("student_id")
+  teacherClassId String @map("teacher_class_id")
+
+  student      User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, teacherClassId, date])
+  @@map("attendance")
+}
+
+model Timeslot {
+  id           String   @id @default(uuid())
+  weekDay      Int      @map("week_day")
+  startingHour DateTime @db.Time @map("starting_hour")
+  length       Int      @default(45)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  teacherClassId String @map("teacher_class_id")
+
+  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherClassId, weekDay, startingHour])
+  @@map("timeslots")
+}
+
+model LessonInstance {
+  id        String   @id @default(uuid())
+  date      DateTime @db.Date
+  topic     String?
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teacherClassId String @map("teacher_class_id")
+
+  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+
+  @@map("lesson_instances")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  revoked   Boolean  @default(false)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
