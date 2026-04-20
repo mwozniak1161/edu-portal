@@ -3,8 +3,6 @@
 ## 🚧 In Progress
 _(move a task here when you start it)_
 
----
-
 ## 📋 Backlog — MVP
 
 ### 🏗️ Foundation
@@ -15,6 +13,9 @@ _(move a task here when you start it)_
 - [x] JWT auth: register, login, refresh token, Passport strategy
 - [x] RolesGuard + @Roles() decorator wired to all protected routes
 - [x] Reusable UI components: shadcn primitives installed + custom composites built (see `docs/ReusableComponents.md`)
+- [ ] **Eduportal Design System Implementation** - Implement distinctive visual design from mockups
+- [ ] **Student Dashboard Enhancement** - Transform simple navigator to rich dashboard per mockups
+- [ ] **Design System Component Compliance** - Ensure all existing components match Eduportal specifications
 
 ### 👤 Admin Panel
 - [x] **User Management**
@@ -36,7 +37,7 @@ _(move a task here when you start it)_
 - [x] **Attendance Management**
   - View full class roster for a given TeacherClass + date
   - Set status per student (Present/Absent/Late), batch save
-  - AttendanceService guard: verify teacher owns the TeacherClass before write
+  - AttendanceService guard: teacher owns the TeacherClass before write
 - [x] **Grade Management**
   - View all students in a class with their grades per TeacherClass
   - Add grade (value, weight, comment)
@@ -80,8 +81,8 @@ _(move a task here when you start it)_
 - [x] Unit tests: AttendanceService ownership guard
 - [ ] E2E: auth flow (login, refresh, protected route)
 - [ ] E2E: grade CRUD + average endpoint
-
----
+- [ ] **FE Visual Testing** - Validate implementation against mockups
+- [ ] **Design System Compliance Testing** - Verify Eduportal-specific styling
 
 ## 📦 Post-MVP Backlog
 - [ ] Real-time schedule change notifications (WebSocket)
@@ -100,7 +101,11 @@ _(move a task here when you start it)_
 - [ ] Real-time collaboration features
 - [ ] Mobile-responsive design enhancements
 
----
-
 ## ✅ Done
 - [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
+- [x] docker-compose.yml with Postgres + pgAdmin
+- [x] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
+- [x] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
+- [x] JWT auth: register, login, refresh token, Passport strategy
+- [x] RolesGuard + @Roles() decorator wired to all protected routes
+- [x] Reusable UI components: shadcn primitives installed + custom composites built (see `docs/ReusableComponents.md`)
