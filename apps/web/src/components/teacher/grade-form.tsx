@@ -3,7 +3,7 @@
 import { useForm, Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { EduDataTextarea } from '@/components/ui/edu-data-textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FormError } from '@/components/feedback/form-error'
 import type { Grade, TeacherClass } from '@/lib/api/types'
@@ -47,11 +47,11 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
           rules={{ required: 'Subject is required' }}
           render={({ field }) => (
             <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!!grade}>
-              <SelectTrigger><SelectValue placeholder="Select subject / class" /></SelectTrigger>
+              <SelectTrigger><SelectValue placeholder="Select subject / class" className="font-data" /></SelectTrigger>
               <SelectContent>
                 {teacherClasses.map((tc) => (
                   <SelectItem key={tc.id} value={tc.id}>
-                    {tc.subject.name} — {tc.class.name}
+                    <span className="font-data">{tc.subject.name} — {tc.class.name}</span>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -68,11 +68,11 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
           rules={{ required: 'Student is required' }}
           render={({ field }) => (
             <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!!grade}>
-              <SelectTrigger><SelectValue placeholder="Select student" /></SelectTrigger>
+              <SelectTrigger><SelectValue placeholder="Select student" className="font-data" /></SelectTrigger>
               <SelectContent>
                 {students.map((s) => (
                   <SelectItem key={s.id} value={s.id}>
-                    {s.firstName} {s.lastName}
+                    <span className="font-data">{s.firstName} {s.lastName}</span>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -90,6 +90,7 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
             min="1"
             max="6"
             placeholder="Value (1–6)"
+            className="edu-input font-data"
             {...register('value', {
               required: 'Value is required',
               valueAsNumber: true,
@@ -104,6 +105,7 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
             type="number"
             min="1"
             placeholder="Weight"
+            className="edu-input font-data"
             {...register('weight', {
               required: 'Weight is required',
               valueAsNumber: true,
@@ -115,7 +117,7 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
       </div>
 
       <div>
-        <Textarea placeholder="Comment (optional)" {...register('comment')} />
+        <EduDataTextarea placeholder="Comment (optional)" {...register('comment')} />
       </div>
 
       <div className="flex justify-end gap-2">

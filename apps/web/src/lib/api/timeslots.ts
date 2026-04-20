@@ -5,7 +5,7 @@ import type { Timeslot } from './types'
 const TS_KEY = ['timeslots'] as const
 
 interface TimeslotPayload {
-  teacherClassId: string
+  teacherClassId?: string | null
   weekDay: number
   startingHour: string
 }

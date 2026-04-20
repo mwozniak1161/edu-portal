@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { EduDataTextarea } from '@/components/ui/edu-data-textarea'
 import { FormError } from '@/components/feedback/form-error'
 import type { Grade } from '@/lib/api/types'
 
@@ -31,7 +31,7 @@ export function CorrectionGradeForm({ originalGrade, onSubmit, onCancel, isLoadi
         <p className="text-muted-foreground">Correcting grade:</p>
         <p className="font-medium">
           {originalGrade.student.firstName} {originalGrade.student.lastName} —{' '}
-          original value: <span className="font-mono">{originalGrade.value}</span> ×{originalGrade.weight}
+          original value: <span className="font-mono">{originalGrade.value}</span> ×<span className="font-data">{originalGrade.weight}</span>
         </p>
         {originalGrade.comment && <p className="text-muted-foreground text-xs mt-1">{originalGrade.comment}</p>}
       </div>
@@ -44,6 +44,7 @@ export function CorrectionGradeForm({ originalGrade, onSubmit, onCancel, isLoadi
             min="1"
             max="6"
             placeholder="New value (1–6)"
+            className="edu-input font-data"
             {...register('value', {
               required: 'Value is required',
               valueAsNumber: true,
@@ -58,6 +59,7 @@ export function CorrectionGradeForm({ originalGrade, onSubmit, onCancel, isLoadi
             type="number"
             min="1"
             placeholder="Weight"
+            className="edu-input font-data"
             {...register('weight', {
               required: 'Weight is required',
               valueAsNumber: true,
@@ -69,7 +71,7 @@ export function CorrectionGradeForm({ originalGrade, onSubmit, onCancel, isLoadi
       </div>
 
       <div>
-        <Textarea placeholder="Comment (optional)" {...register('comment')} />
+        <EduDataTextarea placeholder="Comment (optional)" {...register('comment')} />
       </div>
 
       <div className="flex justify-end gap-2">

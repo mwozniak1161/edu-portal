@@ -9,10 +9,10 @@ interface PanelLayoutProps {
 
 export function PanelLayout({ navItems, sidebarFooter, children }: PanelLayoutProps) {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-edu-bg">
       <NavSidebar navItems={navItems} footer={sidebarFooter} />
-      <main className="flex-1 overflow-y-auto bg-muted/20">
-        <div className="container max-w-7xl py-8 px-6">{children}</div>
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl px-8 py-10">{children}</div>
       </main>
     </div>
   )

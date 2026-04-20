@@ -13,9 +13,9 @@ _(move a task here when you start it)_
 - [x] JWT auth: register, login, refresh token, Passport strategy
 - [x] RolesGuard + @Roles() decorator wired to all protected routes
 - [x] Reusable UI components: shadcn primitives installed + custom composites built (see `docs/ReusableComponents.md`)
-- [ ] **Eduportal Design System Implementation** - Implement distinctive visual design from mockups
-- [ ] **Student Dashboard Enhancement** - Transform simple navigator to rich dashboard per mockups
-- [ ] **Design System Component Compliance** - Ensure all existing components match Eduportal specifications
+- [x] **Eduportal Design System Implementation** - Implement distinctive visual design from mockups
+- [x] **Student Dashboard Enhancement** - Transform simple navigator to rich dashboard per mockups
+- [x] **Design System Component Compliance** - Ensure all existing components match Eduportal specifications
 
 ### 👤 Admin Panel
 - [x] **User Management**

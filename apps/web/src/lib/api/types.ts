@@ -48,11 +48,11 @@ export interface TeacherClass {
 
 export interface Timeslot {
   id: string
-  teacherClassId: string
+  teacherClassId: string | null
   weekDay: number
   startingHour: string
   length: number
-  teacherClass: TeacherClass
+  teacherClass: TeacherClass | null
   createdAt: string
   updatedAt: string
 }

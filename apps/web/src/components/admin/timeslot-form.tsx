@@ -24,10 +24,10 @@ interface TimeslotFormProps {
 }
 
 export function TimeslotForm({ timeslot, teacherClasses, onSubmit, onCancel, isLoading }: TimeslotFormProps) {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<Values>({
+  const { register, control, handleSubmit, formState: { errors } } = useForm<Values, unknown, Values>({
     defaultValues: timeslot
       ? {
-          teacherClassId: timeslot.teacherClassId,
+          teacherClassId: timeslot.teacherClassId ?? undefined,
           weekDay: timeslot.weekDay,
           startingHour: new Date(timeslot.startingHour).toTimeString().slice(0, 5),
         }

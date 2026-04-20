@@ -36,10 +36,18 @@ export default function TimeslotsPage() {
   const columns: Column<Timeslot>[] = [
     {
       header: 'Teacher',
-      cell: (s) => `${s.teacherClass.teacher.firstName} ${s.teacherClass.teacher.lastName}`,
+      cell: (s) => s.teacherClass
+        ? `${s.teacherClass.teacher.firstName} ${s.teacherClass.teacher.lastName}`
+        : '—',
     },
-    { header: 'Subject', cell: (s) => s.teacherClass.subject.name },
-    { header: 'Class', cell: (s) => s.teacherClass.class.name },
+    {
+      header: 'Subject',
+      cell: (s) => s.teacherClass?.subject.name ?? '—',
+    },
+    {
+      header: 'Class',
+      cell: (s) => s.teacherClass?.class.name ?? '—',
+    },
     { header: 'Day', cell: (s) => DAYS[s.weekDay] ?? s.weekDay },
     {
       header: 'Time',

@@ -25,7 +25,7 @@ export default function AttendancePage() {
   const selectedTc = myClasses.find((tc) => tc.id === teacherClassId)
   const { data: usersResp } = useUsers(undefined, 1, 200)
   const classStudents = (usersResp?.users ?? []).filter(
-    (u) => u.role === Role.STUDENT && u.classId === selectedTc?.classId,
+    (u) => u.role === Role.STUDENT && u.classId === (selectedTc?.classId ?? undefined),
   )
 
   const { data: existingAttendances = [] } = useAttendances(teacherClassId || undefined, date)

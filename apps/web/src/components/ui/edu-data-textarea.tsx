@@ -2,12 +2,12 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+function EduDataTextarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (
     <textarea
       data-slot="textarea"
       className={cn(
-        "edu-input",
+        "edu-input font-data",
         className
       )}
       {...props}
@@ -15,4 +15,4 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   )
 }
 
-export { Textarea }
+export { EduDataTextarea }

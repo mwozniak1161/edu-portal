@@ -6,10 +6,8 @@ import { useForm } from 'react-hook-form'
 import { useAuthStore } from '@/store/auth.store'
 import { authApi } from '@/lib/api/auth'
 import { ApiError } from '@/lib/api/client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { FormError } from '@/components/feedback/form-error'
 import { Role } from '@/types'
+import { GraduationCap, ArrowRight } from 'lucide-react'
 
 const ROLE_HOME: Record<Role, string> = {
   [Role.ADMIN]: '/admin',
@@ -41,47 +39,111 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
-      <div className="w-full max-w-sm bg-background rounded-xl border shadow-sm p-8 space-y-6">
-        <div className="space-y-1 text-center">
-          <h1 className="text-2xl font-bold">Sign in</h1>
-          <p className="text-sm text-muted-foreground">Enter your credentials to continue</p>
-        </div>
+    <main className="min-h-screen flex items-center justify-center p-6 bg-edu-bg selection:bg-edu-primary/10">
+      {/* Decorative blur orbs */}
+      <div className="fixed -top-24 -right-24 w-96 h-96 rounded-full blur-3xl -z-10 bg-edu-primary/5 pointer-events-none" />
+      <div className="fixed -bottom-24 -left-24 w-96 h-96 rounded-full blur-3xl -z-10 bg-edu-primary/5 pointer-events-none" />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-1">
-            <Input
-              id="email"
-              type="email"
-              placeholder="Email"
-              autoComplete="email"
-              {...register('email', { required: 'Email is required' })}
-            />
-            <FormError message={errors.email?.message} />
-          </div>
-
-          <div className="space-y-1">
-            <Input
-              id="password"
-              type="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              {...register('password', { required: 'Password is required' })}
-            />
-            <FormError message={errors.password?.message} />
-          </div>
-
-          {serverError && (
-            <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded px-3 py-2">
-              {serverError}
+      <div className="w-full max-w-sm">
+        <div className="edu-card p-10">
+          {/* Branding */}
+          <div className="flex flex-col items-center mb-10">
+            <div className="w-16 h-16 rounded-2xl bg-edu-surface-low flex items-center justify-center mb-6">
+              <GraduationCap className="w-8 h-8 text-edu-primary" />
+            </div>
+            <h1 className="text-3xl font-black tracking-tighter text-edu-primary mb-2">
+              Eduportal
+            </h1>
+            <p className="text-sm tracking-tight text-edu-on-surface-variant">
+              Sign in to your account
             </p>
-          )}
+          </div>
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Signing in…' : 'Sign in'}
-          </Button>
-        </form>
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <EduField
+              id="email"
+              label="Email"
+              error={errors.email?.message}
+            >
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                placeholder="you@school.edu"
+                className="edu-input"
+                {...register('email', { required: 'Email is required' })}
+              />
+            </EduField>
+
+            <EduField
+              id="password"
+              label="Password"
+              error={errors.password?.message}
+            >
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                placeholder="••••••••"
+                className="edu-input"
+                {...register('password', { required: 'Password is required' })}
+              />
+            </EduField>
+
+            {serverError && (
+              <div className="px-4 py-3 rounded text-sm bg-edu-error/10 text-edu-error">
+                {serverError}
+              </div>
+            )}
+
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="edu-btn-primary w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold disabled:opacity-60"
+              >
+                {isSubmitting ? 'Signing in…' : 'Sign in'}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-12 text-center">
+            <p className="font-mono text-xs text-edu-on-surface-variant/50">
+              The Eduportal · v1.0
+            </p>
+          </div>
+        </div>
       </div>
     </main>
+  )
+}
+
+function EduField({
+  id,
+  label,
+  error,
+  children,
+}: {
+  id: string
+  label: string
+  error?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-widest mb-2 px-1 text-edu-on-surface-variant">
+        {label}
+      </label>
+      <div className="relative group">
+        {/* Ink bar — scales in on focus */}
+        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-edu-primary origin-center scale-y-0 group-focus-within:scale-y-100 transition-transform duration-200" />
+        {children}
+      </div>
+      {error && (
+        <p className="mt-1.5 px-1 text-xs text-edu-error">{error}</p>
+      )}
+    </div>
   )
 }

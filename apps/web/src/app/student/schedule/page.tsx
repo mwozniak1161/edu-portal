@@ -57,16 +57,18 @@ export default function SchedulePage() {
                     className="flex items-center justify-between rounded-lg border bg-card px-4 py-3"
                   >
                     <div>
-                      <p className="font-medium">{ts.teacherClass.subject.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {ts.teacherClass.teacher.firstName} {ts.teacherClass.teacher.lastName}
+                      <p className="font-medium">{ts.teacherClass?.subject.name ?? '—'}</p>
+                      <p className="text-sm text-muted-foreground font-data">
+                        {ts.teacherClass?.teacher ? `${ts.teacherClass.teacher.firstName} ${ts.teacherClass.teacher.lastName}` : '—'}
                       </p>
                     </div>
                     <div className="text-right text-sm text-muted-foreground">
                       <p className="font-mono">
                         {new Date(ts.startingHour).toTimeString().slice(0, 5)}
                       </p>
-                      <p>{ts.length} min</p>
+                      <p className="font-data">
+                        {ts.length} min
+                      </p>
                     </div>
                   </div>
                 ))}

@@ -114,37 +114,13 @@ export class TimeslotsService {
     return new Date(1970, 0, 1, hours, minutes, seconds ?? 0);
   }
 
-  private async findExistingTimeslot(
-    weekDay: number,
-    startingHour: Date,
-    teacherClassId: string | null
-  ): Promise<any | null> {
-    const timeslots = await this.prisma.timeslot.findMany({
-      where: {
-        weekDay,
-        startingHour,
-      },
+  private findExistingTimeslot(weekDay: number, startingHour: Date, teacherClassId: string | null) {
+    return this.prisma.timeslot.findFirst({
+      where: { weekDay, startingHour, teacherClassId },
     });
-
-    // Filter for existing timeslot with matching teacherClassId
-    return timeslots.find(ts => ts.teacherClassId === teacherClassId) ?? null;
   }
 
   private prepareTimeslotData(weekDay: number, startingHour: Date, teacherClassId: string | null) {
-    const data: any = {
-      weekDay,
-      startingHour,
-    };
-
-    // Always include the teacherClass relation to satisfy Prisma v7 expectations
-    // When teacherClassId is null, Prisma will ignore the relation
-    data.teacherClass = {} as any;
-
-    // Only add teacherClassId if it's not null
-    if (teacherClassId !== null) {
-      data.teacherClassId = teacherClassId;
-    }
-
-    return data;
+    return { weekDay, startingHour, teacherClassId };
   }
 }
