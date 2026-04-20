@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsUUID, IsInt, Min, Max, Matches } from 'class-validator';
+import { IsUUID, IsInt, Min, Max, Matches, IsOptional } from 'class-validator';
 
 export class CreateTimeslotDto {
-  @ApiProperty({ example: 'uuid-of-teacher-class' })
+  @ApiProperty({ example: 'uuid-of-teacher-class', required: false })
   @IsUUID()
-  teacherClassId!: string;
+  @IsOptional()
+  teacherClassId?: string;
 
   @ApiProperty({ example: 1, description: '1=Monday … 7=Sunday' })
   @IsInt()
