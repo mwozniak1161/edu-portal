@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-surface": "#0b1c30",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary": "#7e3000",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary-container": "#ffd2be",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "surface-container-high": "#dce9ff",
+                    "primary": "#3525cd",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-tint": "#4d44e3",
+                    "on-background": "#0b1c30",
+                    "on-surface-variant": "#464555",
+                    "primary-container": "#4f46e5",
+                    "surface-variant": "#d3e4fe",
+                    "secondary-container": "#b6b4ff",
+                    "on-secondary-fixed-variant": "#413f82",
+                    "outline-variant": "#c7c4d8",
+                    "secondary-fixed": "#e2dfff",
+                    "secondary": "#58579b",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "on-primary-container": "#dad7ff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#454386",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-secondary-fixed": "#140f54",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary-container": "#a44100",
+                    "surface-container": "#e5eeff",
+                    "outline": "#777587",
+                    "inverse-surface": "#213145"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "sans": ["Geist", "sans-serif"],
+                    "mono": ["Geist Mono", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ink-bleed {
+            background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors p-2 rounded-full active:scale-95 transition-transform" data-icon="menu">menu</button>
+<span class="text-xl font-bold tracking-tighter text-indigo-700 dark:text-indigo-300">EduSlate Indigo</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6 mr-6">
+<span class="text-indigo-700 dark:text-indigo-300 font-semibold font-sans text-sm tracking-tight cursor-pointer">Dashboard</span>
+<span class="text-slate-500 dark:text-slate-400 font-sans text-sm tracking-tight hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors px-2 rounded cursor-pointer">Schedule</span>
+<span class="text-slate-500 dark:text-slate-400 font-sans text-sm tracking-tight hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors px-2 rounded cursor-pointer">Gradebook</span>
+</div>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" data-alt="Close-up portrait of a friendly male student in a bright classroom setting, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAU5GOciM5vDRdlu_MhUNmrIA-uXFw7BUe6gws1zSd9x19PWSJV10mYSplfOnm1Gk-kXLLhsHC61nTq5Ug9dKdPLf_i0SRqUDuxcyz-QbHidDzNzR2A6VG879i_obdIdNbQBeRfRi-uvhDqQdTmAwprFL_tk5-rHyk4s86ecZ_tMIPla8EnNeq3oKz4FSQP5k22BZrp_pvixhClAYbru0RlUJU9SnZUElp7X0GOUz6LHosrEAlTCRWW6f7F3x_tCr_NzSgWvn0Kks"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-6 max-w-screen-xl mx-auto">
+<!-- Header Block -->
+<div class="mb-12">
+<h1 class="text-5xl font-extrabold tracking-tight text-on-surface mb-2">Welcome, Julian</h1>
+<p class="text-outline text-lg max-w-2xl font-sans leading-relaxed">
+                Your Eduportal is ready. You have <span class="font-mono text-primary font-bold">3</span> classes remaining today.
+            </p>
+</div>
+<!-- Shortcut Cards: Organic Brutalism Asymmetric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Schedule Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-bright border-l-4 border-primary">
+<div class="flex flex-col h-full justify-between">
+<div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="calendar_today">calendar_today</span>
+</div>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Schedule</h3>
+<p class="text-outline font-sans">Weekly classes</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-primary font-bold text-sm font-mono tracking-wider group-hover:translate-x-1 transition-transform">
+                        VIEW TIMETABLE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Gradebook Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-bright border-l-4 border-primary">
+<div class="flex flex-col h-full justify-between">
+<div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="analytics">analytics</span>
+</div>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Gradebook</h3>
+<p class="text-outline font-sans">Grades &amp; avgs</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-primary font-bold text-sm font-mono tracking-wider group-hover:translate-x-1 transition-transform">
+                        CHECK STATS <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Lesson Log Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-bright border-l-4 border-primary">
+<div class="flex flex-col h-full justify-between">
+<div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="auto_stories">auto_stories</span>
+</div>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Lesson Log</h3>
+<p class="text-outline font-sans">Topics covered</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-primary font-bold text-sm font-mono tracking-wider group-hover:translate-x-1 transition-transform">
+                        READ ARCHIVE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Section: Data & Context -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Active Assignment Card (Editorial Focus) -->
+<div class="lg:col-span-8 bg-surface-container-low rounded-xl p-10 flex flex-col md:flex-row gap-8 items-center border border-outline-variant/20">
+<div class="flex-1">
+<span class="font-mono text-[10px] uppercase tracking-widest text-primary font-bold bg-primary/10 px-3 py-1 rounded-full">Next Deadline</span>
+<h2 class="text-3xl font-black tracking-tighter mt-4 mb-3">Architectural History: The Bauhaus Movement</h2>
+<p class="text-on-surface-variant font-sans leading-relaxed mb-6">Complete the visual analysis of the Dessau building. Focus on functionalism and material usage.</p>
+<button class="ink-bleed text-on-primary px-8 py-3 rounded-md font-bold tracking-tight active:scale-95 transition-transform flex items-center gap-3">
+                        Continue Working <span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+<div class="w-full md:w-64 h-64 rounded-xl overflow-hidden shadow-2xl rotate-2">
+<img alt="Architecture Focus" class="w-full h-full object-cover" data-alt="Minimalist modern building with sharp geometric lines and glass facade, clean architectural photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7Bjuv_XPIoW2XaFMWJyx5PLYMyI6kLGsooXLPrAHxStiztiT_iTMRbsT_jjFtaoiSaBKp8uiawIgZ4F-B8VcDGZkg7qqLqG9zToGnIecdyURhid6fCr6UR6WKXFK3Xqf8WCfF46r8FW5tl-c1YqaeJiSov4QPCfUhdNxvH4zhmU-7lKFZ5QFseFQX9UU8rgIp-HaNhRBdKfiEB9R4HIbv5Ou5SjXRCsBXHCdw5dG9ogczn6zNOk9SGciSYqFb01vCrH6VPZC9K_o"/>
+</div>
+</div>
+<!-- Stats Rail (The Atelier Tools) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20">
+<h4 class="font-mono text-xs uppercase tracking-widest text-outline mb-6">Current GPA</h4>
+<div class="flex items-end gap-2">
+<span class="text-6xl font-black tracking-tighter text-primary font-sans leading-none">3.92</span>
+<span class="text-outline font-mono text-sm mb-1">/ 4.0</span>
+</div>
+<div class="mt-6 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-highest p-6 rounded-xl border border-outline-variant/20 flex flex-col justify-between min-h-[200px]">
+<h4 class="font-mono text-xs uppercase tracking-widest text-on-surface mb-4">Upcoming Event</h4>
+<div class="flex gap-4">
+<div class="flex flex-col items-center bg-white rounded px-3 py-2 shadow-sm">
+<span class="text-xs font-mono text-primary font-black uppercase">Oct</span>
+<span class="text-2xl font-black tracking-tighter">12</span>
+</div>
+<div>
+<p class="font-bold text-lg leading-tight">Design Critique Seminar</p>
+<p class="text-sm text-outline">Studio A • 09:00 AM</p>
+</div>
+</div>
+<div class="flex -space-x-2 mt-4">
+<img alt="Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZBdISWSY_XELkti7YHtXIGvencTt_-7I_igmaDXF_3UgxJ0wfcsjZch3YcTadHc13XGUkT1PDJVi2l2dMyr5f7PjVZ1A5bbC6Nb9EsSyuu2Yzmtwu1fm2OZXo4JhnnCESJkmdlwykK_98TLC2PaqGiQlI8mQU-2oidm4SaAcntoD7C-q0gDPvjNA2SJWRpibun6H9xRxulRMg4oUwXUH-VoXx4ai7b6urKQzH7qV3hgpwGLboPKn5p4lifPcbLxzYemK8alOCq7E"/>
+<img alt="Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoP5BFDsTJgA4NPh2IN5QrvH6k-K6alpVFWu7y8KWzn2F79F7oMFDTram-y9lW0bSaaqLjMGingUoA_LgFWTg0cvqsvioXKKBJOtD0Kmy8JeOTdEDEV1JGbb-0aEtjev8sFJxSyqJ-Mmq0qTo4dUDawJTATlsOLYmmxQSh3sMnGHWivmdwqZ81FCgJMXMFjhQNeuHI460FedZLUAePgdNgiqsjUCbtGuNNDTrc3j6xdAd7i3-xGwJ2Qvvr2O8zG8sQDoL-RXCl0lU"/>
+<img alt="Avatar" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5SBVjNa_m2TjXUiSNCqkWR7rnqin-zyKoj5CNWqf3rVgpXik8cOUORXC2-eOmNAVln5k-UcyvWyT_r18wVPtrEagZYdqzAus-ex8ZVxL3b61EOTq28kvokmcVW9MwQ0Olyrnm-JEwjgXgEizfmm0AedBMMLMHDuVirNaGaQV8Apewm9zsHDEXzdzp7T7KleaAB7l38VUG1w94ZiWeGul4NDVieJH9AcbWwvkGLvltgYudNOrTArJerVqaNms70UMJfmUCNxDts9k"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-highest bg-surface-container-low flex items-center justify-center text-[10px] font-bold text-outline">+12</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-white/85 dark:bg-slate-950/85 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(11,28,48,0.06)] border-t border-slate-200/50 dark:border-slate-800/50">
+<div class="flex flex-col items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-xl px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-indigo-500 active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Schedule</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-indigo-500 active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Gradebook</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-indigo-500 active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Lesson Log</span>
+</div>
+</nav>
+<!-- Context Rail (Atelier Signature Component) -->
+<aside class="hidden lg:flex fixed right-0 top-0 h-screen w-12 bg-surface-container-highest flex-col items-center py-20 gap-8 z-30">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="search">search</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="event">event</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="calculate">calculate</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="note_alt">note_alt</button>
+</aside>
+</body></html>

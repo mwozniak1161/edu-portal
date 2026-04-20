@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .font-mono { font-family: 'Geist Mono', monospace; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for an editorial feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c7c4d833; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#351000",
+                      "on-tertiary-container": "#ffd2be",
+                      "on-surface-variant": "#464555",
+                      "secondary-fixed-dim": "#c3c0ff",
+                      "secondary-fixed": "#e2dfff",
+                      "on-surface": "#0b1c30",
+                      "inverse-primary": "#c3c0ff",
+                      "tertiary-container": "#a44100",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#413f82",
+                      "inverse-surface": "#213145",
+                      "secondary-container": "#b6b4ff",
+                      "surface-dim": "#cbdbf5",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "background": "#f8f9ff",
+                      "outline-variant": "#c7c4d8",
+                      "surface-container-high": "#dce9ff",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface": "#f8f9ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-background": "#0b1c30",
+                      "surface-bright": "#f8f9ff",
+                      "outline": "#777587",
+                      "on-secondary-fixed": "#140f54",
+                      "tertiary-fixed": "#ffdbcc",
+                      "secondary": "#58579b",
+                      "primary-fixed": "#e2dfff",
+                      "surface-tint": "#4d44e3",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#7e3000",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary-fixed": "#0f0069",
+                      "on-primary-container": "#dad7ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-container": "#454386",
+                      "primary-container": "#4f46e5",
+                      "primary": "#3525cd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- NavigationDrawer (Sidebar - Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen w-60 fixed left-0 top-0 bg-[#eff4ff] dark:bg-slate-900 tonal-layering">
+<div class="px-6 py-8">
+<div class="text-2xl font-black text-[#3525cd] tracking-tighter Geist" style="">The Atelier</div>
+<div class="text-[10px] uppercase tracking-widest text-slate-500 mt-1" style="">Academic ERP</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center text-slate-600 dark:text-slate-400 py-3 px-6 hover:bg-[#f8f9ff] dark:hover:bg-slate-800 transition-colors scale-95 active:scale-100 transition-all font-sans tracking-tight label-md Geist" href="#" style="">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard" style="">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center bg-white dark:bg-slate-800 text-[#3525cd] border-l-4 border-[#3525cd] font-bold py-3 px-6 transition-all font-sans tracking-tight label-md Geist" href="#" style="">
+<span class="material-symbols-outlined mr-3" data-icon="school" style="">school</span>
+                Gradebook
+            </a>
+<a class="flex items-center text-slate-600 dark:text-slate-400 py-3 px-6 hover:bg-[#f8f9ff] dark:hover:bg-slate-800 transition-colors scale-95 active:scale-100 transition-all font-sans tracking-tight label-md Geist" href="#" style="">
+<span class="material-symbols-outlined mr-3" data-icon="calendar_today" style="">calendar_today</span>
+                Schedule
+            </a>
+</nav>
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="person" style="">person</span>
+</div>
+<div>
+<div class="text-xs font-bold" style="">Julian V.</div>
+<div class="text-[10px] text-slate-500" style="">Class of 2024</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-60 pb-24 md:pb-8">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-6 md:px-12 py-8 w-full sticky top-0 z-40 bg-white dark:bg-slate-950 shadow-none">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary" style="">
+<span class="material-symbols-outlined" data-icon="menu" style="">menu</span>
+</button>
+<h1 class="text-3xl md:text-4xl font-sans tracking-tighter Geist font-bold text-[#3525cd]" style="">Gradebook</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end mr-4">
+<span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest" style="">Global GPA</span>
+<span class="text-lg font-mono font-bold text-primary" style="">4.82</span>
+</div>
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuUqd47XQvGKHBUUkQG_HTePYrZh9abG6Tu44lwB5VN6Z-aTQiGdrzfpQzAjMstsqWp22Pn8z5ZpFKi4JYlWcOPxqPyP1554wvQxM4c9KCVHv-LPtvZYpTUPjjqVPChWKGs_z-mdt-S0XHNQuNAwnvndp9RzpSiw24dhA0fOVXDXFPrTrKSW9WeFEsypH2zzNAFkaNN8zmGLV-0VGynBCAkoHK6Gn6QM2LcYSNEsVjMyW9VyU0f-4Brq_3gvyZd7BnFyjWg2SgJbw" style=""/>
+</div>
+</header>
+<section class="px-6 md:px-12 mt-4 space-y-8">
+<!-- Subject Selector & Summary Card -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<label class="text-[10px] font-mono text-slate-500 uppercase tracking-widest px-1" style="">Active Course</label>
+<div class="relative group">
+<select class="appearance-none bg-surface-container-lowest text-on-surface text-xl font-bold py-3 pl-4 pr-12 rounded-xl outline-none focus:ring-0 cursor-pointer shadow-sm min-w-[280px]">
+<option>Advanced Calculus III</option>
+<option>Macroeconomics</option>
+<option>History of Modern Art</option>
+<option>Data Structures</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary" data-icon="expand_more" style="">expand_more</span>
+</div>
+</div>
+<!-- Average Grade Chip (Bento Style) -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex items-center gap-8 min-w-[240px]">
+<div class="h-12 w-1 border-l-4 border-primary rounded-full"></div>
+<div class="flex-1">
+<div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest" style="">Weighted Average</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-mono font-black text-on-surface" style="">4.6</span>
+<span class="text-sm font-mono text-primary-container" style="">/ 5.0</span>
+</div>
+</div>
+<div class="bg-primary-container/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="analytics" style='font-variation-settings: "FILL" 1;'>analytics</span>
+</div>
+</div>
+</div>
+<!-- Main Table (Weighted Grades) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="p-8 pb-4">
+<h2 class="text-xl font-bold tracking-tight text-on-surface" style="">Assessment Log</h2>
+<p class="text-sm text-slate-500 mt-1" style="">Detailed breakdown of graded assignments and feedback.</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest" style="">Date</th>
+<th class="px-8 py-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest" style="">Grade (Weight)</th>
+<th class="px-8 py-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest" style="">Comment &amp; Assessment</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-6 font-mono text-sm text-slate-500" style="">24 Oct 2023</td>
+<td class="px-8 py-6" style="">
+<div class="flex items-center gap-2">
+<div class="w-12 h-12 rounded-lg bg-primary text-white flex flex-col items-center justify-center font-mono font-bold leading-none">
+<span class="text-lg" style="">5</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-mono text-slate-400" style="">Weight</span>
+<span class="text-xs font-mono font-bold text-on-surface" style="">x1</span>
+</div>
+</div>
+</td>
+<td class="px-8 py-6" style="">
+<div class="max-w-md">
+<div class="font-bold text-on-surface" style="">Midterm Examination</div>
+<p class="text-sm text-slate-600 mt-1 leading-relaxed" style="">Excellent grasp of fundamental theorems. Proof for the Cauchy-Riemann equations was exceptionally clear and rigorous.</p>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-6 font-mono text-sm text-slate-500" style="">12 Oct 2023</td>
+<td class="px-8 py-6" style="">
+<div class="flex items-center gap-2">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-primary flex flex-col items-center justify-center font-mono font-bold leading-none">
+<span class="text-lg" style="">4</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-mono text-slate-400" style="">Weight</span>
+<span class="text-xs font-mono font-bold text-on-surface" style="">x3</span>
+</div>
+</div>
+</td>
+<td class="px-8 py-6" style="">
+<div class="max-w-md">
+<div class="font-bold text-on-surface" style="">Complex Variables Project</div>
+<p class="text-sm text-slate-600 mt-1 leading-relaxed" style="">Creative application of Laurent series in fluid dynamics. Minor calculation error in the residue theorem application section.</p>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-6 font-mono text-sm text-slate-500" style="">28 Sep 2023</td>
+<td class="px-8 py-6" style="">
+<div class="flex items-center gap-2">
+<div class="w-12 h-12 rounded-lg bg-primary text-white flex flex-col items-center justify-center font-mono font-bold leading-none">
+<span class="text-lg" style="">5</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-mono text-slate-400" style="">Weight</span>
+<span class="text-xs font-mono font-bold text-on-surface" style="">x1</span>
+</div>
+</div>
+</td>
+<td class="px-8 py-6" style="">
+<div class="max-w-md">
+<div class="font-bold text-on-surface" style="">Weekly Problem Set #4</div>
+<p class="text-sm text-slate-600 mt-1 leading-relaxed" style="">Perfect score. All solutions followed the prescribed formal logic notation.</p>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-6 font-mono text-sm text-slate-500" style="">15 Sep 2023</td>
+<td class="px-8 py-6" style="">
+<div class="flex items-center gap-2">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-primary flex flex-col items-center justify-center font-mono font-bold leading-none">
+<span class="text-lg" style="">3</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-mono text-slate-400" style="">Weight</span>
+<span class="text-xs font-mono font-bold text-on-surface" style="">x2</span>
+</div>
+</div>
+</td>
+<td class="px-8 py-6" style="">
+<div class="max-w-md">
+<div class="font-bold text-on-surface" style="">Analytic Functions Quiz</div>
+<p class="text-sm text-slate-600 mt-1 leading-relaxed" style="">Focus on time management. Some problems left incomplete despite correct initial steps.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-8 flex justify-center">
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:opacity-70 transition-opacity" style="">
+                        View Full History
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward" style="">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around p-2 pb-safe bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 shadow-xl md:hidden z-50">
+<a class="flex flex-col items-center justify-center text-[#3525cd] bg-[#eff4ff] rounded-xl p-2 scale-90 transition-transform duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="grade" style='font-variation-settings: "FILL" 1;'>grade</span>
+<span class="text-[10px] font-sans Geist mt-1" style="">Gradebook</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 scale-90 transition-transform duration-200 active:bg-slate-50" href="#" style="">
+<span class="material-symbols-outlined" data-icon="calendar_month" style="">calendar_month</span>
+<span class="text-[10px] font-sans Geist mt-1" style="">Schedule</span>
+</a>
+</nav>
+<!-- Context Rail (Atelier Signature) -->
+</body></html>

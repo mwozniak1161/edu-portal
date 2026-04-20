@@ -1,0 +1,346 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Eduportal - Gradebook</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#4d44e3",
+                    "surface-container": "#e5eeff",
+                    "outline": "#777587",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#a44100",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary-fixed": "#ffdbcc",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-surface": "#0b1c30",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "secondary-container": "#b6b4ff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-secondary-container": "#454386",
+                    "on-background": "#0b1c30",
+                    "surface-container-high": "#dce9ff",
+                    "primary": "#3525cd",
+                    "background": "#f8f9ff",
+                    "secondary": "#58579b",
+                    "inverse-surface": "#213145",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-surface-variant": "#464555",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-container-low": "#eff4ff",
+                    "outline-variant": "#c7c4d8",
+                    "on-tertiary-fixed": "#351000",
+                    "secondary-fixed": "#e2dfff",
+                    "on-secondary-fixed-variant": "#413f82",
+                    "on-primary-container": "#dad7ff",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-secondary-fixed": "#140f54",
+                    "primary-container": "#4f46e5",
+                    "tertiary": "#7e3000",
+                    "surface-dim": "#cbdbf5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Geist", "sans-serif"],
+                    "body": ["Geist", "sans-serif"],
+                    "label": ["Geist", "sans-serif"],
+                    "mono": ["Geist Mono", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ink-bar {
+            border-left: 4px solid #3525cd;
+        }
+        ::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #eff4ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c4d8;
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#eff4ff] dark:bg-slate-950 flex flex-col pt-8">
+<div class="px-8 mb-12">
+<h1 class="text-lg font-black text-[#3525cd] uppercase tracking-widest" style="">Eduportal</h1>
+</div>
+<nav class="flex-1">
+<div class="text-slate-600 dark:text-slate-400 py-4 px-6 mb-2 flex items-center gap-4 hover:bg-[#f8f9ff] transition-all duration-200">
+<span class="material-symbols-outlined" style="">dashboard</span>
+<span class="font-['Geist'] text-sm font-medium" style="">Overview</span>
+</div>
+<div class="text-slate-600 dark:text-slate-400 py-4 px-6 mb-2 flex items-center gap-4 hover:bg-[#f8f9ff] transition-all duration-200">
+<span class="material-symbols-outlined" style="">group</span>
+<span class="font-['Geist'] text-sm font-medium" style="">Students</span>
+</div>
+<div class="bg-[#ffffff] dark:bg-slate-900 text-[#3525cd] dark:text-[#4f46e5] border-l-4 border-[#3525cd] py-4 px-6 mb-2 flex items-center gap-4 transition-all duration-200">
+<span class="material-symbols-outlined" style="">assignment</span>
+<span class="font-['Geist'] text-sm font-medium" style="">Assessments</span>
+</div>
+<div class="text-slate-600 dark:text-slate-400 py-4 px-6 mb-2 flex items-center gap-4 hover:bg-[#f8f9ff] transition-all duration-200">
+<span class="material-symbols-outlined" style="">analytics</span>
+<span class="font-['Geist'] text-sm font-medium" style="">Reports</span>
+</div>
+</nav>
+</aside>
+<main class="ml-64 min-h-screen">
+<header class="bg-[#ffffff] dark:bg-slate-900 flex justify-between items-center w-full px-8 h-20 border-l-4 border-[#3525cd] sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#3525cd]" style="">menu_book</span>
+<h2 class="text-xl font-bold tracking-tighter text-[#3525cd] font-['Geist']" style="">Gradebook</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<button class="flex items-center gap-3 px-4 py-2 bg-surface-container-low rounded hover:bg-surface-container transition-colors" style="">
+<span class="text-xs font-bold uppercase tracking-widest text-outline" style="">Active Section</span>
+<span class="font-semibold text-primary" style="">Math 101: Calculus Foundations</span>
+<span class="material-symbols-outlined text-primary text-sm" style="">expand_more</span>
+</button>
+</div>
+<button class="material-symbols-outlined p-2 text-outline hover:text-primary transition-colors" style="">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a teacher with warm lighting and a neutral grey studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjCzPI922VO5UIpwp9RWPDMtQT2uijmgi1wOHAiyCICXBGdo9Dz5WO8sih_oIfYaEiukWKDtHyvDf-bd01yrLpIlRFkftl2BLXfRiwmwvCiBoNcqHXsvx0ZNAWPrzIDsdPTplp9bS8fzuLYReJsfaZe7wmQjBL3POr4ELIVXBeBekIPN8DscCgb3XusDKBOlznVhPdGPq80TIEI1Hta1ly7FbWXbW9IF11NS_emOl1G1wYvMD4H4G3laiSBk-KjT5EW_iiipUjX9U" style="">
+</div>
+</div>
+</header>
+<section class="p-8">
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h3 class="text-4xl font-black tracking-tight text-on-surface mb-2" style="">Grade&nbsp;<span style="font-size: 2.25rem; letter-spacing: -0.025em;">Assessment</span></h3>
+<p class="text-outline font-medium" style="">Semester 2 • Academic Year 2023-2024</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low px-6 py-4 flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-tighter font-bold text-outline" style="">Class Average</span>
+<span class="font-mono text-2xl font-bold text-primary" style="">88.4%</span>
+</div>
+<div class="bg-surface-container-low px-6 py-4 flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-tighter font-bold text-outline" style="">Entries Missing</span>
+<span class="font-mono text-2xl font-bold text-error" style="">12</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest overflow-hidden">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-left">
+<th class="px-6 py-4 text-[10px] uppercase font-bold tracking-widest text-outline" style="">Student Profile</th>
+<th class="px-6 py-4 text-[10px] uppercase font-bold tracking-widest text-outline" style="">Average</th>
+<th class="px-6 py-4 text-[10px] uppercase font-bold tracking-widest text-outline" style="">Grade Distribution (Current Term)</th>
+<th class="px-6 py-4 text-right text-[10px] uppercase font-bold tracking-widest text-outline" style="">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5" style="">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Young student smiling in a library environment with natural daylight and book shelves in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm5iCT4y8N-YmaFhWKxU1cgSRLpKTpQHyn386ql_zX_u9ZPExwEhYVe4sIh0XlFKdtFM2BOFA7qz63OGo1GT6mAbzDLEEp9KENg5CBXvH_xWEoKWTRyy_9zC0oE39x23_iI54w7ERFewbTX0TDB5dXtdv95pUac2AzYD8ZfBdDia7BVMNWqThQ4Qnjz65eOBvZ-W9fnffnzA6g6pYS_3bt2o0AiREF9VYOnHZB01Rnsrcc1Ampe5tZvm-8-aJ4w7mi7ybHBlk8zjc" style="">
+<div>
+<div class="font-bold text-on-surface" style="">Adrian Thorne</div>
+<div class="font-mono text-xs text-outline" style="">ID-882910</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5" style="">
+<span class="font-mono font-bold bg-primary/10 text-primary px-3 py-1 rounded" style="">94.2</span>
+</td>
+<td class="px-6 py-5" style="">
+<div class="flex gap-2 overflow-x-auto pb-1 max-w-md no-scrollbar">
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">5 (x4)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x2)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">5 (x1)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x1)</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right" style="">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded hover:bg-primary-container transition-transform active:scale-90" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:bg-surface-container-low rounded transition-colors" style="">
+<span class="material-symbols-outlined text-sm" style="">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5" style="">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Close-up portrait of a student girl with focused expression in a bright classroom setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtq2cSHPSYBq95GytDnZWzzvdIC_MqL-Z5i6vjhWcj23NzPyGofLhdOkSjL18hiX3fhMeUDcFp1xo87T2-X-xZOqyTqOzg6zh-VS5vtUvmVeggd4RKegbxzN1dhsq6WgYd4o8sx9YCMalLL56ShEYMek1C0BVAK7_THpAXx0GwacuvkjiZW6mNe5viTUjS6M-oKNFba0XfdzTwuGUQtmtT4wlLAUx40J6Ilj4COORsG9vUjZpLvWkKQg8TPBZLlaA_Ewc84sMVdFU" style="">
+<div>
+<div class="font-bold text-on-surface" style="">Elena Rodriguez</div>
+<div class="font-mono text-xs text-outline" style="">ID-882915</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5" style="">
+<span class="font-mono font-bold bg-primary/10 text-primary px-3 py-1 rounded" style="">89.8</span>
+</td>
+<td class="px-6 py-5" style="">
+<div class="flex gap-2 overflow-x-auto pb-1 max-w-md no-scrollbar">
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x8)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">5 (x2)</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right" style="">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded hover:bg-primary-container transition-transform active:scale-90" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:bg-surface-container-low rounded transition-colors" style="">
+<span class="material-symbols-outlined text-sm" style="">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5" style="">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Confident young male student wearing glasses in an academic environment with soft window lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN-MwprPK-8AwVusiXL58t8PWEFqKiyAwGwNwjep2J64NAfNa8WIOZ6bX4UfgjwMas9JVGegDF1cHLFeQMM-t_pcQcpTQULRy7ThGNO9K1u3pYncjOC3LwBrVx4uhMKrqpwlDhtgEZzHna8SFYUcVx08nP9emYq2bTIHniTxT2dHgytrPNkBtsz-CPIWgxgqEtRvCFpDMsiEqMNH7Uv_Vr4gPOW2YUBV6Ld5uwkXgFYpq-vM2lOcRcdbY_agyEqYWnBKfUk-YSoYM" style="">
+<div>
+<div class="font-bold text-on-surface" style="">Marcus Sterling</div>
+<div class="font-mono text-xs text-outline" style="">ID-882921</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5" style="">
+<span class="font-mono font-bold bg-primary/10 text-primary px-3 py-1 rounded" style="">76.5</span>
+</td>
+<td class="px-6 py-5" style="">
+<div class="flex gap-2 overflow-x-auto pb-1 max-w-md no-scrollbar">
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">3 (x3)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x2)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">2 (x1)</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right" style="">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded hover:bg-primary-container transition-transform active:scale-90" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:bg-surface-container-low rounded transition-colors" style="">
+<span class="material-symbols-outlined text-sm" style="">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5" style="">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Young professional woman in casual academic attire sitting in a brightly lit modern study area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRCOd29IjYgyG0dqMb1pFJ9lsIPDr0heZxRX4NUH-3CQdCRNLAJHjmGyj2hXKEqr4d6ZsbG8guqlSmIvhJMJJb6G3k_Zzga_fcwAD1frcy-lj-8Oin3ERk4JawwfYwPtaWg4v_UUCwKz_9uDHtu3nGjyH-tcjygMucbh9bRJGYI7CF8V7BUhcjORrjZajKwAmWaDvfdPaPVVl0P45mTjBNfTWYzzI0PSTlYcIVvcR6ODjzBRpKi7oOiLyR7di-ZYsUaiX8XnkUkUM" style="">
+<div>
+<div class="font-bold text-on-surface" style="">Sienna Lowell</div>
+<div class="font-mono text-xs text-outline" style="">ID-882944</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5" style="">
+<span class="font-mono font-bold bg-primary/10 text-primary px-3 py-1 rounded" style="">91.1</span>
+</td>
+<td class="px-6 py-5" style="">
+<div class="flex gap-2 overflow-x-auto pb-1 max-w-md no-scrollbar">
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">5 (x5)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x1)</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right" style="">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded hover:bg-primary-container transition-transform active:scale-90" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:bg-surface-container-low rounded transition-colors" style="">
+<span class="material-symbols-outlined text-sm" style="">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-6 py-5" style="">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Male student with curious expression wearing a hoodie in a campus corridor with soft depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6DXZn1FK7qziwyAPA7uqO74SLDnwoexq524jy7ZU0D6RVJCRCdizRXJKHNwQey3R1IH1Lb868fxsfK7gg8R0rTOA49N5PfG9FRp4j4tHe_9-3FLuqB6a4jNDrgqupgHFKY3H7jX4eIUrKL1PsezQFmQ58CvQMGspRZkuGepddGHT-B1DU68fCbxX6f1j7xZsSxAOfdx_BcZ49s3zUx-yXOLLd3QOgWoIMt4BPDPWouMNKRFTCbzmtteuWY-swFHrO8Fr15g5_whA" style="">
+<div>
+<div class="font-bold text-on-surface" style="">Tobias Vance</div>
+<div class="font-mono text-xs text-outline" style="">ID-882950</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5" style="">
+<span class="font-mono font-bold bg-primary/10 text-primary px-3 py-1 rounded" style="">82.3</span>
+</td>
+<td class="px-6 py-5" style="">
+<div class="flex gap-2 overflow-x-auto pb-1 max-w-md no-scrollbar">
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">4 (x4)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">3 (x2)</span>
+<span class="inline-flex items-center px-2.5 py-0.5 bg-surface-container-high rounded text-xs font-mono text-on-secondary-container" style="">5 (x1)</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right" style="">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded hover:bg-primary-container transition-transform active:scale-90" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:bg-surface-container-low rounded transition-colors" style="">
+<span class="material-symbols-outlined text-sm" style="">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<div class="fixed bottom-8 right-8 flex flex-col gap-4">
+<button class="w-14 h-14 bg-primary text-white flex items-center justify-center shadow-xl hover:bg-primary-container transition-all active:scale-95 group" style="">
+<span class="material-symbols-outlined" style="">print</span>
+<span class="absolute right-full mr-4 bg-on-surface text-white text-[10px] uppercase font-bold py-1 px-3 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity" style="">Export Reports</span>
+</button>
+<button class="w-14 h-14 bg-surface-container-highest text-primary flex items-center justify-center shadow-xl hover:bg-surface-container-high transition-all active:scale-95 group" style="">
+<span class="material-symbols-outlined" style="">help</span>
+<span class="absolute right-full mr-4 bg-on-surface text-white text-[10px] uppercase font-bold py-1 px-3 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity" style="">Academic Support</span>
+</button>
+</div>
+</body></html>

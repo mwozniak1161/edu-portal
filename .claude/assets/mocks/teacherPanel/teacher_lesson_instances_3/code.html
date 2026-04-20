@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lesson Instances | EduSlate Indigo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#0b1c30",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary": "#7e3000",
+                        "background": "#f8f9ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-container": "#ffd2be",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#3525cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#4d44e3",
+                        "on-background": "#0b1c30",
+                        "on-surface-variant": "#464555",
+                        "primary-container": "#4f46e5",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-container": "#b6b4ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed": "#e2dfff",
+                        "secondary": "#58579b",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#454386",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-secondary-fixed": "#140f54",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#a44100",
+                        "surface-container": "#e5eeff",
+                        "outline": "#777587",
+                        "inverse-surface": "#213145"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["Geist Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .geist-mono { font-family: 'Geist Mono', monospace; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c7c4d8; border-radius: 10px; }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-slate-50 flex items-center justify-between px-6 h-16 w-full max-w-screen-2xl mx-auto md:left-72 md:w-[calc(100%-18rem)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-indigo-600 md:hidden" data-icon="menu">menu</span>
+<span class="text-xl font-bold tracking-tighter text-indigo-700">EduSlate Indigo</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500" data-icon="search">search</span>
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden">
+<img alt="User Profile Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaskx9-XT6I5POAN5Mxin3ZINnIYGeJjd_5B42qxVVNytDFCngOZedkyqk8IOmpAzSpXaVGngCxIk9W1kj10Ur291-qkwUEPpkHQsoA1HNg4GzS7TjH9aM5fZhs1o0KQPHizNX6viLNZdZMijDvGgQ5R0qC5lt0Y6UlX_zGshh0dN6bJELSM44UYxuhyOTi_Pg3tYkg6PRkMRlR9s8p9eMt1TrAb_8Bngfuw56-RiPjFCzplM3wGrQuMG1v7QPawCrUgmKhVYsho"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden md:flex h-full w-72 fixed left-0 top-0 z-50 bg-white border-r-4 border-indigo-600 flex-col py-8 gap-2">
+<div class="px-6 mb-8 text-left">
+<h1 class="text-lg font-black text-indigo-600">Eduportal</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Teacher Workspace</p>
+<div class="mt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-600" data-icon="school">school</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Fall 2024</p>
+<p class="text-[10px] text-slate-400">Semester Cycle</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 pr-4">
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 hover:bg-indigo-50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 hover:bg-indigo-50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="text-sm font-medium">Attendance</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 px-4 py-3 hover:bg-indigo-50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="grade">grade</span>
+<span class="text-sm font-medium">Grades</span>
+</a>
+<a class="flex items-center gap-3 bg-indigo-50 text-indigo-700 border-l-4 border-indigo-600 px-4 py-3 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-sm font-medium">Lesson Instances</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-24 pb-24 px-6 md:ml-72 md:px-12 max-w-7xl">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<nav class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400 mb-2 font-bold">
+<span>Academics</span>
+<span class="material-symbols-outlined text-[12px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-indigo-600">Lesson Log</span>
+</nav>
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Lesson Instances</h2>
+</div>
+</header>
+<!-- Filters & Controls -->
+<section class="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+<div class="col-span-1 lg:col-span-2">
+<label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block tracking-widest">Select Class</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border-l-4 border-indigo-600 text-sm font-medium py-3 px-4 focus:ring-0 focus:outline-none focus:border-indigo-700">
+<option>AP World History - Section A</option>
+<option>European History - Honors</option>
+<option>Ancient Civilizations - Grade 9</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="col-span-1 lg:col-span-2">
+<label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block tracking-widest">Date Range</label>
+<div class="flex items-center bg-surface-container-lowest py-3 px-4 border border-outline-variant/20">
+<span class="material-symbols-outlined text-indigo-600 mr-3 text-[20px]" data-icon="calendar_today">calendar_today</span>
+<input class="bg-transparent border-none p-0 text-sm font-mono focus:ring-0 w-full" readonly="" type="text" value="Oct 24 - Nov 04"/>
+</div>
+</div>
+</section>
+<!-- Table View -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="text-left px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-outline-variant/10">Date</th>
+<th class="text-left px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-outline-variant/10">Topic</th>
+<th class="text-left px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-outline-variant/10">Comment (Assessment)</th>
+<th class="text-center px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-outline-variant/10">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-indigo-50/30 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap">
+<span class="geist-mono text-sm font-semibold text-indigo-700 bg-indigo-50 px-2 py-1">2024-10-24</span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-bold text-on-surface">The Silk Road Dynamics</p>
+<p class="text-[11px] text-slate-400">Trade, Religion, and Cultural Exchange</p>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-start gap-2 max-w-xs">
+<span class="material-symbols-outlined text-green-500 text-[18px]" data-icon="check_circle">check_circle</span>
+<p class="text-xs text-slate-600 leading-relaxed italic">"Quiz results show 85% mastery. Class engaged well during the map simulation."</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-indigo-50/30 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap">
+<span class="geist-mono text-sm font-semibold text-indigo-700 bg-indigo-50 px-2 py-1">2024-10-26</span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-bold text-on-surface">Byzantine Architecture</p>
+<p class="text-[11px] text-slate-400">From Hagia Sophia to the Balkans</p>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-start gap-2 max-w-xs">
+<span class="material-symbols-outlined text-amber-500 text-[18px]" data-icon="warning">warning</span>
+<p class="text-xs text-slate-600 leading-relaxed">"Several absences due to field trip. Need to recap mosaic history next session."</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-indigo-50/30 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap">
+<span class="geist-mono text-sm font-semibold text-indigo-700 bg-indigo-50 px-2 py-1">2024-10-31</span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-bold text-on-surface">The Crusades Perspective</p>
+<p class="text-[11px] text-slate-400">Multicultural Narratives in Medieval History</p>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-start gap-2 max-w-xs">
+<span class="material-symbols-outlined text-indigo-400 text-[18px]" data-icon="info">info</span>
+<p class="text-xs text-slate-600 leading-relaxed">"Guest lecturer invited via Zoom. Follow-up assignment on primary source analysis."</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination-esque status -->
+<div class="px-6 py-4 bg-surface-container-low/30 border-t border-outline-variant/10 flex justify-between items-center">
+<p class="text-xs text-slate-500 font-medium italic">Showing 3 most recent instances for Fall 2024</p>
+<div class="flex gap-2">
+<button class="p-2 rounded-md hover:bg-indigo-50 text-indigo-600">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 rounded-md hover:bg-indigo-50 text-indigo-600">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-white/85 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(11,28,48,0.06)] border-t border-slate-200/50">
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Schedule</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Gradebook</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-indigo-50 text-indigo-700 rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Lesson Log</span>
+</div>
+</nav>
+</body></html>

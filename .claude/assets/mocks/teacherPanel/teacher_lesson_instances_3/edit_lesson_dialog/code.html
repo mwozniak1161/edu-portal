@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Lesson Instance</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Geist Font Alternative (Inter as base as per Tailwind Config, Geist feel via tracking/weight) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "on-tertiary-container": "#ffd2be",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "outline": "#777587",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-container": "#454386",
+                        "tertiary": "#7e3000",
+                        "on-tertiary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#a44100",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-container": "#4f46e5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#3525cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#4d44e3",
+                        "outline-variant": "#c7c4d8",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "secondary-container": "#b6b4ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#140f54",
+                        "inverse-surface": "#213145",
+                        "secondary-fixed": "#e2dfff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container-high": "#dce9ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface-variant": "#464555",
+                        "secondary": "#58579b",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "primary-fixed": "#e2dfff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-surface": "#0b1c30",
+                        "on-primary-container": "#dad7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["Geist Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden">
+<!-- Background Layer: Teacher Lesson Instances List -->
+<div class="flex h-screen opacity-50 pointer-events-none grayscale-[0.2]">
+<!-- Side Navigation (Predicted NavigationDrawer) -->
+<aside class="hidden md:flex flex-col h-screen p-4 bg-[#eff4ff] dark:bg-[#0b1c30] h-full w-72 fixed left-0 border-r-4 border-[#3525cd]">
+<div class="mb-10 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div>
+<div class="text-on-background font-bold text-sm">Prof. Henderson</div>
+<div class="text-on-background opacity-70 text-xs">Mathematics Dept</div>
+</div>
+</div>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-[#0b1c30] opacity-70 hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-sans">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#0b1c30] opacity-70 hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-sans">Schedule</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-[#3525cd] font-bold border-l-4 border-[#3525cd]" href="#">
+<span class="material-symbols-outlined">import_contacts</span>
+<span class="text-sm font-sans">Lesson Instances</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#0b1c30] opacity-70 hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-sans">Students</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-[#f8f9ff] dark:bg-[#0b1c30]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#3525cd]">menu</span>
+<h1 class="font-sans tracking-tight text-[#0b1c30] text-lg font-bold">Lesson Instances</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/20"></div>
+</div>
+</header>
+<!-- Dashboard Content (Simulated) -->
+<div class="p-8 space-y-8 overflow-y-auto">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs font-mono text-primary font-bold uppercase tracking-widest mb-1">Academic Year 2024</p>
+<h2 class="text-3xl font-bold tracking-tighter text-on-background">Current Sessions</h2>
+</div>
+<div class="bg-surface-container-low px-4 py-2 rounded-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="text-sm font-medium">All Subjects</span>
+</div>
+</div>
+<!-- Bento Grid for Lessons -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Lesson Card 1 -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between min-h-[200px]">
+<div class="flex justify-between items-start">
+<div>
+<span class="bg-primary/10 text-primary text-[10px] font-mono font-bold px-2 py-0.5 rounded">MATH-302</span>
+<h3 class="text-xl font-bold mt-2">Advanced Calculus: Derivations</h3>
+<p class="text-sm text-on-surface-variant mt-1">Room 402B • 09:00 AM - 10:30 AM</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">more_vert</span>
+</div>
+<div class="flex items-center gap-4 mt-6 pt-6 border-t border-outline-variant/10">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-400"></div>
+</div>
+<span class="text-xs font-mono text-on-surface-variant">24 Students present</span>
+</div>
+</div>
+<!-- Lesson Card 2 -->
+<div class="bg-primary p-6 rounded-xl text-on-primary flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-[10px] font-mono font-bold bg-white/20 px-2 py-1 rounded">UPCOMING</span>
+</div>
+<div>
+<h3 class="text-lg font-bold leading-tight">Linear Algebra Workshop</h3>
+<p class="text-sm opacity-80 mt-1">Starts in 45 mins</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-on-background/20 backdrop-blur-[2px]"></div>
+<!-- Dialog Card -->
+<div class="relative w-full max-w-md bg-surface-container-lowest rounded-xl shadow-2xl p-8 mx-4">
+<!-- Header -->
+<div class="mb-8">
+<h2 class="text-2xl font-bold text-on-background tracking-tight">Edit Lesson</h2>
+</div>
+<!-- Form -->
+<form class="space-y-6">
+<!-- Topic Field -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-on-surface-variant" for="topic">Topic</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 focus:ring-0 focus:border-outline-variant transition-all outline-none text-on-background font-sans placeholder:text-outline-variant/50 focus:border-l-4 focus:border-l-primary" id="topic" name="topic" type="text" value="Advanced Calculus: Derivations"/>
+</div>
+</div>
+<!-- Comment Field -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-on-surface-variant" for="comment">Comment</label>
+<div class="relative group">
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 focus:ring-0 focus:border-outline-variant transition-all outline-none text-on-background font-sans placeholder:text-outline-variant/50 focus:border-l-4 focus:border-l-primary resize-none" id="comment" name="comment" rows="3">Focus on multi-variable chain rule today.</textarea>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-4">
+<button class="px-6 py-2.5 rounded-lg text-primary font-semibold text-sm hover:bg-surface-container-high transition-colors" type="button">
+                        Cancel
+                    </button>
+<button class="px-8 py-2.5 bg-primary text-white font-bold rounded-lg text-sm hover:bg-primary-container transition-all active:scale-[0.98]" type="submit">
+                        Save
+                    </button>
+</div>
+</form>
+<!-- Accessibility Note (Subtle) -->
+<div class="mt-8 flex items-center gap-2 opacity-30 justify-center">
+<span class="w-1 h-1 rounded-full bg-on-background"></span>
+<span class="w-1 h-1 rounded-full bg-on-background"></span>
+<span class="w-1 h-1 rounded-full bg-on-background"></span>
+</div>
+</div>
+</div>
+<!-- Mobile Navigation (Predicted BottomNavBar - Suppressed for Dialog per Rule but placeholder for context) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white/85 backdrop-blur-md border-t border-outline-variant/20 opacity-50 pointer-events-none">
+<div class="flex flex-col items-center text-outline-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium font-sans">Home</span>
+</div>
+<div class="flex flex-col items-center text-primary bg-[#eff4ff] rounded-xl px-4 py-1">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px] font-medium font-sans">Lessons</span>
+</div>
+<div class="flex flex-col items-center text-outline-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium font-sans">Profile</span>
+</div>
+</nav>
+</body></html>
