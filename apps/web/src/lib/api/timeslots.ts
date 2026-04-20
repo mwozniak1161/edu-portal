@@ -10,11 +10,15 @@ interface TimeslotPayload {
   startingHour: string
 }
 
-export function useTimeslots(teacherClassId?: string) {
-  const params = teacherClassId ? `?teacherClassId=${teacherClassId}` : ''
+export function useTimeslots(teacherClassId?: string, classId?: string) {
+  const params = new URLSearchParams()
+  if (teacherClassId) params.set('teacherClassId', teacherClassId)
+  if (classId) params.set('classId', classId)
+  const qs = params.toString()
+
   return useQuery<Timeslot[]>({
-    queryKey: [...TS_KEY, teacherClassId],
-    queryFn: () => api.get<Timeslot[]>(`/timeslots${params}`),
+    queryKey: [...TS_KEY, teacherClassId, classId],
+    queryFn: () => api.get<Timeslot[]>(`/timeslots${qs ? `?${qs}` : ''}`),
   })
 }
 

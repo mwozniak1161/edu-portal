@@ -13,9 +13,12 @@ function parseTime(timeStr: string): Date {
 export class TimeslotsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(teacherClassId?: string) {
+  findAll(teacherClassId?: string, classId?: string) {
     return this.prisma.timeslot.findMany({
-      where: teacherClassId ? { teacherClassId } : undefined,
+      where: {
+        ...(teacherClassId && { teacherClassId }),
+        ...(classId && { teacherClass: { classId } }),
+      },
       include: {
         teacherClass: {
           include: {

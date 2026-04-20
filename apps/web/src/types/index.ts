@@ -16,6 +16,7 @@ export interface AuthUser {
   firstName: string
   lastName: string
   role: Role
+  classId: string | null
 }
 
 export interface NavItem {

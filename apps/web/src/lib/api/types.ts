@@ -56,3 +56,47 @@ export interface Timeslot {
   createdAt: string
   updatedAt: string
 }
+
+export interface Attendance {
+  id: string
+  date: string
+  status: 'PRESENT' | 'ABSENT' | 'LATE'
+  studentId: string
+  teacherClassId: string
+  student: { id: string; firstName: string; lastName: string }
+  teacherClass: TeacherClass
+  createdAt: string
+}
+
+export interface Grade {
+  id: string
+  value: number
+  weight: number
+  comment: string | null
+  isExcluded: boolean
+  studentId: string
+  teacherClassId: string
+  correctionForId: string | null
+  student: { id: string; firstName: string; lastName: string }
+  teacherClass: TeacherClass
+  correctionFor: { id: string; value: number } | null
+  correction: { id: string; value: number } | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface GradeAverage {
+  average: number | null
+  gradeCount: number
+}
+
+export interface LessonInstance {
+  id: string
+  date: string
+  topic: string | null
+  comment: string | null
+  teacherClassId: string
+  teacherClass: TeacherClass
+  createdAt: string
+  updatedAt: string
+}

@@ -7,8 +7,9 @@ import { UpdateTeacherClassDto } from './dto/update-teacher-class.dto';
 export class TeacherClassesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll() {
+  findAll(classId?: string) {
     return this.prisma.teacherClass.findMany({
+      where: classId ? { classId } : undefined,
       include: {
         teacher: { select: { id: true, firstName: true, lastName: true, email: true } },
         subject: true,

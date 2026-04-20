@@ -10,10 +10,11 @@ interface TeacherClassPayload {
   classId: string
 }
 
-export function useTeacherClasses() {
+export function useTeacherClasses(classId?: string) {
+  const qs = classId ? `?classId=${classId}` : ''
   return useQuery<TeacherClass[]>({
-    queryKey: TC_KEY,
-    queryFn: () => api.get<TeacherClass[]>('/teacher-classes'),
+    queryKey: [...TC_KEY, classId],
+    queryFn: () => api.get<TeacherClass[]>(`/teacher-classes${qs}`),
   })
 }
 

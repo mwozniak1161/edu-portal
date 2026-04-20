@@ -17,7 +17,7 @@ export interface JwtPayload {
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
-  user: { id: string; email: string; firstName: string; lastName: string; role: Role };
+  user: { id: string; email: string; firstName: string; lastName: string; role: Role; classId: string | null };
 }
 
 @Injectable()
@@ -105,7 +105,7 @@ export class AuthService {
     });
   }
 
-  private async issueTokens(user: { id: string; email: string; firstName: string; lastName: string; role: Role }): Promise<AuthTokens> {
+  private async issueTokens(user: { id: string; email: string; firstName: string; lastName: string; role: Role; classId?: string | null }): Promise<AuthTokens> {
     const payload: JwtPayload = { sub: user.id, email: user.email, role: user.role };
 
     const accessToken = this.jwt.sign(payload);
@@ -128,7 +128,7 @@ export class AuthService {
     return {
       accessToken,
       refreshToken: rawRefresh,
-      user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, role: user.role },
+      user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, role: user.role, classId: user.classId ?? null },
     };
   }
 }

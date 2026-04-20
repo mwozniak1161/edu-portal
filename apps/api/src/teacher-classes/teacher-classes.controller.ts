@@ -8,9 +8,10 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -28,12 +29,15 @@ export class TeacherClassesController {
   constructor(private readonly teacherClassesService: TeacherClassesService) {}
 
   @Get()
+  @Roles(Role.ADMIN, Role.TEACHER, Role.STUDENT)
+  @ApiQuery({ name: 'classId', required: false })
   @ApiOkResponse({ description: 'List of teacher-class assignments' })
-  findAll() {
-    return this.teacherClassesService.findAll();
+  findAll(@Query('classId') classId?: string) {
+    return this.teacherClassesService.findAll(classId);
   }
 
   @Get(':id')
+  @Roles(Role.ADMIN, Role.TEACHER, Role.STUDENT)
   @ApiOkResponse({ description: 'TeacherClass details' })
   findOne(@Param('id') id: string) {
     return this.teacherClassesService.findOne(id);

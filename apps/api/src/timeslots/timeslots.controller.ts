@@ -29,13 +29,19 @@ export class TimeslotsController {
   constructor(private readonly timeslotsService: TimeslotsService) {}
 
   @Get()
+  @Roles(Role.ADMIN, Role.TEACHER, Role.STUDENT)
   @ApiQuery({ name: 'teacherClassId', required: false })
+  @ApiQuery({ name: 'classId', required: false })
   @ApiOkResponse({ description: 'List of timeslots' })
-  findAll(@Query('teacherClassId') teacherClassId?: string) {
-    return this.timeslotsService.findAll(teacherClassId);
+  findAll(
+    @Query('teacherClassId') teacherClassId?: string,
+    @Query('classId') classId?: string,
+  ) {
+    return this.timeslotsService.findAll(teacherClassId, classId);
   }
 
   @Get(':id')
+  @Roles(Role.ADMIN, Role.TEACHER, Role.STUDENT)
   @ApiOkResponse({ description: 'Timeslot details' })
   findOne(@Param('id') id: string) {
     return this.timeslotsService.findOne(id);
