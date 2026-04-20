@@ -7,7 +7,7 @@
   "scripts": {
     "dev:api": "pnpm --filter @edu-portal/api start:dev",
     "dev:web": "pnpm --filter @edu-portal/web dev",
-    "dev": "pnpm -F @edu-portal/api -F @edu-portal/web run --parallel dev:api dev:web",
+    "dev": "pnpm dev:api & pnpm dev:web",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",

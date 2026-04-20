@@ -9,7 +9,7 @@ export default async function Home() {
   let error = null;
 
   try {
-    const res = await fetch('http://localhost:3000', {
+    const res = await fetch('http://localhost:3000/api/v1', {
       // Important: Disable caching during development to always get fresh data
       cache: 'no-store',
       // Include credentials if your API uses cookies for auth

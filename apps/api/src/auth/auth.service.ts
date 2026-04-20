@@ -17,6 +17,7 @@ export interface JwtPayload {
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
+  user: { id: string; email: string; firstName: string; lastName: string; role: Role };
 }
 
 @Injectable()
@@ -43,7 +44,7 @@ export class AuthService {
       },
     });
 
-    return this.issueTokens(user.id, user.email, user.role);
+    return this.issueTokens(user);
   }
 
   async login(dto: LoginDto): Promise<AuthTokens> {
@@ -57,7 +58,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    return this.issueTokens(user.id, user.email, user.role);
+    return this.issueTokens(user);
   }
 
   async refresh(token: string): Promise<AuthTokens> {
@@ -94,7 +95,7 @@ export class AuthService {
       data: { revoked: true },
     });
 
-    return this.issueTokens(stored.user.id, stored.user.email, stored.user.role);
+    return this.issueTokens(stored.user);
   }
 
   async logout(userId: string): Promise<void> {
@@ -104,8 +105,8 @@ export class AuthService {
     });
   }
 
-  private async issueTokens(userId: string, email: string, role: Role): Promise<AuthTokens> {
-    const payload: JwtPayload = { sub: userId, email, role };
+  private async issueTokens(user: { id: string; email: string; firstName: string; lastName: string; role: Role }): Promise<AuthTokens> {
+    const payload: JwtPayload = { sub: user.id, email: user.email, role: user.role };
 
     const accessToken = this.jwt.sign(payload);
     const rawRefresh = this.jwt.sign(payload, {
@@ -120,10 +121,14 @@ export class AuthService {
       data: {
         token: hashedRefresh,
         expiresAt,
-        userId,
+        userId: user.id,
       },
     });
 
-    return { accessToken, refreshToken: rawRefresh };
+    return {
+      accessToken,
+      refreshToken: rawRefresh,
+      user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, role: user.role },
+    };
   }
 }

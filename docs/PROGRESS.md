@@ -17,17 +17,17 @@ _(move a task here when you start it)_
 - [x] Reusable UI components: shadcn primitives installed + custom composites built (see `docs/ReusableComponents.md`)
 
 ### 👤 Admin Panel
-- [ ] **User Management**
+- [x] **User Management**
   - List users with search by email/role/status
   - Create user → triggers welcome email with credentials
   - Enable/disable user, assign role
   - _Skip for MVP: bulk import/export CSV, bulk actions_
-- [ ] **Class Management**
+- [x] **Class Management**
   - CRUD classes, assign students to class
-- [ ] **TeacherClass Management**
+- [x] **TeacherClass Management**
   - Assign teacher + subject + class (creates TeacherClass record)
   - List matrix view: which teacher covers which subject in which class
-- [ ] **Timeslot Management**
+- [x] **Timeslot Management**
   - Create timeslots tied to TeacherClass (weekDay, startingHour)
   - Edit/delete timeslot with confirmation
   - _Skip for MVP: drag-and-drop UI, holiday calendar, conflict detection_
