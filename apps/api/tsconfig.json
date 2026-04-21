@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/apps/api",
-    "rootDir": "./src",
+    "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
     "removeComments": false,
@@ -10,7 +10,8 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "prisma/**/*"
   ],
   "exclude": [
     "node_modules",
