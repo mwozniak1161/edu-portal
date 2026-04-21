@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { ConfirmDialog } from '@/components/feedback/confirm-dialog'
 import { ClassForm } from '@/components/admin/class-form'
 import { useClasses, useCreateClass, useUpdateClass, useDeleteClass } from '@/lib/api/classes'
+import { useUsers, useUpdateUser } from '@/lib/api/users'
 import type { Class } from '@/lib/api/types'
 import { MoreHorizontal } from 'lucide-react'
 import {
@@ -27,6 +28,9 @@ export default function ClassesPage() {
   const createClass = useCreateClass()
   const updateClass = useUpdateClass()
   const deleteClass = useDeleteClass()
+  const { data: usersResp } = useUsers(undefined, 1, 200)
+  const allUsers = usersResp?.users ?? []
+  const updateUser = useUpdateUser()
 
   const columns: Column<Class>[] = [
     { header: 'Name', accessor: 'name' },
@@ -95,9 +99,11 @@ export default function ClassesPage() {
           </DialogHeader>
           <ClassForm
             cls={editClass}
+            allUsers={editClass ? allUsers : []}
+            onUpdateUser={editClass ? (id, classId) => updateUser.mutateAsync({ id, classId }) : undefined}
             onSubmit={handleSubmit}
             onCancel={() => setDialogOpen(false)}
-            isLoading={createClass.isPending || updateClass.isPending}
+            isLoading={createClass.isPending || updateClass.isPending || updateUser.isPending}
           />
         </DialogContent>
       </Dialog>

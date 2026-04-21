@@ -8,7 +8,17 @@ const STUDENT_ID = 'student-1';
 const TC_ID = 'tc-1';
 const GRADE_ID = 'grade-1';
 
-const mockTeacherClass = { id: TC_ID, teacherId: TEACHER_ID };
+const SUBJECT_ID = 'subject-1';
+const CLASS_ID = 'class-1';
+
+const mockTeacherClass = {
+  id: TC_ID,
+  teacherId: TEACHER_ID,
+  subjectId: SUBJECT_ID,
+  classId: CLASS_ID,
+  subject: { id: SUBJECT_ID, name: 'Mathematics', createdAt: new Date(), updatedAt: new Date() },
+  class: { id: CLASS_ID, name: '3A', createdAt: new Date(), updatedAt: new Date() },
+};
 
 const mockGrade = {
   id: GRADE_ID,
@@ -56,6 +66,42 @@ describe('GradesService', () => {
       ],
     }).compile();
     service = module.get(GradesService);
+  });
+
+  describe('findAll — response shape includes names not raw IDs', () => {
+    beforeEach(() => {
+      prisma.grade.findMany.mockResolvedValue([mockGrade]);
+    });
+
+    it('returns student first and last name', async () => {
+      const [grade] = await service.findAll();
+      expect(grade.student.firstName).toBe('Jan');
+      expect(grade.student.lastName).toBe('Kowalski');
+    });
+
+    it('returns subject name inside teacherClass — not a raw UUID', async () => {
+      const [grade] = await service.findAll();
+      expect(grade.teacherClass.subject.name).toBe('Mathematics');
+    });
+
+    it('returns class name inside teacherClass — not a raw UUID', async () => {
+      const [grade] = await service.findAll();
+      expect(grade.teacherClass.class.name).toBe('3A');
+    });
+
+    it('calls findMany with student and teacherClass includes', async () => {
+      await service.findAll();
+      expect(prisma.grade.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          include: expect.objectContaining({
+            student: expect.anything(),
+            teacherClass: expect.objectContaining({
+              include: expect.objectContaining({ subject: true, class: true }),
+            }),
+          }),
+        }),
+      );
+    });
   });
 
   describe('getWeightedAverage', () => {

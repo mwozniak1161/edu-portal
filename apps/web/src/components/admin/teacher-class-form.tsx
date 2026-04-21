@@ -37,7 +37,7 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           control={control}
           rules={{ required: 'Teacher is required' }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} value={field.value}>
               <SelectTrigger><SelectValue placeholder="Select teacher" /></SelectTrigger>
               <SelectContent>
                 {teachers.map((t) => (
@@ -55,7 +55,7 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           control={control}
           rules={{ required: 'Subject is required' }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} value={field.value}>
               <SelectTrigger><SelectValue placeholder="Select subject" /></SelectTrigger>
               <SelectContent>
                 {subjects.map((s) => (
@@ -73,7 +73,7 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           control={control}
           rules={{ required: 'Class is required' }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} value={field.value}>
               <SelectTrigger><SelectValue placeholder="Select class" /></SelectTrigger>
               <SelectContent>
                 {classes.map((c) => (

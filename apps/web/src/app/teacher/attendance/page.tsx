@@ -28,7 +28,7 @@ export default function AttendancePage() {
     (u) => u.role === Role.STUDENT && u.classId === (selectedTc?.classId ?? undefined),
   )
 
-  const { data: existingAttendances = [] } = useAttendances(teacherClassId || undefined, date)
+  const { data: existingAttendances = [], isSuccess: attendancesSuccess } = useAttendances(teacherClassId || undefined, date)
 
   const initialRecords: AttendanceRecord = {}
   existingAttendances.forEach((a) => {
@@ -90,8 +90,9 @@ export default function AttendancePage() {
         <p className="text-muted-foreground text-sm">No students found in this class.</p>
       )}
 
-      {teacherClassId && classStudents.length > 0 && (
+      {teacherClassId && classStudents.length > 0 && attendancesSuccess && (
         <AttendanceBatchForm
+          key={teacherClassId + date}
           students={classStudents}
           initialRecords={initialRecords}
           isSaving={batchUpsert.isPending}

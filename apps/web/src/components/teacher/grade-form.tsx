@@ -46,7 +46,7 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
           control={control}
           rules={{ required: 'Subject is required' }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!!grade}>
+            <Select onValueChange={field.onChange} value={field.value} disabled={!!grade}>
               <SelectTrigger><SelectValue placeholder="Select subject / class" className="font-data" /></SelectTrigger>
               <SelectContent>
                 {teacherClasses.map((tc) => (
@@ -67,7 +67,7 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
           control={control}
           rules={{ required: 'Student is required' }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!!grade}>
+            <Select onValueChange={field.onChange} value={field.value} disabled={!!grade}>
               <SelectTrigger><SelectValue placeholder="Select student" className="font-data" /></SelectTrigger>
               <SelectContent>
                 {students.map((s) => (

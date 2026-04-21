@@ -145,11 +145,12 @@ jobs:
           ECR_API_URL: ${{ secrets.ECR_API_URL }}
           ECR_WEB_URL: ${{ secrets.ECR_WEB_URL }}
           AWS_REGION_NAME: ${{ secrets.AWS_REGION }}
+          DEMO_ENABLED: ${{ secrets.DEMO_ENABLED }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: POSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DB,JWT_SECRET,CORS_ORIGIN,MAIL_HOST,MAIL_USER,MAIL_PASS,MAIL_FROM,ECR_API_URL,ECR_WEB_URL,AWS_REGION_NAME
+          envs: POSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DB,JWT_SECRET,CORS_ORIGIN,MAIL_HOST,MAIL_USER,MAIL_PASS,MAIL_FROM,ECR_API_URL,ECR_WEB_URL,AWS_REGION_NAME,DEMO_ENABLED
           script: |
             set -e
             cd /home/ec2-user/app
@@ -171,6 +172,7 @@ jobs:
             printf 'MAIL_FROM=%s\n' "$MAIL_FROM" >> .env
             printf 'ECR_API_URL=%s\n' "$ECR_API_URL" >> .env
             printf 'ECR_WEB_URL=%s\n' "$ECR_WEB_URL" >> .env
+            printf 'DEMO_ENABLED=%s\n' "$DEMO_ENABLED" >> .env
 
             # Login to ECR from EC2 (uses instance IAM role — no credentials needed)
             aws ecr get-login-password --region "$AWS_REGION_NAME" \
