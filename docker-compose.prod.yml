@@ -40,6 +40,7 @@ services:
       MAIL_PASS: ${MAIL_PASS}
       MAIL_FROM: ${MAIL_FROM}
       PORT: 3000
+      DEMO_ENABLED: ${DEMO_ENABLED:-false}
     depends_on:
       postgres:
         condition: service_healthy

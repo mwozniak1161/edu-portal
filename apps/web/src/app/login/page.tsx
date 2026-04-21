@@ -7,7 +7,9 @@ import { useAuthStore } from '@/store/auth.store'
 import { authApi } from '@/lib/api/auth'
 import { ApiError } from '@/lib/api/client'
 import { Role } from '@/types'
-import { GraduationCap, ArrowRight } from 'lucide-react'
+import { GraduationCap, ArrowRight, ShieldCheck } from 'lucide-react'
+
+const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO_ENABLED === 'true'
 
 const ROLE_HOME: Record<Role, string> = {
   [Role.ADMIN]: '/admin',
@@ -26,6 +28,21 @@ export default function LoginPage() {
   const [serverError, setServerError] = useState<string | null>(null)
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>()
+  const [demoLoading, setDemoLoading] = useState(false)
+
+  async function onDemoLogin() {
+    setDemoLoading(true)
+    setServerError(null)
+    try {
+      const { accessToken, user } = await authApi.demoLogin()
+      setAuth(user, accessToken)
+      router.replace(ROLE_HOME[user.role] ?? '/')
+    } catch {
+      setServerError('Demo login unavailable')
+    } finally {
+      setDemoLoading(false)
+    }
+  }
 
   async function onSubmit(values: FormValues) {
     setServerError(null)
@@ -97,7 +114,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <div className="pt-2">
+            <div className="pt-2 space-y-3">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -106,6 +123,18 @@ export default function LoginPage() {
                 {isSubmitting ? 'Signing in…' : 'Sign in'}
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              {DEMO_ENABLED && (
+                <button
+                  type="button"
+                  onClick={onDemoLogin}
+                  disabled={demoLoading}
+                  className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold border-2 border-edu-primary/20 hover:border-edu-primary/40 text-edu-primary transition-all duration-200 disabled:opacity-60"
+                >
+                  {demoLoading ? 'Loading…' : 'Enter as admin (demo)'}
+                  <ShieldCheck className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </form>
 

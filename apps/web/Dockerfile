@@ -16,6 +16,8 @@ COPY packages/shared ./packages/shared
 COPY apps/web ./apps/web
 ARG NEXT_PUBLIC_API_URL=http://localhost:3000
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_DEMO_ENABLED=false
+ENV NEXT_PUBLIC_DEMO_ENABLED=$NEXT_PUBLIC_DEMO_ENABLED
 RUN pnpm --filter @edu-portal/web build
 
 # ---- runner ----

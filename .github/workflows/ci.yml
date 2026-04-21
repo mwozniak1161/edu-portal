@@ -110,10 +110,12 @@ jobs:
           REPO: edu-portal-web
           SHA: ${{ github.sha }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_DEMO_ENABLED: ${{ secrets.NEXT_PUBLIC_DEMO_ENABLED }}
         run: |
           docker build \
             -f apps/web/Dockerfile \
             --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+            --build-arg NEXT_PUBLIC_DEMO_ENABLED=$NEXT_PUBLIC_DEMO_ENABLED \
             -t $REGISTRY/$REPO:latest \
             -t $REGISTRY/$REPO:$SHA .
           docker push $REGISTRY/$REPO:latest

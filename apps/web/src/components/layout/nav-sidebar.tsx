@@ -21,7 +21,9 @@ export function NavSidebar({ navItems, footer }: NavSidebarProps) {
       <nav className="flex-1 overflow-y-auto px-3 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon
-          const active = pathname === item.href || pathname.startsWith(item.href + '/')
+          const active = item.exact
+            ? pathname === item.href
+            : pathname === item.href || pathname.startsWith(item.href + '/')
           return (
             <Link
               key={item.href}

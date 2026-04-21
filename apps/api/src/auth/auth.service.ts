@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -99,6 +99,31 @@ export class AuthService {
     });
 
     return this.issueTokens(stored.user);
+  }
+
+  async demoLogin(): Promise<AuthTokens> {
+    if (process.env['DEMO_ENABLED'] !== 'true') {
+      throw new NotFoundException();
+    }
+
+    const DEMO_EMAIL = 'admin@edu-portal.dev';
+    const DEMO_PASSWORD = 'Admin1234!';
+
+    const hashed = await bcrypt.hash(DEMO_PASSWORD, BCRYPT_ROUNDS);
+    const user = await this.prisma.user.upsert({
+      where: { email: DEMO_EMAIL },
+      update: {},
+      create: {
+        email: DEMO_EMAIL,
+        password: hashed,
+        firstName: 'Admin',
+        lastName: 'User',
+        role: Role.ADMIN,
+        isActive: true,
+      },
+    });
+
+    return this.issueTokens(user);
   }
 
   async logout(userId: string): Promise<void> {

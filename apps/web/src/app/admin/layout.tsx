@@ -7,7 +7,7 @@ import { Role } from '@/types'
 import { Users, BookOpen, GraduationCap, Clock, LayoutDashboard } from 'lucide-react'
 
 const adminNav = [
-  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
   { label: 'Users', href: '/admin/users', icon: Users },
   { label: 'Classes', href: '/admin/classes', icon: GraduationCap },
   { label: 'Subjects', href: '/admin/subjects', icon: BookOpen },

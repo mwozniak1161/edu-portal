@@ -7,7 +7,7 @@ import { Role } from '@/types'
 import { CalendarCheck, BookMarked, ClipboardList, LayoutDashboard } from 'lucide-react'
 
 const teacherNav = [
-  { label: 'Dashboard', href: '/teacher', icon: LayoutDashboard },
+  { label: 'Dashboard', href: '/teacher', icon: LayoutDashboard, exact: true },
   { label: 'Attendance', href: '/teacher/attendance', icon: CalendarCheck },
   { label: 'Grades', href: '/teacher/grades', icon: BookMarked },
   { label: 'Lesson Instances', href: '/teacher/lesson-instances', icon: ClipboardList },

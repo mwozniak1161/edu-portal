@@ -38,6 +38,13 @@ export class AuthController {
     return this.authService.refresh(dto.refreshToken);
   }
 
+  @Post('demo')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ description: 'Demo admin login — only available when DEMO_ENABLED=true' })
+  demo(): Promise<AuthTokens> {
+    return this.authService.demoLogin();
+  }
+
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)

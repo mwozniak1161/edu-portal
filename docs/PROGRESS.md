@@ -66,6 +66,7 @@ _(move a task here when you start it)_
 
 ### 🔐 Landing Page
 - [x] Login page (email + password, role-based redirect)
+- [x] Landing page (`/`) — EduPortal one-liner, links to demo / login / contact email
 - [ ] Demo mode: pre-seeded admin/teacher/student accounts with one-click login buttons
 - [ ] Password reset flow (token via email)
 - [ ] _Skip for MVP: captcha, social login, onboarding wizard, subscription_

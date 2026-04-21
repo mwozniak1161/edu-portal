@@ -11,4 +11,6 @@ export const authApi = {
     api.post<LoginResponse>('/auth/login', { email, password }),
 
   logout: () => api.post<void>('/auth/logout', {}),
+
+  demoLogin: () => api.post<LoginResponse>('/auth/demo', {}),
 }
