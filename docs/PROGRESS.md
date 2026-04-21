@@ -83,6 +83,7 @@ _(move a task here when you start it)_
 - [ ] E2E: grade CRUD + average endpoint
 - [ ] **FE Visual Testing** - Validate implementation against mockups
 - [ ] **Design System Compliance Testing** - Verify Eduportal-specific styling
+- [ ] **ESLint setup** — CI currently runs `tsc --noEmit` as a temporary replacement; needs proper `.eslintrc` per app (API + Web) so real linting can run in CI
 
 ## 📦 Post-MVP Backlog
 - [ ] Real-time schedule change notifications (WebSocket)
