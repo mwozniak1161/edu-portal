@@ -96,24 +96,28 @@ jobs:
 
       - name: Build & push API image
         env:
-          ECR_API_URL: ${{ secrets.ECR_API_URL }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPO: edu-portal-api
+          SHA: ${{ github.sha }}
         run: |
-          docker build -f apps/api/Dockerfile -t $ECR_API_URL:latest -t $ECR_API_URL:${{ github.sha }} .
-          docker push $ECR_API_URL:latest
-          docker push $ECR_API_URL:${{ github.sha }}
+          docker build -f apps/api/Dockerfile -t $REGISTRY/$REPO:latest -t $REGISTRY/$REPO:$SHA .
+          docker push $REGISTRY/$REPO:latest
+          docker push $REGISTRY/$REPO:$SHA
 
       - name: Build & push Web image
         env:
-          ECR_WEB_URL: ${{ secrets.ECR_WEB_URL }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPO: edu-portal-web
+          SHA: ${{ github.sha }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
           docker build \
             -f apps/web/Dockerfile \
             --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
-            -t $ECR_WEB_URL:latest \
-            -t $ECR_WEB_URL:${{ github.sha }} .
-          docker push $ECR_WEB_URL:latest
-          docker push $ECR_WEB_URL:${{ github.sha }}
+            -t $REGISTRY/$REPO:latest \
+            -t $REGISTRY/$REPO:$SHA .
+          docker push $REGISTRY/$REPO:latest
+          docker push $REGISTRY/$REPO:$SHA
 
       - name: Copy compose files to EC2
         uses: appleboy/scp-action@v0.1.7
