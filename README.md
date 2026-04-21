@@ -5,31 +5,66 @@ Full-stack Educational ERP (Librus/Moodle clone) built to practice **NestJS**, *
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v20+ recommended)
-- pnpm (v8+ recommended)
+- Docker & Docker Compose
+- pnpm (v8+ recommended) — only needed for local dev outside Docker
 
-### 📦 Installation
+### 🐳 Docker (recommended)
+
+1. **Copy env and configure**:
+   ```bash
+   cp .env.example .env
+   # Edit .env if you need different credentials
+   ```
+
+2. **Start all services** (Postgres, API, Web, pgAdmin):
+   ```bash
+   docker compose up -d
+   ```
+   - **Next.js Frontend**: http://localhost:3001
+   - **NestJS API**: http://localhost:3000
+   - **Swagger docs**: http://localhost:3000/api
+   - **pgAdmin**: http://localhost:5050
+
+   Migrations run automatically on API startup.
+
+3. **Rebuild after code changes**:
+   ```bash
+   docker compose build api   # or: web
+   docker compose up -d
+   ```
+
+### 🛠️ Local Development (without Docker for app services)
 
 1. **Install dependencies**:
    ```bash
    pnpm install
    ```
 
-2. **Copy env and configure**:
+2. **Start Postgres only**:
    ```bash
-   cp .env.example .env
-   # Edit .env if you need different credentials
+   docker compose up -d postgres pgadmin
    ```
 
-3. **Start the database**:
+3. **Run migrations**:
    ```bash
-   docker compose up -d
+   cd apps/api && DATABASE_URL=<your-url> pnpm exec prisma migrate dev
    ```
 
-4. **Run database migrations**:
+4. **Start both frontend and backend**:
    ```bash
-   cd apps/api && npx prisma migrate dev
+   pnpm dev
    ```
+   - **NestJS API**: http://localhost:3000
+   - **Next.js Frontend**: http://localhost:3001
+
+#### Start services individually:
+```bash
+# Backend only
+pnpm --filter @edu-portal/api run start:dev
+
+# Frontend only
+pnpm --filter @edu-portal/web dev
+```
 
 ### 📧 Email Setup
 
@@ -55,39 +90,13 @@ Welcome emails are sent on account creation via Gmail SMTP — free, no custom d
 - Schema lives in `apps/api/prisma/schema.prisma` — Prisma is the source of truth
 - Generated client outputs to `apps/api/src/generated/prisma/`
 
-Useful Prisma commands (run from `apps/api/`):
+Useful Prisma commands (run from `apps/api/`, requires `DATABASE_URL` in env):
 ```bash
-npx prisma migrate dev --name <name>   # create + apply a migration
-npx prisma generate                    # regenerate the client after schema changes
-npx prisma studio                      # visual DB browser
-npx prisma migrate reset               # wipe DB and re-apply all migrations (dev only)
+pnpm exec prisma migrate dev --name <name>   # create + apply a migration
+pnpm exec prisma generate                    # regenerate the client after schema changes
+pnpm exec prisma studio                      # visual DB browser
+pnpm exec prisma migrate reset               # wipe DB and re-apply all migrations (dev only)
 ```
-
-### 🛠️ Development
-
-#### Start both frontend and backend concurrently:
-```bash
-pnpm dev
-```
-This will start:
-- **NestJS API**: http://localhost:3000
-- **Next.js Frontend**: http://localhost:3001
-
-#### Start services individually:
-```bash
-# Backend only
-pnpm --filter @edu-portal/api run start:dev
-
-# Frontend only  
-pnpm --filter @edu-portal/web dev
-```
-
-### 🔍 Verify Integration
-
-Once both services are running:
-1. Visit http://localhost:3001
-2. Look for the green "✅ Connected (Status: 200)" badge
-3. Confirm you see "API Response: 'Hello World!'"
 
 ### 🧪 Testing
 
@@ -95,25 +104,8 @@ Once both services are running:
 # Run all tests
 pnpm test
 
-# Run tests in watch mode
-pnpm test:watch
-
 # Backend tests only
 pnpm --filter @edu-portal/api run test
-
-# Frontend tests only
-pnpm --filter @edu-portal/web run test
-```
-
-### 📦 Building for Production
-
-```bash
-# Build both applications
-pnpm build
-
-# Start production servers
-pnpm --filter @edu-portal/api run start:prod
-pnpm --filter @edu-portal/web run start
 ```
 
 ## 🏗️ Project Structure
@@ -128,4 +120,3 @@ education-portal/
 ├── docs/             # Documentation and progress tracking
 └── .claude/          # Claude Code configurations and skills
 ```
-

@@ -7,7 +7,7 @@ _(move a task here when you start it)_
 
 ### 🏗️ Foundation
 - [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
-- [x] docker-compose.yml with Postgres + pgAdmin
+- [x] docker-compose.yml with Postgres + pgAdmin + API + Web
 - [x] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
 - [x] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
 - [x] JWT auth: register, login, refresh token, Passport strategy
@@ -103,7 +103,7 @@ _(move a task here when you start it)_
 
 ## ✅ Done
 - [x] Monorepo scaffold (pnpm workspaces, apps/api, apps/web, packages/shared)
-- [x] docker-compose.yml with Postgres + pgAdmin
+- [x] docker-compose.yml with Postgres + pgAdmin + API + Web (full containerization)
 - [x] Prisma schema (User, Class, Subject, TeacherClass, Grade, Attendance, Timeslot, LessonInstance)
 - [x] NestJS bootstrap: GlobalExceptionFilter, TransformInterceptor `{ data: T }`, Swagger at /api
 - [x] JWT auth: register, login, refresh token, Passport strategy
