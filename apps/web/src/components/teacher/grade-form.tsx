@@ -20,12 +20,14 @@ interface GradeFormProps {
   grade?: Grade
   teacherClasses: TeacherClass[]
   students: { id: string; firstName: string; lastName: string }[]
+  preselectStudentId?: string
+  preselectTeacherClassId?: string
   onSubmit: (data: Values) => Promise<void>
   onCancel: () => void
   isLoading?: boolean
 }
 
-export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel, isLoading }: GradeFormProps) {
+export function GradeForm({ grade, teacherClasses, students, preselectStudentId, preselectTeacherClassId, onSubmit, onCancel, isLoading }: GradeFormProps) {
   const { register, control, handleSubmit, formState: { errors } } = useForm<Values>({
     defaultValues: grade
       ? {
@@ -35,52 +37,59 @@ export function GradeForm({ grade, teacherClasses, students, onSubmit, onCancel,
           studentId: grade.studentId,
           teacherClassId: grade.teacherClassId,
         }
-      : { weight: 1, comment: '' },
+      : { weight: 1, comment: '', studentId: preselectStudentId ?? '', teacherClassId: preselectTeacherClassId ?? '' },
   })
+
+  const showTeacherClassSelect = !grade && !preselectTeacherClassId
+  const showStudentSelect = !grade && !preselectStudentId
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Controller
-          name="teacherClassId"
-          control={control}
-          rules={{ required: 'Subject is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value} disabled={!!grade}>
-              <SelectTrigger><SelectValue placeholder="Select subject / class" className="font-data" /></SelectTrigger>
-              <SelectContent>
-                {teacherClasses.map((tc) => (
-                  <SelectItem key={tc.id} value={tc.id}>
-                    <span className="font-data">{tc.subject.name} — {tc.class.name}</span>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-        <FormError message={errors.teacherClassId?.message} />
-      </div>
+      {showTeacherClassSelect && (
+        <div>
+          <Controller
+            name="teacherClassId"
+            control={control}
+            rules={{ required: 'Subject is required' }}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger><SelectValue placeholder="Select subject / class" className="font-data" /></SelectTrigger>
+                <SelectContent>
+                  {teacherClasses.map((tc) => (
+                    <SelectItem key={tc.id} value={tc.id}>
+                      <span className="font-data">{tc.subject.name} — {tc.class.name}</span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <FormError message={errors.teacherClassId?.message} />
+        </div>
+      )}
 
-      <div>
-        <Controller
-          name="studentId"
-          control={control}
-          rules={{ required: 'Student is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value} disabled={!!grade}>
-              <SelectTrigger><SelectValue placeholder="Select student" className="font-data" /></SelectTrigger>
-              <SelectContent>
-                {students.map((s) => (
-                  <SelectItem key={s.id} value={s.id}>
-                    <span className="font-data">{s.firstName} {s.lastName}</span>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-        <FormError message={errors.studentId?.message} />
-      </div>
+      {showStudentSelect && (
+        <div>
+          <Controller
+            name="studentId"
+            control={control}
+            rules={{ required: 'Student is required' }}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger><SelectValue placeholder="Select student" className="font-data" /></SelectTrigger>
+                <SelectContent>
+                  {students.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>
+                      <span className="font-data">{s.firstName} {s.lastName}</span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <FormError message={errors.studentId?.message} />
+        </div>
+      )}
 
       <div className="flex gap-3">
         <div className="flex-1">
