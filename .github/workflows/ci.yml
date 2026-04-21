@@ -53,6 +53,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate Prisma client
+        working-directory: apps/api
+        run: pnpm exec prisma generate
+
       # TODO: replace with proper ESLint lint once .eslintrc is configured per app
       - name: Type-check API (temporary — no ESLint config exists yet)
         working-directory: apps/api
@@ -61,10 +65,6 @@ jobs:
       - name: Type-check Web (temporary — no ESLint config exists yet)
         working-directory: apps/web
         run: pnpm exec tsc --noEmit
-
-      - name: Generate Prisma client
-        working-directory: apps/api
-        run: pnpm exec prisma generate
 
       - name: Run migrations
         working-directory: apps/api
