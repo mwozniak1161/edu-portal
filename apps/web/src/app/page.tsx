@@ -51,14 +51,32 @@ export default function Home() {
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           {DEMO_ENABLED && (
-            <button
-              onClick={onDemoLogin}
-              disabled={loading}
-              className="edu-btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold disabled:opacity-60"
-            >
-              {loading ? 'Loading…' : 'Enter as admin (demo)'}
-              <ShieldCheck className="w-4 h-4" />
-            </button>
+            <>
+              <button
+                onClick={onDemoLogin}
+                disabled={loading}
+                className="edu-btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold disabled:opacity-60"
+              >
+                {loading ? 'Loading…' : 'Enter as admin (demo)'}
+                <ShieldCheck className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onDemoLogin}
+                disabled={loading}
+                className="edu-btn-secondary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold disabled:opacity-60"
+              >
+                {loading ? 'Loading…' : 'Enter as teacher (demo)'}
+                <ShieldCheck className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onDemoLogin}
+                disabled={loading}
+                className="edu-btn-secondary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold disabled:opacity-60"
+              >
+                {loading ? 'Loading…' : 'Enter as student (demo)'}
+                <ShieldCheck className="w-4 h-4" />
+              </button>
+            </>
           )}
           <Link
             href="/login"
