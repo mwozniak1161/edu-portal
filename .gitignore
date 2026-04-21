@@ -41,3 +41,6 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 /.claude/assets/mocks/screenshot-all.js
+
+# Next.js generated
+apps/web/next-env.d.ts
