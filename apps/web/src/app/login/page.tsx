@@ -129,7 +129,7 @@ export default function LoginPage() {
                   type="button"
                   onClick={onDemoLogin}
                   disabled={demoLoading}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold border-2 border-edu-primary/20 hover:border-edu-primary/40 text-edu-primary transition-all duration-200 disabled:opacity-60"
+                  className="edu-btn-secondary w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold disabled:opacity-60"
                 >
                   {demoLoading ? 'Loading…' : 'Enter as admin (demo)'}
                   <ShieldCheck className="w-4 h-4" />
