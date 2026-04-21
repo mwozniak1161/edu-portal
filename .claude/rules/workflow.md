@@ -2,35 +2,32 @@
 
 **Git Workflow:**
 1. Branching Strategy:
-   - Feature branches from `main`
-   - PR merge strategy (CI checks required)
+   - Feature branches from `master`
+   - PR → `master` triggers CI
 2. Code Reviews:
-   - Mandatory 2-person review
-   - Convention checks
-   - Documentation updates required
+   - Solo project — no human reviewer required
+   - AI agent posts automated code review on every PR (future)
 3. Testing:
-   - Jest + ESLint pre-commit hooks
-   - Auto-format on commit (Prettier)
+   - ESLint pre-commit (lint must pass in CI)
+   - No coverage targets enforced
 
-**CI/CD Pipeline:**
-- Docker containerization
-- Environment variables per stage
-
+**CI/CD Pipeline (GitHub Actions):**
+- On every PR → master: lint (API + Web) + API unit tests + Prisma migrations
+- On merge to master: above + Docker image builds
+- CD to AWS: planned (ECS or EC2 + docker compose)
 
 # Testing Strategy
-- **Unit Tests**: Jest with `@nestjs/testing`
-- **Integration Tests**: Supertest for API endpoints
-- **E2E Tests**: Playwright for critical user flows
-- Test coverage targets: 80%+ for services, 90%+ for utilities
-- Mock external dependencies in unit tests
+- **Unit Tests**: Jest with `@nestjs/testing` — business logic and services
+- **Integration Tests**: Supertest for API endpoints (future)
+- **E2E Tests**: Playwright for critical user flows (future)
+- Mock external dependencies (mail, etc.) in unit tests
 
 # Testing Framework
 
 **Test Types:**
 1. Unit Tests:
   - Jest with `@nestjs/testing`
-  - Coverage: >80% for services
-  - Use Zod.classValidate()
+  - Focus: services with business logic (grades, attendance, auth)
 
 2. Integration Tests:
   - Supertest for API endpoints
@@ -41,6 +38,6 @@
   - Browser-based testing
 
 **Testing Workflow:**
-1. Write tests before implementation (TDD)
-2. Mock external dependencies
+1. Tests required for business logic and all endpoints
+2. Mock external dependencies (mail, HTTP calls)
 3. Manual UI testing for design consistency
