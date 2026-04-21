@@ -34,6 +34,7 @@ export default function LessonInstancesPage() {
 
   const { data: teacherClasses = [] } = useTeacherClasses()
   const myClasses = teacherClasses.filter((tc) => tc.teacherId === user?.id)
+  const selectedTc = myClasses.find((tc) => tc.id === teacherClassId)
 
   const { data: instances = [], isLoading } = useLessonInstances(teacherClassId || undefined, date)
   const createInstance = useCreateLessonInstance()
@@ -138,7 +139,9 @@ export default function LessonInstancesPage() {
         <div className="w-72">
           <Select value={teacherClassId} onValueChange={(v) => setTeacherClassId(v ?? '')}>
             <SelectTrigger>
-              <SelectValue placeholder="Select subject / class" />
+              <SelectValue placeholder="Select subject / class">
+                {selectedTc ? `${selectedTc.subject.name} — ${selectedTc.class.name}` : undefined}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {myClasses.map((tc) => (

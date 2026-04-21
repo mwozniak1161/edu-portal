@@ -17,7 +17,7 @@ import { GradeForm } from '@/components/teacher/grade-form'
 import { CorrectionGradeForm } from '@/components/teacher/correction-grade-form'
 import { UserAvatar } from '@/components/user/user-avatar'
 import { useTeacherClasses } from '@/lib/api/teacher-classes'
-import { useUsers } from '@/lib/api/users'
+import { useClassStudents } from '@/lib/api/classes'
 import {
   useGrades,
   useCreateGrade,
@@ -27,7 +27,6 @@ import {
 } from '@/lib/api/grades'
 import { useAuthStore } from '@/store/auth.store'
 import type { Grade } from '@/lib/api/types'
-import { Role } from '@/types'
 import { cn } from '@/lib/utils'
 
 type DialogMode = 'create' | 'edit' | 'correction'
@@ -60,11 +59,7 @@ export default function GradesPage() {
   const myClasses = teacherClasses.filter((tc) => tc.teacherId === user?.id)
   const selectedTc = myClasses.find((tc) => tc.id === teacherClassId)
 
-  const { data: usersResp } = useUsers(undefined, 1, 200)
-  const classStudents = useMemo(
-    () => (usersResp?.users ?? []).filter((u) => u.role === Role.STUDENT && u.classId === selectedTc?.classId),
-    [usersResp, selectedTc],
-  )
+  const { data: classStudents = [] } = useClassStudents(selectedTc?.classId)
 
   const { data: grades = [], isLoading } = useGrades(teacherClassId || undefined)
   const createGrade = useCreateGrade()
@@ -146,7 +141,11 @@ export default function GradesPage() {
 
       <div className="mb-6 w-72">
         <Select value={teacherClassId} onValueChange={(v) => setTeacherClassId(v ?? '')}>
-          <SelectTrigger><SelectValue placeholder="Select subject / class" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Select subject / class">
+              {selectedTc ? `${selectedTc.subject.name} — ${selectedTc.class.name}` : undefined}
+            </SelectValue>
+          </SelectTrigger>
           <SelectContent>
             {myClasses.map((tc) => (
               <SelectItem key={tc.id} value={tc.id}>

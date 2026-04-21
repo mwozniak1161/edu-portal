@@ -26,7 +26,7 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
   const { control, handleSubmit, formState: { errors } } = useForm<Values>({
     defaultValues: teacherClass
       ? { teacherId: teacherClass.teacherId, subjectId: teacherClass.subjectId, classId: teacherClass.classId }
-      : undefined,
+      : { teacherId: '', subjectId: '', classId: '' },
   })
 
   return (
@@ -36,16 +36,23 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           name="teacherId"
           control={control}
           rules={{ required: 'Teacher is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger><SelectValue placeholder="Select teacher" /></SelectTrigger>
-              <SelectContent>
-                {teachers.map((t) => (
-                  <SelectItem key={t.id} value={t.id}>{t.firstName} {t.lastName}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+          render={({ field }) => {
+            const selected = teachers.find((t) => t.id === field.value)
+            return (
+              <Select onValueChange={field.onChange} value={field.value ?? ''}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select teacher">
+                    {selected && `${selected.firstName} ${selected.lastName}`}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {teachers.map((t) => (
+                    <SelectItem key={t.id} value={t.id}>{t.firstName} {t.lastName}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          }}
         />
         <FormError message={errors.teacherId?.message} />
       </div>
@@ -54,16 +61,23 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           name="subjectId"
           control={control}
           rules={{ required: 'Subject is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger><SelectValue placeholder="Select subject" /></SelectTrigger>
-              <SelectContent>
-                {subjects.map((s) => (
-                  <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+          render={({ field }) => {
+            const selected = subjects.find((s) => s.id === field.value)
+            return (
+              <Select onValueChange={field.onChange} value={field.value ?? ''}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select subject">
+                    {selected && selected.name}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {subjects.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          }}
         />
         <FormError message={errors.subjectId?.message} />
       </div>
@@ -72,16 +86,23 @@ export function TeacherClassForm({ teacherClass, teachers, classes, subjects, on
           name="classId"
           control={control}
           rules={{ required: 'Class is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger><SelectValue placeholder="Select class" /></SelectTrigger>
-              <SelectContent>
-                {classes.map((c) => (
-                  <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+          render={({ field }) => {
+            const selected = classes.find((c) => c.id === field.value)
+            return (
+              <Select onValueChange={field.onChange} value={field.value ?? ''}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select class">
+                    {selected && selected.name}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {classes.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          }}
         />
         <FormError message={errors.classId?.message} />
       </div>

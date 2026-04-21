@@ -2,14 +2,36 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { PrismaService } from '../prisma/prisma.service';
 import { AttendanceEntryDto } from './dto/attendance-entry.dto';
 
+const lessonInstanceInclude = {
+  teacherClass: {
+    include: {
+      teacher: { select: { id: true, firstName: true, lastName: true } },
+      subject: true,
+      class: true,
+    },
+  },
+};
+
 @Injectable()
 export class AttendanceService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /**
-   * Assert that the teacher owns the teacher-class
-   * Shared guard logic used in AttendanceService and GradeService
-   */
+  private async assertTeacherOwnsLessonInstance(
+    lessonInstanceId: string,
+    teacherId: string,
+  ) {
+    const instance = await this.prisma.lessonInstance.findUniqueOrThrow({
+      where: { id: lessonInstanceId },
+      include: { teacherClass: true },
+    });
+
+    if (instance.teacherClass.teacherId !== teacherId) {
+      throw new ConflictException('You do not own this lesson instance');
+    }
+
+    return instance;
+  }
+
   async assertTeacherOwnsTeacherClass(
     teacherClassId: string,
     teacherId: string,
@@ -25,36 +47,18 @@ export class AttendanceService {
     return tc;
   }
 
-  async findAll(teacherClassId?: string, date?: string) {
-    const where: any = {};
-
-    if (teacherClassId) {
-      where.teacherClassId = teacherClassId;
-    }
-
-    if (date) {
-      where.date = new Date(date);
-    }
-
+  async findAll(lessonInstanceId?: string) {
     return this.prisma.attendance.findMany({
-      where,
+      where: lessonInstanceId ? { lessonInstanceId } : {},
       include: {
         student: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          },
+          select: { id: true, firstName: true, lastName: true },
         },
-        teacherClass: {
-          include: {
-            teacher: { select: { id: true, firstName: true, lastName: true } },
-            subject: true,
-            class: true,
-          },
+        lessonInstance: {
+          include: lessonInstanceInclude,
         },
       },
-      orderBy: { date: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -63,18 +67,10 @@ export class AttendanceService {
       where: { id },
       include: {
         student: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          },
+          select: { id: true, firstName: true, lastName: true },
         },
-        teacherClass: {
-          include: {
-            teacher: { select: { id: true, firstName: true, lastName: true } },
-            subject: true,
-            class: true,
-          },
+        lessonInstance: {
+          include: lessonInstanceInclude,
         },
       },
     });
@@ -87,29 +83,25 @@ export class AttendanceService {
   }
 
   async batchUpsertAttendance(
-    teacherClassId: string,
-    date: Date,
+    lessonInstanceId: string,
     entries: AttendanceEntryDto[],
     teacherId: string,
   ) {
-    // First verify teacher owns the teacher-class
-    await this.assertTeacherOwnsTeacherClass(teacherClassId, teacherId);
+    await this.assertTeacherOwnsLessonInstance(lessonInstanceId, teacherId);
 
     return this.prisma.$transaction(
       entries.map((entry) =>
         this.prisma.attendance.upsert({
           where: {
-            studentId_teacherClassId_date: {
+            studentId_lessonInstanceId: {
               studentId: entry.studentId,
-              teacherClassId,
-              date,
+              lessonInstanceId,
             },
           },
           update: { status: entry.status },
           create: {
             studentId: entry.studentId,
-            teacherClassId,
-            date,
+            lessonInstanceId,
             status: entry.status,
           },
         }),

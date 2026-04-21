@@ -39,6 +39,13 @@ export class ClassesController {
     return this.classesService.findOne(id);
   }
 
+  @Get(':id/students')
+  @Roles(Role.ADMIN, Role.TEACHER)
+  @ApiOkResponse({ description: 'Students in a class' })
+  findStudents(@Param('id') id: string) {
+    return this.classesService.findStudents(id);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({ description: 'Class created' })

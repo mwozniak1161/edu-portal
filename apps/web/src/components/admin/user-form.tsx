@@ -88,19 +88,24 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
           <Controller
             name="classId"
             control={control}
-            render={({ field }) => (
-              <Select value={field.value ?? ''} onValueChange={field.onChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Assign to class (optional)" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="">Unassigned</SelectItem>
-                  {classes.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
+            render={({ field }) => {
+              const selected = classes.find((c) => c.id === field.value)
+              return (
+                <Select value={field.value ?? ''} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Assign to class (optional)">
+                      {selected ? selected.name : field.value === '' ? 'Unassigned' : undefined}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Unassigned</SelectItem>
+                    {classes.map((c) => (
+                      <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )
+            }}
           />
         </div>
       )}

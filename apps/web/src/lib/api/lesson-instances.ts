@@ -30,7 +30,7 @@ export function useLessonInstances(teacherClassId?: string, date?: string) {
   return useQuery<LessonInstance[]>({
     queryKey: [...LI_KEY, teacherClassId, date],
     queryFn: () => api.get<LessonInstance[]>(`/lesson-instances${qs ? `?${qs}` : ''}`),
-    enabled: !!teacherClassId,
+    enabled: !!teacherClassId || !!date,
   })
 }
 

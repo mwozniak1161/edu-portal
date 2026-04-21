@@ -35,9 +35,10 @@ _(move a task here when you start it)_
 
 ### 👨‍🏫 Teacher Panel
 - [x] **Attendance Management**
-  - View full class roster for a given TeacherClass + date
+  - Pick date → select lesson instance for that day → roster of class students
   - Set status per student (Present/Absent/Late), batch save
-  - AttendanceService guard: teacher owns the TeacherClass before write
+  - Attendance linked to LessonInstance (not TeacherClass+date); unique per studentId+lessonInstanceId
+  - AttendanceService guard: teacher owns the lesson instance before write
 - [x] **Grade Management**
   - View all students in a class with their grades per TeacherClass
   - Add grade (value, weight, comment)
@@ -57,8 +58,6 @@ _(move a task here when you start it)_
 ### 🎓 Student Panel
 - [x] **Schedule View**
   - Display weekly timetable from Timeslots where classId matches student's class
-- [x] **Lesson Instance View**
-  - Same as teacher view, read-only (no dialog editing)
 - [x] **Gradebook View**
   - List TeacherClasses for student's class
   - Per subject: list grades + weighted average (calculated backend)

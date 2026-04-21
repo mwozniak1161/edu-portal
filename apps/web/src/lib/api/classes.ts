@@ -1,8 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from './client'
-import type { Class } from './types'
+import type { Class, User } from './types'
 
 const CLASSES_KEY = ['classes'] as const
+
+export function useClassStudents(classId?: string) {
+  return useQuery<User[]>({
+    queryKey: ['class-students', classId],
+    queryFn: () => api.get<User[]>(`/classes/${classId}/students`),
+    enabled: !!classId,
+  })
+}
 
 export function useClasses() {
   return useQuery<Class[]>({

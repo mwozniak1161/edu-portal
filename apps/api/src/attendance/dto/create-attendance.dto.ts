@@ -1,15 +1,11 @@
-import { IsArray, IsDateString, IsNotEmpty, IsUUID, ValidateNested } from 'class-validator';
+import { IsArray, IsNotEmpty, IsUUID, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { AttendanceEntryDto } from './attendance-entry.dto';
 
 export class CreateAttendanceDto {
   @IsNotEmpty()
   @IsUUID()
-  teacherClassId!: string;
-
-  @IsNotEmpty()
-  @IsDateString()
-  date!: string;
+  lessonInstanceId!: string;
 
   @IsArray()
   @ValidateNested({ each: true })

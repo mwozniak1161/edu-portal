@@ -59,12 +59,11 @@ export interface Timeslot {
 
 export interface Attendance {
   id: string
-  date: string
   status: 'PRESENT' | 'ABSENT' | 'LATE'
   studentId: string
-  teacherClassId: string
+  lessonInstanceId: string
   student: { id: string; firstName: string; lastName: string }
-  teacherClass: TeacherClass
+  lessonInstance: LessonInstance
   createdAt: string
 }
 

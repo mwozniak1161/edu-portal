@@ -32,14 +32,10 @@ export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
   @Get()
-  @ApiQuery({ name: 'teacherClassId', required: false, type: String })
-  @ApiQuery({ name: 'date', required: false, type: String })
+  @ApiQuery({ name: 'lessonInstanceId', required: false, type: String })
   @ApiOkResponse({ description: 'List of attendance records' })
-  findAll(
-    @Query('teacherClassId') teacherClassId?: string,
-    @Query('date') date?: string,
-  ) {
-    return this.attendanceService.findAll(teacherClassId, date);
+  findAll(@Query('lessonInstanceId') lessonInstanceId?: string) {
+    return this.attendanceService.findAll(lessonInstanceId);
   }
 
   @Get(':id')
@@ -56,8 +52,7 @@ export class AttendanceController {
     @Request() req: RequestWithUser,
   ) {
     return this.attendanceService.batchUpsertAttendance(
-      dto.teacherClassId,
-      new Date(dto.date),
+      dto.lessonInstanceId,
       dto.entries,
       req.user.id,
     );

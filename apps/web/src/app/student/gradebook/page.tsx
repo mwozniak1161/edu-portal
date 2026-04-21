@@ -35,6 +35,7 @@ export default function GradebookPage() {
   const [teacherClassId, setTeacherClassId] = useState<string>('')
 
   const { data: teacherClasses = [], isLoading: tcLoading } = useTeacherClasses(classId)
+  const selectedTc = teacherClasses.find((tc) => tc.id === teacherClassId)
   const { data: grades = [], isLoading: gradesLoading } = useGrades(teacherClassId || undefined, studentId)
 
   const avg = useMemo(() => computeWeightedAvg(grades), [grades])
@@ -66,7 +67,9 @@ export default function GradebookPage() {
         ) : (
           <Select value={teacherClassId} onValueChange={(v) => setTeacherClassId(v ?? '')}>
             <SelectTrigger>
-              <SelectValue placeholder="Select subject" />
+              <SelectValue placeholder="Select subject">
+                {selectedTc ? selectedTc.subject.name : undefined}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {teacherClasses.map((tc) => (

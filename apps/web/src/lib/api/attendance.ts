@@ -11,21 +11,17 @@ export interface AttendanceEntry {
 }
 
 interface BatchAttendancePayload {
-  teacherClassId: string
-  date: string
+  lessonInstanceId: string
   entries: AttendanceEntry[]
 }
 
-export function useAttendances(teacherClassId?: string, date?: string) {
-  const params = new URLSearchParams()
-  if (teacherClassId) params.set('teacherClassId', teacherClassId)
-  if (date) params.set('date', date)
-  const qs = params.toString()
+export function useAttendances(lessonInstanceId?: string) {
+  const qs = lessonInstanceId ? `?lessonInstanceId=${lessonInstanceId}` : ''
 
   return useQuery<Attendance[]>({
-    queryKey: [...ATT_KEY, teacherClassId, date],
-    queryFn: () => api.get<Attendance[]>(`/attendance${qs ? `?${qs}` : ''}`),
-    enabled: !!teacherClassId,
+    queryKey: [...ATT_KEY, lessonInstanceId],
+    queryFn: () => api.get<Attendance[]>(`/attendance${qs}`),
+    enabled: !!lessonInstanceId,
   })
 }
 

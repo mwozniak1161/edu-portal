@@ -83,7 +83,6 @@ model TeacherClass {
   class   Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   grades          Grade[]
-  attendances     Attendance[]
   timeslots       Timeslot[]
   lessonInstances LessonInstance[]
 
@@ -114,17 +113,16 @@ model Grade {
 
 model Attendance {
   id        String           @id @default(uuid())
-  date      DateTime         @db.Date
   status    AttendanceStatus
   createdAt DateTime         @default(now()) @map("created_at")
 
-  studentId      String @map("student_id")
-  teacherClassId String @map("teacher_class_id")
+  studentId        String @map("student_id")
+  lessonInstanceId String @map("lesson_instance_id")
 
-  student      User         @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+  student        User           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lessonInstance LessonInstance @relation(fields: [lessonInstanceId], references: [id], onDelete: Cascade)
 
-  @@unique([studentId, teacherClassId, date])
+  @@unique([studentId, lessonInstanceId])
   @@map("attendance")
 }
 
@@ -155,6 +153,7 @@ model LessonInstance {
   teacherClassId String @map("teacher_class_id")
 
   teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+  attendances  Attendance[]
 
   @@map("lesson_instances")
 }

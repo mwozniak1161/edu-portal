@@ -41,18 +41,25 @@ export function TimeslotForm({ timeslot, teacherClasses, onSubmit, onCancel, isL
           name="teacherClassId"
           control={control}
           rules={{ required: 'Teacher-class is required' }}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger><SelectValue placeholder="Select teacher-class" /></SelectTrigger>
-              <SelectContent>
-                {teacherClasses.map((tc) => (
-                  <SelectItem key={tc.id} value={tc.id}>
-                    {tc.teacher.firstName} {tc.teacher.lastName} — {tc.subject.name} ({tc.class.name})
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+          render={({ field }) => {
+            const selected = teacherClasses.find((tc) => tc.id === field.value)
+            return (
+              <Select onValueChange={field.onChange} value={field.value ?? ''}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select teacher-class">
+                    {selected && `${selected.teacher.firstName} ${selected.teacher.lastName} — ${selected.subject.name} (${selected.class.name})`}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {teacherClasses.map((tc) => (
+                    <SelectItem key={tc.id} value={tc.id}>
+                      {tc.teacher.firstName} {tc.teacher.lastName} — {tc.subject.name} ({tc.class.name})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          }}
         />
         <FormError message={errors.teacherClassId?.message} />
       </div>
@@ -62,7 +69,7 @@ export function TimeslotForm({ timeslot, teacherClasses, onSubmit, onCancel, isL
           control={control}
           rules={{ required: 'Day is required' }}
           render={({ field }) => (
-            <Select onValueChange={(v) => field.onChange(Number(v))} defaultValue={field.value ? String(field.value) : undefined}>
+            <Select onValueChange={(v) => field.onChange(Number(v))} value={field.value ? DAYS[field.value - 1] : ''}>
               <SelectTrigger><SelectValue placeholder="Select day" /></SelectTrigger>
               <SelectContent>
                 {DAYS.map((day, i) => (
