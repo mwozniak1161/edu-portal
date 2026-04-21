@@ -52,3 +52,4 @@ terraform/*.tfstate
 terraform/*.tfstate.backup
 terraform/terraform.tfvars
 # .terraform.lock.hcl is intentionally NOT ignored — commit it to pin provider versions
+apps/web/tsconfig.tsbuildinfo

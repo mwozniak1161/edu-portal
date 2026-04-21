@@ -1,0 +1,20 @@
+#!/bin/bash
+# Branch naming helper script
+
+echo "Branch Naming Conventions:"
+echo "-------------------------"
+echo "feature/feature-name     - For new features"
+echo "bugfix/issue-description - For bug fixes"
+echo "release/vX.Y.Z          - For release preparation"
+echo "hotfix/urgent-issue     - For production fixes"
+echo ""
+echo "Examples:"
+echo "  feature/student-gradebook-view"
+echo "  bugfix/attendance-race-condition"
+echo "  release/v0.1.0-mvp"
+echo "  hotfix/critical-login-bug"
+echo ""
+echo "To create a branch:"
+echo "  git checkout -b feature/your-feature-name"
+echo ""
+echo "Current branch: $(git branch --show-current)"

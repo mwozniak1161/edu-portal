@@ -1,0 +1,19 @@
+# Commit Message Convention
+# Format: type(scope): description
+#
+# Types:
+# feat:     New feature
+# fix:      Bug fix
+# docs:     Documentation changes
+# style:    Formatting, missing semi-colons, etc.
+# refactor: Code restructuring
+# test:     Adding tests
+# chore:    Maintenance tasks
+#
+# Examples:
+# feat(auth): implement JWT refresh token rotation
+# fix(attendance): resolve race condition in bulk save
+# docs(api): update Swagger documentation for grade endpoints
+#
+# Scope should be a feature area or component name
+# Description should be imperative, lower case, no period
