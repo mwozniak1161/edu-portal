@@ -108,6 +108,17 @@ pnpm test
 pnpm --filter @edu-portal/api run test
 ```
 
+### ☁️ AWS Deployment
+
+The app deploys to a single EC2 instance via GitHub Actions on every push to `master`.
+
+Flow: `push to master` → CI (lint + tests) → build Docker images → push to ECR → SSH deploy to EC2
+
+See [`terraform/README.md`](terraform/README.md) for full setup instructions including:
+- Provisioning AWS infrastructure with Terraform
+- Required IAM permissions
+- GitHub secrets checklist
+
 ## 🏗️ Project Structure
 
 ```
@@ -117,6 +128,8 @@ education-portal/
 │   └── web/          # Next.js frontend
 ├── packages/
 │   └── shared/       # Shared types, schemas, utils
+├── terraform/        # AWS infrastructure (EC2, ECR, IAM)
+├── nginx/            # Reverse proxy config
 ├── docs/             # Documentation and progress tracking
 └── .claude/          # Claude Code configurations and skills
 ```

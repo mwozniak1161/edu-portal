@@ -44,3 +44,10 @@ Thumbs.db
 
 # Next.js generated
 apps/web/next-env.d.ts
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/terraform.tfvars
+# .terraform.lock.hcl is intentionally NOT ignored — commit it to pin provider versions
