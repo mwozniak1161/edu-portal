@@ -27,7 +27,7 @@ COPY --from=builder /app/dist/apps/api ./dist/apps/api
 COPY --from=builder /app/apps/api/src/generated ./apps/api/src/generated
 COPY apps/api/prisma ./apps/api/prisma
 COPY apps/api/prisma.config.ts ./apps/api/prisma.config.ts
-COPY apps/api/src/mail/templates ./dist/apps/api/mail/templates
+COPY apps/api/src/mail/templates ./dist/apps/api/src/mail/templates
 COPY apps/api/entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
