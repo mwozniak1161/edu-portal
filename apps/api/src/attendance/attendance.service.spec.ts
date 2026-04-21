@@ -15,6 +15,9 @@ function buildPrisma() {
     teacherClass: {
       findUniqueOrThrow: jest.fn().mockResolvedValue(mockTeacherClass),
     },
+    lessonInstance: {
+      findUniqueOrThrow: jest.fn(),
+    },
     attendance: {
       findMany: jest.fn().mockResolvedValue([]),
       findUnique: jest.fn(),
@@ -63,28 +66,42 @@ describe('AttendanceService', () => {
     const date = new Date('2024-03-15');
 
     it('calls prisma.$transaction with correct upsert operations', async () => {
+      // Mock lesson instance to belong to the teacher (ownership check passes)
+      prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
+        id: TC_ID,
+        teacherClass: { teacherId: TEACHER_ID }
+      });
       prisma.$transaction.mockResolvedValue([]);
-      await service.batchUpsertAttendance(TC_ID, date, entries, TEACHER_ID);
+      await service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID);
 
       expect(prisma.$transaction).toHaveBeenCalled();
     });
 
     it('verifies teacher ownership before saving', async () => {
-      prisma.teacherClass.findUniqueOrThrow.mockResolvedValue({ id: TC_ID, teacherId: 'other' });
+      // Mock lesson instance to belong to a different teacher (ownership check fails)
+      prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
+        id: TC_ID,
+        teacherClass: { teacherId: 'different-teacher' }
+      });
       await expect(
-        service.batchUpsertAttendance(TC_ID, date, entries, TEACHER_ID),
+        service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID),
       ).rejects.toThrow(ConflictException);
       expect(prisma.$transaction).not.toHaveBeenCalled();
     });
 
     it('creates one upsert per student entry', async () => {
+      // Mock lesson instance to belong to the teacher (ownership check passes)
+      prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
+        id: TC_ID,
+        teacherClass: { teacherId: TEACHER_ID }
+      });
       let capturedOps: unknown[] = [];
       prisma.$transaction.mockImplementation((ops: unknown[]) => {
         capturedOps = ops;
         return Promise.resolve([]);
       });
 
-      await service.batchUpsertAttendance(TC_ID, date, entries, TEACHER_ID);
+      await service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID);
       expect(capturedOps).toHaveLength(entries.length);
     });
   });
