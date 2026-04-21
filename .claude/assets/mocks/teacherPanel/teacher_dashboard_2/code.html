@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#0b1c30",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary": "#7e3000",
+                        "background": "#f8f9ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-container": "#ffd2be",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#3525cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#4d44e3",
+                        "on-background": "#0b1c30",
+                        "on-surface-variant": "#464555",
+                        "primary-container": "#4f46e5",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-container": "#b6b4ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed": "#e2dfff",
+                        "secondary": "#58579b",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#454386",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-secondary-fixed": "#140f54",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#a44100",
+                        "surface-container": "#e5eeff",
+                        "outline": "#777587",
+                        "inverse-surface": "#213145"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .geist-mono { font-family: 'JetBrains Mono', monospace; }
+        .ink-gradient { background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors p-2 rounded-lg active:scale-95 transition-transform" style="">menu</button>
+<h1 class="text-xl font-bold tracking-tighter text-indigo-700 dark:text-indigo-300" style="">EduSlate Indigo</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-indigo-700 dark:text-indigo-300 font-semibold font-sans text-sm tracking-tight" href="#" style="">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors font-sans text-sm tracking-tight px-2 py-1 rounded" href="#" style="">Attendance</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors font-sans text-sm tracking-tight px-2 py-1 rounded" href="#" style="">Grades</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden border-2 border-indigo-200">
+<img alt="User Profile Avatar" class="" data-alt="professional portrait of a smiling female teacher in a brightly lit modern classroom setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFXjrm2_4PtziHsDbJuVDOiH71QwpndDBshydBvcIjjmhUhibKz43MSHCycf1f9Gy-2Od5RjW5MHMRV4BD9irQc5cHdwZ2JX1XakbdurtoS2dOkDFW0RlDocRTjRQZm9F6pf6SbcxtQP5qEt-poQYMXlpZV6BHsCOIItRUoiC-ijv4ZV1jSZVZ-hPrsUyjd6evagU8-Fe1xAjOIw9fH1OViO5KE-8hkdQ1895GzWOCt-DoVb676nTDjur_El_Ozp_wTOQpLiTkI2Y" style=""/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation (Web) -->
+<aside class="hidden md:flex flex-col h-screen py-8 gap-2 w-72 fixed left-0 top-0 z-50 bg-white dark:bg-slate-950 border-r-4 border-indigo-600 shadow-xl dark:shadow-none">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-indigo-600 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white" style='font-variation-settings: "FILL" 1;'>palette</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-indigo-600" style="">Eduportal</h2>
+<p class="text-xs font-mono text-slate-500 uppercase tracking-widest" style="">Teacher Workspace</p>
+</div>
+</div>
+<div class="mt-4 p-3 bg-slate-50 rounded-lg">
+<p class="text-[10px] font-mono uppercase tracking-tighter text-slate-400" style="">Term</p>
+<p class="text-sm font-bold text-slate-700" style="">Fall 2024</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 rounded-l-none border-l-4 border-indigo-600 px-6 py-3 flex items-center gap-3 font-sans text-sm font-medium transition-all duration-300 ease-in-out" href="#" style="">
+<span class="material-symbols-outlined" style="">dashboard</span> Dashboard
+            </a>
+<a class="text-slate-600 dark:text-slate-400 px-6 py-3 flex items-center gap-3 font-sans text-sm font-medium hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all duration-300 ease-in-out" href="#" style="">
+<span class="material-symbols-outlined" style="">fact_check</span> Attendance
+            </a>
+<a class="text-slate-600 dark:text-slate-400 px-6 py-3 flex items-center gap-3 font-sans text-sm font-medium hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all duration-300 ease-in-out" href="#" style="">
+<span class="material-symbols-outlined" style="">grade</span> Grades
+            </a>
+<a class="text-slate-600 dark:text-slate-400 px-6 py-3 flex items-center gap-3 font-sans text-sm font-medium hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all duration-300 ease-in-out" href="#" style="">
+<span class="material-symbols-outlined" style="">menu_book</span> Lesson Instances
+            </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-indigo-50 text-indigo-600 font-bold rounded-lg hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2" style="">
+<span class="material-symbols-outlined text-sm" style="">logout</span> Sign Out
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-72 pt-24 pb-28 px-6 min-h-screen">
+<div class="max-w-6xl mx-auto">
+<!-- Page Header -->
+<header class="mb-12">
+<h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-2" style="">Welcome back, Elena</h2>
+<p class="text-slate-500 font-sans text-lg" style="">Here is your curriculum overview for today.</p>
+<div class="mt-8 h-1 w-24 bg-indigo-600"></div>
+</header>
+<!-- Quick Action Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Attendance Card -->
+<button class="group relative flex flex-col text-left p-8 bg-surface-container-lowest border border-outline-variant/20 rounded-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 active:scale-[0.98]" style="">
+<div class="absolute top-0 left-0 w-1 h-full bg-indigo-600 scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+<div class="mb-6 w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-indigo-600 text-3xl" style="">calendar_today</span>
+</div>
+<h3 class="text-xl font-bold mb-2" style="">Attendance</h3>
+<p class="text-slate-500 text-sm leading-relaxed mb-6" style="">Mark attendance for your current period and track late arrivals.</p>
+<div class="mt-auto flex items-center text-indigo-600 font-mono text-xs uppercase tracking-widest font-bold" style="">
+                        Mark attendance <span class="material-symbols-outlined ml-2 text-sm" style="">arrow_forward</span>
+</div>
+</button>
+<!-- Grades Card -->
+<button class="group relative flex flex-col text-left p-8 bg-surface-container-lowest border border-outline-variant/20 rounded-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 active:scale-[0.98]" style="">
+<div class="absolute top-0 left-0 w-1 h-full bg-indigo-600 scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+<div class="mb-6 w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-indigo-600 text-3xl" style="">grade</span>
+</div>
+<h3 class="text-xl font-bold mb-2" style="">Grades</h3>
+<p class="text-slate-500 text-sm leading-relaxed mb-6" style="">Manage grades for the recent mid-term assessments and finalize scores.</p>
+<div class="mt-auto flex items-center text-indigo-600 font-mono text-xs uppercase tracking-widest font-bold" style="">
+                        Manage grades <span class="material-symbols-outlined ml-2 text-sm" style="">arrow_forward</span>
+</div>
+</button>
+<!-- Lesson Instances Card -->
+<button class="group relative flex flex-col text-left p-8 bg-surface-container-lowest border border-outline-variant/20 rounded-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 active:scale-[0.98]" style="">
+<div class="absolute top-0 left-0 w-1 h-full bg-indigo-600 scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+<div class="mb-6 w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-indigo-600 text-3xl" style="">menu_book</span>
+</div>
+<h3 class="text-xl font-bold mb-2" style="">Lesson Instances</h3>
+<p class="text-slate-500 text-sm leading-relaxed mb-6" style="">Log topics covered, upload materials, and record student engagement.</p>
+<div class="mt-auto flex items-center text-indigo-600 font-mono text-xs uppercase tracking-widest font-bold" style="">
+                        Log topics <span class="material-symbols-outlined ml-2 text-sm" style="">arrow_forward</span>
+</div>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-white/85 dark:bg-slate-950/85 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(11,28,48,0.06)] border-t border-slate-200/50 dark:border-slate-800/50">
+<button class="flex flex-col items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-xl px-4 py-1 scale-100 active:scale-90 transition-all" style="">
+<span class="material-symbols-outlined" style="">home</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1" style="">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 scale-100 active:scale-90 transition-all hover:text-indigo-500" style="">
+<span class="material-symbols-outlined" style="">calendar_today</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1" style="">Schedule</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 scale-100 active:scale-90 transition-all hover:text-indigo-500" style="">
+<span class="material-symbols-outlined" style="">analytics</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1" style="">Gradebook</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 scale-100 active:scale-90 transition-all hover:text-indigo-500" style="">
+<span class="material-symbols-outlined" style="">auto_stories</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1" style="">Lesson Log</span>
+</button>
+</nav>
+<!-- Side context elements removed based on request -->
+</body></html>

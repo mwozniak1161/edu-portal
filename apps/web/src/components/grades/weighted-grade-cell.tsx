@@ -12,8 +12,8 @@ export function WeightedGradeCell({ value, weight, comment }: WeightedGradeCellP
     <Tooltip>
       <TooltipTrigger>
         <span className="inline-flex items-center gap-1 cursor-default">
-          <span className="font-medium">{value}</span>
-          <Badge variant="outline" className="text-xs px-1 py-0">
+          <span className="font-medium font-data">{value}</span>
+          <Badge variant="outline" className="text-xs px-1 py-0 font-data">
             ×{weight}
           </Badge>
         </span>

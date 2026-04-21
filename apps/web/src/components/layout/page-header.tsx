@@ -6,14 +6,14 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, description, action }: PageHeaderProps) {
   return (
-    <div className="flex items-start justify-between mb-6">
+    <div className="flex items-start justify-between mb-8 pt-2">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        <h1 className="text-3xl font-black tracking-tighter text-edu-on-surface">{title}</h1>
         {description && (
-          <p className="text-sm text-muted-foreground mt-1">{description}</p>
+          <p className="text-edu-outline mt-2 leading-relaxed">{description}</p>
         )}
       </div>
-      {action && <div>{action}</div>}
+      {action && <div className="shrink-0 ml-6">{action}</div>}
     </div>
   )
 }

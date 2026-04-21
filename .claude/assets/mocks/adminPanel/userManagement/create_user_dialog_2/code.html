@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eduportal | User Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "tertiary-container": "#a44100",
+                "surface-bright": "#f8f9ff",
+                "on-primary-fixed": "#0f0069",
+                "inverse-surface": "#213145",
+                "secondary": "#58579b",
+                "outline-variant": "#c7c4d8",
+                "outline": "#777587",
+                "on-secondary": "#ffffff",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#ffb695",
+                "error": "#ba1a1a",
+                "surface-tint": "#4d44e3",
+                "on-tertiary-container": "#ffd2be",
+                "on-tertiary-fixed-variant": "#7b2f00",
+                "on-primary-fixed-variant": "#3323cc",
+                "surface-container-high": "#dce9ff",
+                "primary-fixed-dim": "#c3c0ff",
+                "primary": "#3525cd",
+                "on-secondary-container": "#454386",
+                "surface-variant": "#d3e4fe",
+                "inverse-on-surface": "#eaf1ff",
+                "on-primary-container": "#dad7ff",
+                "surface-container": "#e5eeff",
+                "on-secondary-fixed": "#140f54",
+                "secondary-container": "#b6b4ff",
+                "on-primary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "error-container": "#ffdad6",
+                "inverse-primary": "#c3c0ff",
+                "tertiary-fixed": "#ffdbcc",
+                "secondary-fixed": "#e2dfff",
+                "surface": "#f8f9ff",
+                "surface-dim": "#cbdbf5",
+                "background": "#f8f9ff",
+                "on-tertiary-fixed": "#351000",
+                "tertiary": "#7e3000",
+                "primary-container": "#4f46e5",
+                "secondary-fixed-dim": "#c3c0ff",
+                "on-surface-variant": "#464555",
+                "on-surface": "#0b1c30",
+                "primary-fixed": "#e2dfff",
+                "on-background": "#0b1c30",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#413f82",
+                "surface-container-highest": "#d3e4fe",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#eff4ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            fontFamily: {
+              sans: ['Geist', 'Inter', 'sans-serif'],
+              mono: ['Geist Mono', 'monospace'],
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ink-bleed {
+            background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+        }
+        .tonal-shadow {
+            box-shadow: 0 16px 32px -4px rgba(11, 28, 48, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-hidden">
+<!-- Navigation Drawer (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#eff4ff] dark:bg-[#0b1c30] flex flex-col py-8 gap-2 z-10 transition-all duration-300 ease-in-out">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="">school</span>
+</div>
+<div>
+<h2 class="font-mono font-black text-[#3525cd] leading-none" style="">Eduportal</h2>
+<p class="text-[10px] font-sans uppercase tracking-widest opacity-70" style="">Administrator</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-3 text-[#0b1c30] dark:text-[#f8f9ff] opacity-70 hover:bg-[#f8f9ff]/50 font-sans text-sm uppercase tracking-widest transition-colors" href="#" style="">
+<span class="material-symbols-outlined" style="">dashboard</span>
+<span class="" style="">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 bg-[#3525cd] text-white rounded-r-full mr-4 font-sans text-sm uppercase tracking-widest" href="#" style="">
+<span class="material-symbols-outlined" style="">group</span>
+<span class="" style="">Users</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#0b1c30] dark:text-[#f8f9ff] opacity-70 hover:bg-[#f8f9ff]/50 font-sans text-sm uppercase tracking-widest transition-colors" href="#" style="">
+<span class="material-symbols-outlined" style="">library_books</span>
+<span class="" style="">Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#0b1c30] dark:text-[#f8f9ff] opacity-70 hover:bg-[#f8f9ff]/50 font-sans text-sm uppercase tracking-widest transition-colors" href="#" style="">
+<span class="material-symbols-outlined" style="">analytics</span>
+<span class="" style="">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-6">
+<div class="p-4 bg-surface-container-highest rounded-xl flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary overflow-hidden">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional administrator with neutral lighting and minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiwvBGw6N_Bq4CqijeoKPso3zRr9919xG7zSMUdVHbP_id07sVHYoqvUG-2YE2PcZRARDJ-2L6njrif4hqkCqWkJ3pzFw7KcMfSpTuu7EAhuqyV5H7c7wK-7Brxw012UFR7hQX_XP7NZWHPfTjjuUvETYDkGJ1npYV1JusK62Eauo4d93016qx-h4QYFzF06JlqDma1tKUWNCz2hOaARtTHZ0TFumHIPfaE4WdTg2vmE-Xjn6dBySbBxqQBrmN1c7Dotf7Rz77b78" style=""/>
+</div>
+<div>
+<p class="text-xs font-bold leading-none" style="">Eduportal</p>
+<p class="text-[10px] font-mono opacity-60" style="">v1.0.4</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen relative filter blur-sm grayscale-[0.2]">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex items-center justify-between px-6 h-16 w-full bg-[#f8f9ff] dark:bg-[#0b1c30] font-sans tracking-tight text-[#0b1c30] dark:text-[#f8f9ff]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500" style="">menu</span>
+<h1 class="text-lg font-bold text-[#3525cd]" style="">User Management</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500" style="">search</span>
+<span class="material-symbols-outlined text-slate-500" style="">notifications</span>
+<span class="material-symbols-outlined text-primary" style="">account_circle</span>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-bold tracking-tight text-on-surface mb-2" style="">Workspace</h2>
+<p class="text-on-surface-variant font-mono text-sm uppercase tracking-wider" style="">Directory / Active Members</p>
+</div>
+<button class="ink-bleed text-white px-6 py-3 rounded-md font-bold flex items-center gap-2" style="">
+<span class="material-symbols-outlined" style="">add</span>
+                    Create User
+                </button>
+</div>
+<!-- Bento Stats -->
+<div class="grid grid-cols-4 gap-6">
+<div class="col-span-1 bg-surface-container-lowest p-6 rounded-xl tonal-shadow border-l-4 border-primary">
+<p class="text-on-surface-variant text-sm font-sans mb-1" style="">Total Users</p>
+<p class="text-3xl font-mono font-bold" style="">1,284</p>
+</div>
+<div class="col-span-1 bg-surface-container-lowest p-6 rounded-xl tonal-shadow">
+<p class="text-on-surface-variant text-sm font-sans mb-1" style="">Active Now</p>
+<p class="text-3xl font-mono font-bold text-primary" style="">42</p>
+</div>
+<div class="col-span-2 bg-surface-container-lowest p-6 rounded-xl tonal-shadow flex justify-between items-center">
+<div>
+<p class="text-on-surface-variant text-sm font-sans mb-1" style="">Storage Usage</p>
+<p class="text-3xl font-mono font-bold" style="">84%</p>
+</div>
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[84%]"></div>
+</div>
+</div>
+</div>
+<!-- Fake Data Table -->
+<div class="bg-surface-container-lowest rounded-xl tonal-shadow overflow-hidden">
+<div class="px-6 py-8 border-b border-outline-variant/20">
+<h3 class="font-bold text-xl" style="">Member Directory</h3>
+</div>
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-xs uppercase tracking-widest text-on-surface-variant">
+<tr>
+<th class="px-6 py-4 font-medium" style="">User</th>
+<th class="px-6 py-4 font-medium" style="">Role</th>
+<th class="px-6 py-4 font-medium" style="">ID Reference</th>
+<th class="px-6 py-4 font-medium" style="">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4" style="">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant"></div>
+<span class="font-bold" style="">Julianne Vancott</span>
+</div></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Context Rail (Design System) -->
+<aside class="fixed right-0 top-0 h-screen w-12 bg-surface-container-highest flex flex-col items-center py-8 gap-6 z-10">
+<span class="material-symbols-outlined text-primary/40" style="">calendar_today</span>
+<span class="material-symbols-outlined text-primary/40" style="">calculate</span>
+<span class="material-symbols-outlined text-primary/40" style="">edit_note</span>
+<div class="mt-auto mb-4">
+<span class="material-symbols-outlined text-primary/40" style="">settings</span>
+</div>
+</aside>
+<!-- MODAL OVERLAY: Create User Dialog -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-md">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-xl tonal-shadow overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="pt-8 px-8 pb-4">
+<h2 class="text-2xl font-bold tracking-tight text-on-surface" style="">Create User</h2>
+<div class="w-12 h-1 bg-primary mt-2"></div>
+</div>
+<!-- Modal Content (Forms) -->
+<div class="px-8 py-4 space-y-6">
+<!-- Email Field -->
+<div class="space-y-1">
+<label class="text-sm font-sans text-on-surface-variant font-medium" style="">Email</label>
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-md px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-0 focus:outline-none focus:border-outline-variant transition-all font-mono text-sm" placeholder="name@atelier.edu" type="email"/>
+</div>
+</div>
+<!-- Name Row -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-sm font-sans text-on-surface-variant font-medium" style="">First Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-md px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-0 focus:outline-none focus:border-outline-variant transition-all" placeholder="John" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-sans text-on-surface-variant font-medium" style="">Last Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-md px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-0 focus:outline-none focus:border-outline-variant transition-all" placeholder="Doe" type="text"/>
+</div>
+</div>
+<!-- Role Selection -->
+<div class="space-y-1">
+<label class="text-sm font-sans text-on-surface-variant font-medium" style="">Role Selection</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant/20 rounded-md px-4 py-3 text-on-surface focus:ring-0 focus:outline-none focus:border-outline-variant appearance-none transition-all">
+<option>Student</option>
+<option>Teacher</option>
+<option>Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline" style="">expand_more</span>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-1">
+<label class="text-sm font-sans text-on-surface-variant font-medium" style="">Password</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-md px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-0 focus:outline-none focus:border-outline-variant transition-all" placeholder="••••••••" type="password"/>
+<div class="space-y-1 mt-1">
+<p class="text-[11px] text-primary/70 font-sans flex items-center gap-1" style="">
+<span class="material-symbols-outlined text-[14px]" style="">info</span>
+                        Leave blank to autogenerate
+                    </p>
+<p class="text-[11px] text-primary/70 font-sans pl-[18px]" style="">
+                        An email with login credentials will be sent to the user after the account is created.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="p-8 flex items-center justify-between gap-4 mt-2">
+<button class="px-6 py-2.5 rounded-md text-primary font-bold border border-primary/20 hover:bg-surface-container-high transition-colors" style="">
+                    Cancel
+                </button>
+<button class="ink-bleed px-8 py-2.5 rounded-md text-white font-bold tonal-shadow hover:brightness-110 active:scale-95 transition-all" style="">
+                    Create User
+                </button>
+</div>
+</div>
+</div>
+</body></html>

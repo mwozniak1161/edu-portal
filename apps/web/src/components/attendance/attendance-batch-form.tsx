@@ -52,7 +52,7 @@ export function AttendanceBatchForm({
           <div key={student.id} className="flex items-center justify-between p-3">
             <div className="flex items-center gap-3">
               <UserAvatar firstName={student.firstName} lastName={student.lastName} />
-              <span className="text-sm font-medium">
+              <span className="text-sm font-medium font-data">
                 {student.firstName} {student.lastName}
               </span>
             </div>

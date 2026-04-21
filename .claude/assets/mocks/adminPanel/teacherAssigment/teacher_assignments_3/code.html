@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Assignments | Eduportal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Geist', sans-serif;
+        }
+        .mono {
+            font-family: 'Geist Mono', monospace;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#140f54",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e2dfff",
+                        "primary-fixed": "#e2dfff",
+                        "on-background": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary": "#58579b",
+                        "on-secondary-container": "#454386",
+                        "tertiary": "#7e3000",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "secondary-container": "#b6b4ff",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-tertiary-fixed": "#351000",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-fixed": "#0f0069",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-surface": "#0b1c30",
+                        "surface-dim": "#cbdbf5",
+                        "on-surface-variant": "#464555",
+                        "surface-container-low": "#eff4ff",
+                        "primary": "#3525cd",
+                        "outline": "#777587",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#464555",
+                        "surface-container-high": "#dce9ff",
+                        "outline-variant": "#c7c4d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col py-8 px-4 h-screen w-72 bg-[#eff4ff] dark:bg-slate-900 font-['Geist'] text-sm tracking-tight leading-relaxed">
+<div class="mb-10 px-4">
+<span class="font-['Geist'] font-black text-xl tracking-tighter text-[#3525cd] dark:text-[#4f46e5]">Eduportal</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="group">group</span>
+                Users
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="school">school</span>
+                Classes
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="menu_book">menu_book</span>
+                Subjects
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg bg-white dark:bg-slate-800 text-[#3525cd] dark:text-[#4f46e5] border-l-4 border-[#3525cd] font-bold scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="assignment_ind">assignment_ind</span>
+                Teacher Assignments
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="schedule">schedule</span>
+                Timeslots
+            </a>
+</nav>
+<div class="mt-auto px-4 py-4 bg-surface-container-lowest/50 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold">AU</div>
+<div>
+<p class="text-xs font-bold text-on-background">Admin User</p>
+<p class="text-[10px] text-outline">System Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-30 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md shadow-[0_16px_32px_-16px_rgba(11,28,48,0.06)]">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Geist'] font-medium text-lg text-on-background">Teacher Assignments</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Search teacher or class..." type="text"/>
+</div>
+<div class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-on-background">Admin User</p>
+<p class="text-[10px] text-outline uppercase tracking-widest">Administrator</p>
+</div>
+<img alt="Avatar" class="w-10 h-10 rounded-full border-2 border-primary-container/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS0haXlYWkVZyNajwTcaQmnrI4hF-KKAMnxcbYANqjWdpl8s69LDhVDRo3VNqTZDjPgdi2UbbEx081uVG8BPD5bO4z88k3a0K-UBn35qYmWCmSBm7vqskA8zc0U8XimSolXwfhCILmbtAJN6bU9oaDFw0TEMGhVT8Yn8uHlqAL-R0fEWqjTFTKtmheqjqfTBgRpHQ9f86wY7OG5r69O2vR2qKE7dWB34XdL3k7pyzHBohPH0sjmcAuEGrYQJujfWpH56p0ncwIBGo"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-10 max-w-7xl mx-auto">
+<!-- Page Header + CTA -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+<div>
+<h2 class="text-4xl font-black tracking-tight text-on-background mb-2">Academic Allocation</h2>
+<p class="text-outline max-w-md leading-relaxed">Manage the strategic distribution of teaching staff across faculties and grade levels.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-md font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Assign Teacher
+                </button>
+</div>
+<!-- Filter Atelier -->
+<div class="bg-surface-container-low rounded-xl p-6 mb-8 flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-2 text-primary font-bold text-sm mr-4">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                    FILTERS
+                </div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border-none rounded-lg py-2 pl-4 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary/20 cursor-pointer">
+<option>All Grade Levels</option>
+<option>Grade 9</option>
+<option>Grade 10</option>
+<option>Grade 11</option>
+<option>Grade 12</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-sm" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border-none rounded-lg py-2 pl-4 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary/20 cursor-pointer">
+<option>All Departments</option>
+<option>Mathematics</option>
+<option>Humanities</option>
+<option>Sciences</option>
+<option>Arts</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-sm" data-icon="expand_more">expand_more</span>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-xs font-bold text-outline uppercase tracking-tighter">View:</span>
+<button class="p-2 bg-white text-primary rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-2 hover:bg-white text-outline rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="list">list</span>
+</button>
+</div>
+</div>
+<!-- Data Table: The Atelier Layout -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_32px_64px_-32px_rgba(11,28,48,0.1)]">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-5 text-[10px] font-black text-outline uppercase tracking-[0.2em]">Teacher</th>
+<th class="px-8 py-5 text-[10px] font-black text-outline uppercase tracking-[0.2em]">Department</th>
+<th class="px-8 py-5 text-[10px] font-black text-outline uppercase tracking-[0.2em]">Subject</th>
+<th class="px-8 py-5 text-[10px] font-black text-outline uppercase tracking-[0.2em]">Class Assigned</th>
+<th class="px-8 py-5 text-right text-[10px] font-black text-outline uppercase tracking-[0.2em]">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Teacher" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a middle-aged academic professional with glasses and a friendly expression in a bright office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByj9ULiYeiyj6p4fYzUlNU6c7k3hOcZSe99oB9LnmF53jcvRjqSJQp9WNhk_d0BZoxwUPDtPHiwd2Y2AlmpDj4aCuYa1tL-pS-upDk73vP3kMyNzIa1K0nksX1RA0eq0hxT6S3j02M1pQgrbGnbzshPXs7xRAOY7nr4OHjyY3M0RaHApvOem0ReOVyqaVoWL19zD51HvMCmdXYLRjJxoG2nPDhpOtDv9akUOR5Ywj47rkMhkq8DdtP_FLZ4boEUjdXNnEDn6cmOvg"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<p class="font-bold text-on-background">Dr. Elena Rodriguez</p>
+<p class="text-xs text-outline mono">EMP-8821</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-surface-container-high text-primary text-[10px] font-black rounded-full uppercase">Humanities</span>
+</td>
+<td class="px-8 py-6">
+<p class="font-medium text-on-background">Advanced Linguistics</p>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col gap-1">
+<span class="mono text-sm text-on-background">G12-A (Ivy Hall)</span>
+<span class="text-[10px] text-outline">Tue, Thu • 09:00 AM</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Teacher" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a young male teacher with a trendy haircut and casual academic attire in a modern classroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6CeYDcc1b4DUuMVcLWde5sguHBCNI5d5poEEVbOuXYbZo_XviDO7SufdGVHMsBrdxsUuNYVxI301z3BmLYCpdZBx5uTCgDCBBOWcDFXzogo62tmRtlafsKbGI5m5suyonp6oEhYb5RaJFOW-8REyHmtvE_hu-eAApc3Em-Iets5h0PlFwBafLzvIQbBf3Zl1DZHlm0sxT3cLiH6NCl2ZjJMmLFuKiq4RfZf8sBGosLtaghSHBVHsD6iGrEPx0u1xI3E9MtZ9yCwY"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<p class="font-bold text-on-background">Marcus Knight</p>
+<p class="text-xs text-outline mono">EMP-9022</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-surface-container-high text-primary text-[10px] font-black rounded-full uppercase">Sciences</span>
+</td>
+<td class="px-8 py-6">
+<p class="font-medium text-on-background">Quantum Mechanics</p>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col gap-1">
+<span class="mono text-sm text-on-background">G11-B (Tesla Lab)</span>
+<span class="text-[10px] text-outline">Mon, Wed • 11:30 AM</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Teacher" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a senior female professor with grey hair and a sophisticated look in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArP0-xPpIoAiow8pITX2aUFgUP_SfCjIbXJGHniT7f2B3LHImbOv0UBwXmQWroLAwCMOK8Nn55rEhTPYJADwmV-JXqTpwfxQ6a8An95XQor9s4m2rswvJtolQ4hEdEGFcrDBfqwoUgh0EEiiSBNUkUC4UBkKUrmX6aPXzi0NDCJJpjdw2Mi3cNCHBCoM8UP3Du1SRmD5ql-0t_AasFmUU40k5gpbVW35_62IfndUOcYhhwoMHTy-Ia6GQgZTkJ5GsO6uE5_W_niSY"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-amber-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<p class="font-bold text-on-background">Sarah Whitmore</p>
+<p class="text-xs text-outline mono">EMP-7712</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-surface-container-high text-primary text-[10px] font-black rounded-full uppercase">Mathematics</span>
+</td>
+<td class="px-8 py-6">
+<p class="font-medium text-on-background">Calculus III</p>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col gap-1">
+<span class="mono text-sm text-on-background">G12-C (Euler Hall)</span>
+<span class="text-[10px] text-outline">Fri • 02:00 PM</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Teacher" class="w-10 h-10 rounded-full object-cover" data-alt="Close up portrait of a young Asian male instructor in a design studio with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5aHzRdaWx4-yphKPW2qbxRZ_uNvT7SR51QD7G8HdNvO26YGIv1nUh6iJWw39iHq5X01ERSkKpPWH-6P7ivj-VVbgqQF_wGqwQR3Z8lH1FZg0S9409xNui92vJTP9MWRGaPuwdeXO9E3etYvkgXsU1D47Qxld_Ov-r7H8UOCefzGUwHIefCEMAYM2c7TGYb6QxS16fnhA_wN74kMLVbtRKkoxosgcA3dgK-MjD5QynGfI1N1dpGN-7XgHHoiHva7XmVSULQXTcb4k"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<p class="font-bold text-on-background">James Liao</p>
+<p class="text-xs text-outline mono">EMP-9910</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-surface-container-high text-primary text-[10px] font-black rounded-full uppercase">Arts</span>
+</td>
+<td class="px-8 py-6">
+<p class="font-medium text-on-background">Modern Art History</p>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col gap-1">
+<span class="mono text-sm text-on-background">G10-A (Vinci Studio)</span>
+<span class="text-[10px] text-outline">Mon, Fri • 08:30 AM</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Atelier -->
+<div class="px-8 py-6 bg-surface-container-low/20 flex items-center justify-between">
+<p class="text-xs text-outline font-medium">Showing <span class="text-on-background font-bold">4</span> of <span class="text-on-background font-bold">42</span> faculty assignments</p>
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-white rounded-lg text-outline disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary rounded-lg text-xs font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-white text-on-background rounded-lg text-xs font-bold">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-white text-on-background rounded-lg text-xs font-bold">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-white text-on-background rounded-lg text-xs font-bold">11</button>
+<button class="p-2 hover:bg-white rounded-lg text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Summary Statistics -->
+</div>
+<!-- Context Rail -->
+</main>
+</body></html>

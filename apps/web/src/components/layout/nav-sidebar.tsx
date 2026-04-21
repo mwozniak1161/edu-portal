@@ -14,8 +14,11 @@ export function NavSidebar({ navItems, footer }: NavSidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="flex h-full w-60 flex-col border-r bg-background">
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+    <aside className="flex h-full w-64 flex-col bg-edu-surface-low shrink-0">
+      <div className="px-6 py-8 mb-4">
+        <span className="text-xl font-black tracking-tighter text-edu-primary">Eduportal</span>
+      </div>
+      <nav className="flex-1 overflow-y-auto px-3 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon
           const active = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -24,10 +27,10 @@ export function NavSidebar({ navItems, footer }: NavSidebarProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors border-l-4',
                 active
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                  ? 'bg-edu-surface text-edu-primary border-edu-primary font-bold shadow-sm font-data'
+                  : 'text-edu-on-surface-variant hover:bg-edu-surface/60 hover:text-edu-primary border-transparent font-data',
               )}
             >
               {Icon && <Icon className="h-4 w-4 shrink-0" />}
@@ -36,7 +39,11 @@ export function NavSidebar({ navItems, footer }: NavSidebarProps) {
           )
         })}
       </nav>
-      {footer && <div className="border-t p-3">{footer}</div>}
+      {footer && (
+        <div className="border-t border-edu-outline-variant/20 p-4 mt-auto">
+          {footer}
+        </div>
+      )}
     </aside>
   )
 }

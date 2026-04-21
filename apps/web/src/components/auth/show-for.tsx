@@ -10,8 +10,10 @@ interface ShowForProps {
 }
 
 export function ShowFor({ roles, children, fallback = null }: ShowForProps) {
+  const hasHydrated = useAuthStore((s) => s._hasHydrated)
   const user = useAuthStore((s) => s.user)
 
+  if (!hasHydrated) return null
   if (!user || !roles.includes(user.role)) return <>{fallback}</>
   return <>{children}</>
 }

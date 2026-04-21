@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -135,9 +136,9 @@ model Timeslot {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
-  teacherClassId String @map("teacher_class_id")
+  teacherClassId String? @map("teacher_class_id")
 
-  teacherClass TeacherClass @relation(fields: [teacherClassId], references: [id], onDelete: Cascade)
+  teacherClass TeacherClass? @relation(fields: [teacherClassId], references: [id], onDelete: SetNull)
 
   @@unique([teacherClassId, weekDay, startingHour])
   @@map("timeslots")

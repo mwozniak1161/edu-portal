@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management | Eduportal</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;300;400;500;600;700;800;900&amp;family=Geist+Mono:wght@100;400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#140f54",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#e2dfff",
+                        "primary-fixed": "#e2dfff",
+                        "on-background": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary": "#58579b",
+                        "on-secondary-container": "#454386",
+                        "tertiary": "#7e3000",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "secondary-container": "#b6b4ff",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-tertiary-fixed": "#351000",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-fixed": "#0f0069",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-surface": "#0b1c30",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "primary": "#3525cd",
+                        "outline": "#777587",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#464555",
+                        "surface-container-high": "#dce9ff",
+                        "outline-variant": "#c7c4d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "sans": ["Geist", "Inter", "sans-serif"],
+                        "mono": ["Geist Mono", "monospace"],
+                        "headline": ["Geist", "Inter", "sans-serif"],
+                        "body": ["Geist", "Inter", "sans-serif"],
+                        "label": ["Geist", "Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Geist', sans-serif; }
+        .ink-bleed {
+            background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-white">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col py-8 px-4 h-screen w-72 bg-[#eff4ff] dark:bg-slate-900 border-r-0">
+<div class="mb-10 px-4">
+<span class="font-['Geist'] font-black text-xl tracking-tighter text-[#3525cd] dark:text-[#4f46e5]">Eduportal</span>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Dashboard</span>
+</a>
+<!-- Users - ACTIVE -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg bg-white dark:bg-slate-800 text-[#3525cd] dark:text-[#4f46e5] border-l-4 border-[#3525cd] font-bold scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Users</span>
+</a>
+<!-- Classes -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Classes</span>
+</a>
+<!-- Subjects -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Subjects</span>
+</a>
+<!-- Teacher Assignments -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Teacher Assignments</span>
+</a>
+<!-- Timeslots -->
+<a class="flex items-center px-4 py-3 gap-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+<span class="font-['Geist'] text-sm tracking-tight leading-relaxed">Timeslots</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-8">
+<div class="p-4 rounded-xl bg-surface-container-highest/30 flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">A</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Admin User</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest">Administrator</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-30 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md shadow-[0_16px_32px_-16px_rgba(11,28,48,0.06)]">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[#3525cd]" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Geist'] font-black text-xl tracking-tighter text-[#3525cd]">Users</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 ink-bleed text-on-primary rounded-md shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span class="text-sm font-medium">Create User</span>
+</button>
+</div>
+</header>
+<!-- Canvas Content -->
+<section class="p-8 max-w-7xl w-full mx-auto space-y-8">
+<!-- Filter & Search Section -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-wrap items-end gap-6 shadow-sm">
+<div class="flex-1 min-w-[300px]">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Search Personnel</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-low border-0 focus:ring-2 focus:ring-primary rounded-md font-['Geist'] text-sm" placeholder="Search by name, email or ID..." type="text"/>
+</div>
+</div>
+<div class="w-48">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Filter Role</label>
+<select class="w-full py-3 bg-surface-container-low border-0 focus:ring-2 focus:ring-primary rounded-md font-['Geist'] text-sm">
+<option>All Roles</option>
+<option>Administrator</option>
+<option>Instructor</option>
+<option>Student</option>
+<option>Curator</option>
+</select>
+</div>
+<div class="w-48">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Filter Status</label>
+<select class="w-full py-3 bg-surface-container-low border-0 focus:ring-2 focus:ring-primary rounded-md font-['Geist'] text-sm">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+<option>Pending</option>
+</select>
+</div>
+<button class="h-[46px] px-6 bg-surface-container-high text-primary font-bold rounded-md hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                    Apply
+                </button>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-slate-500">
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.1em]">User Information</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.1em]">Contact</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.1em]">Role</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.1em]">Status</th>
+<th class="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-[0.1em]">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up portrait of a professional male academic with a warm smile in a brightly lit library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC35765gef1-jzIbDedlxKhN1sZ54mXGRT7hYfvJc-BAvyCqK8a_XLWhVnrWEcdElrIu-k7q3As9bt5jyKKWdVunpxWJL5GpbpL0z2FIdmN3YiRFK1ydm3pYAZA89KTOJl2q37nfyW2SfQ9mUmLDk47xhFBiPGP-V55W_Js5tpj9aXZPlSyFBAyygJgFcf1QY7OeQpMWBHTkR0PcHOGwfwIbsG-wkjAMo8UQzYHA0Z2-qI9opdhxUpBvcF0EVoPJydevPrS3pTYVK8"/>
+<div class="flex flex-col">
+<span class="font-bold text-on-background text-sm">Dr. Julian Vance</span>
+<span class="font-mono text-[10px] text-slate-400">ID: AT-99201</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-600">j.vance@atelier.edu</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-primary-container/10 text-primary-container text-[11px] font-bold rounded-full uppercase tracking-tighter">Instructor</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-emerald-600">Active</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Headshot of a focused female educator with modern glasses in a soft-focus minimalist office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEktOVlRR6_X50FmXEqKdZ02NRMc9FN6BKO5UNeuVqIEM-UXWjjtfeqBQkiAfgV5WKELXoZbB1jnxZmlWUYr5yFAHJfMxO2WvCXpJusxNR7MyGUx_56J85TSptnHyIO_FoFl0QZb1GwDY64-5vlWrM_sGHOdtDkn4gjdNuxlNLyUJXKudAeRm5azKD0R2l0jhJpwAtlNH2d6Y1sCWV-sumY_YLzTl3wZz4mSg8QrkUAeACVtolbAAbx49m0igADP8Ew_NIkjzys3Q"/>
+<div class="flex flex-col">
+<span class="font-bold text-on-background text-sm">Elena Rodriguez</span>
+<span class="font-mono text-[10px] text-slate-400">ID: AT-99202</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-600">e.rod@atelier.edu</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary text-[11px] font-bold rounded-full uppercase tracking-tighter">Curator</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-emerald-600">Active</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold">SC</div>
+<div class="flex flex-col">
+<span class="font-bold text-on-background text-sm">Sebastian Chen</span>
+<span class="font-mono text-[10px] text-slate-400">ID: AT-99215</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-600">s.chen@atelier.edu</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-on-surface-variant/10 text-on-surface-variant text-[11px] font-bold rounded-full uppercase tracking-tighter">Student</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+<span class="text-xs font-medium text-amber-600">Pending</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a creative male designer with a short beard and casual artistic attire in a bright sunlit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBec57pX97bEd2Si-3J6yTEsJHLG54Z2BEa7hgY5Tb93is_UI7oujxUT4beTM-jnzI8NqfoZkmkMh0WQGoUvvJYZuUGJcJkOE9dtK_ecO8_YViuFXPp-sv9qAOYpb9BKioioypBwcZu-PIvqeY9fFgRZD5rM3eydmQSVJOPEsl18TH7skVZC1upkENh5k8ekyl9OftSpnaWEITdd0c9FTQ4g8L4xjM7yAHFU78hFFm8gioXqefEmikWicUw6Bosee7J_kh1ao8f-Ng"/>
+<div class="flex flex-col">
+<span class="font-bold text-on-background text-sm">Marcus Thorne</span>
+<span class="font-mono text-[10px] text-slate-400">ID: AT-99188</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-600">m.thorne@atelier.edu</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full uppercase tracking-tighter">Admin</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<span class="text-xs font-medium text-slate-400">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 flex items-center justify-between bg-surface-container-low/30 border-t border-outline-variant/10">
+<div class="text-xs text-slate-500 font-medium">
+                        Showing <span class="font-mono text-on-background">1-4</span> of <span class="font-mono text-on-background">128</span> entries
+                    </div>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded hover:bg-white text-slate-400 transition-colors disabled:opacity-30">
+<span class="material-symbols-outlined text-lg" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-white text-xs font-bold font-mono">1</button>
+<button class="w-8 h-8 rounded hover:bg-white text-slate-600 text-xs font-bold font-mono transition-colors">2</button>
+<button class="w-8 h-8 rounded hover:bg-white text-slate-600 text-xs font-bold font-mono transition-colors">3</button>
+<span class="px-2 text-slate-400 font-mono">...</span>
+<button class="w-8 h-8 rounded hover:bg-white text-slate-600 text-xs font-bold font-mono transition-colors">32</button>
+<button class="p-2 rounded hover:bg-white text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Stats Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] block mb-2">Total Managed</span>
+<div class="font-['Geist'] font-black text-3xl tracking-tighter text-on-background mb-1">1,248</div>
+<p class="text-xs text-slate-500">Personnel currently in database</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-[0.2em] block mb-2">Active Instructors</span>
+<div class="font-['Geist'] font-black text-3xl tracking-tighter text-on-background mb-1">86</div>
+<p class="text-xs text-slate-500">Actively teaching this semester</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-on-secondary-fixed/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<span class="text-[10px] font-bold text-on-secondary-fixed uppercase tracking-[0.2em] block mb-2">System Load</span>
+<div class="font-['Geist'] font-black text-3xl tracking-tighter text-on-background mb-1">12%</div>
+<p class="text-xs text-slate-500">Capacity utilization for user data</p>
+</div>
+</div>
+</section>
+<!-- Context Rail (The Atelier Toolset) -->
+</main>
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance - EduSlate Indigo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-surface": "#0b1c30",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary": "#7e3000",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary-container": "#ffd2be",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "surface-container-high": "#dce9ff",
+                    "primary": "#3525cd",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-tint": "#4d44e3",
+                    "on-background": "#0b1c30",
+                    "on-surface-variant": "#464555",
+                    "primary-container": "#4f46e5",
+                    "surface-variant": "#d3e4fe",
+                    "secondary-container": "#b6b4ff",
+                    "on-secondary-fixed-variant": "#413f82",
+                    "outline-variant": "#c7c4d8",
+                    "secondary-fixed": "#e2dfff",
+                    "secondary": "#58579b",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "on-primary-container": "#dad7ff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#454386",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-secondary-fixed": "#140f54",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary-container": "#a44100",
+                    "surface-container": "#e5eeff",
+                    "outline": "#777587",
+                    "inverse-surface": "#213145"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "sans": ["Geist", "Inter", "sans-serif"],
+                    "mono": ["Geist Mono", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Geist', sans-serif; }
+        .geist-mono { font-family: 'Geist Mono', monospace; }
+        .ink-bleed { background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 p-2 hover:bg-slate-100 dark:hover:bg-indigo-900/20 transition-colors rounded-full active:scale-95 transition-transform" data-icon="menu">menu</button>
+<h1 class="text-xl font-bold tracking-tighter text-indigo-700 dark:text-indigo-300">EduSlate Indigo</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 text-sm font-sans tracking-tight items-center">
+<span class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition-colors cursor-pointer">Dashboard</span>
+<span class="text-indigo-700 dark:text-indigo-300 font-semibold cursor-default">Attendance</span>
+<span class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition-colors cursor-pointer">Grades</span>
+<span class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition-colors cursor-pointer">Lesson Instances</span>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-100 bg-surface-container-low active:scale-95 transition-transform cursor-pointer">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional educator in a bright office with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_BuHt7xXRLHi5l28Q1L0HKDYFF5J8XLUo8oRhRd1KCJAhD7TFEb4vXY8LtzZ-w1Iu3XVjDcdXqv0CK3vyOIyJtIABTSpwUB750HRn0_lgw-0OB8cHJW3YdMuJ1UOrCxtk1Jf6NQfU76-6MafBgZHQiJX00KkEjGWy3g1CLmNjYS1joSgN_e7W57TW_Ge97HcZ9QgbzqINigFVnVo4KCyzPpzS1QDpM1GbwjrGXKiEU3q_sKKjYM0gH5elOICsRRbEvB2wqdAdr2g"/>
+</div>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 z-50 bg-white dark:bg-slate-950 border-r-4 border-indigo-600 py-8 gap-2">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-indigo-600 leading-none">Eduportal</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 mt-1">Teacher Workspace</p>
+</div>
+</div>
+<div class="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-xl border border-indigo-100 dark:border-indigo-800/30">
+<p class="text-[10px] geist-mono font-bold text-indigo-600 uppercase tracking-tighter">Current Session</p>
+<p class="text-sm font-medium text-indigo-900 dark:text-indigo-100">Fall 2024</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-3 text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 py-3 bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 rounded-l-none border-l-4 border-indigo-600 pl-5 pr-6 font-medium text-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                Attendance
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="grade">grade</span>
+                Grades
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Lesson Instances
+            </a>
+</nav>
+<div class="mt-auto px-6">
+<div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200">
+<img alt="Teacher Profile" class="w-full h-full rounded-full object-cover" data-alt="professional headshot of a middle-aged male teacher with glasses smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCobF3LOVppr8X3XajjQmEuPgB9-axWuJhpmkAZsLCY24nsEuq8fthtAN2b6EgJVN8YTDFUFK9PlMMwoAHjDOwSABJQS_uYZNOFn6P456DKsw7u75NiYMZOHBIwBonvPDpE65jIflgvkr3prJmVc0aSaLCd4RW0-xXmyUmmge75l7zUMwdJI4XnsHjaH1rqcNJ_Akd4-JP1jmhZwplXdi5V1yzGqh_2bpJ06utSyFNd5jwg0YQXEhQjPUs1HzbWVhk2pix1r577lRc"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Dr. Julian Vance</p>
+<p class="text-[10px] text-slate-500">Senior Faculty</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Context Rail (Design System Requirement) -->
+<!-- Main Content Area -->
+<main class="md:pl-72 pt-16 pb-24 min-h-screen">
+<div class="max-w-5xl mx-auto px-6 md:px-12">
+<!-- Page Header Section -->
+<div class="py-12">
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Attendance</h2>
+<p class="text-sm text-slate-500 font-sans">Manage daily classroom records and verify student presence.</p>
+</div>
+<!-- Controls (Asymmetric Layout) -->
+<section class="bg-surface-container-low p-1 rounded-2xl mb-12">
+<div class="bg-surface-container-lowest rounded-xl p-6 flex flex-col md:flex-row items-end gap-6 shadow-sm">
+<div class="flex-1 w-full">
+<label class="block text-[10px] geist-mono uppercase tracking-widest text-indigo-600 mb-2 font-bold">Lesson Instances</label>
+<div class="relative group">
+<select class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-lg h-12 px-4 appearance-none text-sm font-medium">
+<option>Advanced Typography - Oct 24 Session</option>
+<option>Creative Writing II - Morning Lecture</option>
+<option>Visual Communication - Lab A</option>
+<option>Digital Illustration - Review Session</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-3 text-slate-400 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="flex-1 w-full">
+<label class="block text-[10px] geist-mono uppercase tracking-widest text-indigo-600 mb-2 font-bold">Session Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-lg h-12 px-4 text-sm font-medium" type="date" value="2024-10-24"/>
+</div>
+</div>
+<button class="h-12 px-8 border-2 border-indigo-600 text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 active:scale-95 transition-all text-sm uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="refresh">refresh</span>
+                        Load
+                    </button>
+</div>
+</section>
+<!-- Student Roster Table (No-Line Rule) -->
+<section class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<div class="grid grid-cols-12 px-8 py-6 bg-slate-50 border-b border-slate-100">
+<div class="col-span-7">
+<span class="text-[10px] geist-mono uppercase tracking-widest text-slate-400 font-bold">Student Participant</span>
+</div>
+<div class="col-span-5 text-right">
+<span class="text-[10px] geist-mono uppercase tracking-widest text-slate-400 font-bold">Attendance Status</span>
+</div>
+</div>
+<div class="divide-y-0">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 items-center px-8 py-5 hover:bg-surface-container-low transition-colors group">
+<div class="col-span-7 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 border border-indigo-100 p-1 flex-shrink-0">
+<img alt="Student 1" class="w-full h-full object-cover rounded-lg" data-alt="portrait of a young female college student with curly hair wearing a yellow sweater" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArVhHXAFuxnP3jihGXShp2MK29bpVebRfbHaJHG7AMJwZEgPw70vUB-2l-sYnePFBOePp-Ukqo8xPW2NmVW9N03btACvk4cHPatKf4N1LVrwH-NxwqiR5K1HIaiKer940KGJxlSBMzqT8Tx8mk8iZdVFv1oXAbPUZW3PcSVc0ocYmDKTw0Dy5vgM7iXCB_ytNgCXzpAG-GSo702NHRGNb-EoLMCzmebdwiIKkrL8DAIsjDtSBqLOrZGR9eRRb1NqmPoUHQ4DOp3gk"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Amara Miller</p>
+<p class="text-[10px] geist-mono text-slate-500">STU-2024-0012</p>
+</div>
+</div>
+<div class="col-span-5 flex justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">Present</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Absent</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Late</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 items-center px-8 py-5 bg-surface-container-low/30 hover:bg-surface-container-low transition-colors group">
+<div class="col-span-7 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 border border-indigo-100 p-1 flex-shrink-0">
+<img alt="Student 2" class="w-full h-full object-cover rounded-lg" data-alt="portrait of a confident male student with short dark hair in a casual blue shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1Pu1pUjdHSngapB40ujOlw8SNJbhFzgYwCCS7nMLItrvHVqEupr9IQkNSS0Dl0YDjjusSsgoRYegPOW_8wWbmyaFHu0e9JcUdnvyKBwfVJYVSlMzf8xLqtUUtsYOOBPDd1HXlplls_aONd1r90p94uKLyUH5DTEyaHlifzPgEeCMUpIYMPpjqwUZNQi_DKa6t95n_gdSPXElk8LuzEZHPeilvdY-aSJxZPbqPhvkbp7iCBI5-iPoZOQAOk8_UcPTM4oxx3e7m1j4"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Benjamin Chen</p>
+<p class="text-[10px] geist-mono text-slate-500">STU-2024-0045</p>
+</div>
+</div>
+<div class="col-span-5 flex justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Present</button>
+<button class="px-4 py-2 rounded-lg bg-error text-white text-[10px] font-black uppercase tracking-widest transition-all">Absent</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Late</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 items-center px-8 py-5 hover:bg-surface-container-low transition-colors group">
+<div class="col-span-7 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 border border-indigo-100 p-1 flex-shrink-0">
+<img alt="Student 3" class="w-full h-full object-cover rounded-lg" data-alt="portrait of a female student with glasses and a friendly expression wearing a green hoodie" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDunQT2q3o60VEHcyAP30CJRSfZYsUQYeg-D8vT67gU7WGg3u98aevkJFHtIv63VT3wl0yJHcJeEjvmhDvyo3EnYf6AiNMhO_OL8LdkZHMH0NxOIT-opHpwx_zOh92WHpsxrc8hPTVcjWFZVOrvTt9sPL3HfIOcguklq00zt05wZEjEG4-THHakYTRG_Llpq42ljPTdJPyWGQQJwl5vLQ8pR7lAo3qkVb3E3am7f2oOIm0vcDjjqUYCsFj8D15f3evTbOw8ce9WSG8"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Daisy Kross</p>
+<p class="text-[10px] geist-mono text-slate-500">STU-2024-0102</p>
+</div>
+</div>
+<div class="col-span-5 flex justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">Present</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Absent</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Late</button>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 items-center px-8 py-5 bg-surface-container-low/30 hover:bg-surface-container-low transition-colors group">
+<div class="col-span-7 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 border border-indigo-100 p-1 flex-shrink-0">
+<img alt="Student 4" class="w-full h-full object-cover rounded-lg" data-alt="portrait of a focused male student with a stylish haircut wearing a white t-shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy4Q2LXJPyufDCp6FoNM1fQdVrLCeKZOGE8r74BsyzchA_VQZGIVA63W4Mi-SEos8qPyDw8z259wVtBPEJTZhV_tMfzTdd37rMka-EQxlrFfr5by-5_c7esXM4Gk7uMDa0bv957Jf-ugCCJojBVOcOgA2CyF235w-8t317wzkISxHUFiBJRuAyY6f6SUvIK0bBQpVho0kuYyoY3eFNoqOlEvFK8t2JxzDHFFYXPVPBg8tQ71H7esAKsF_ZtAxxwBga6fE6IeQAM6M"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Elias Thorne</p>
+<p class="text-[10px] geist-mono text-slate-500">STU-2024-0089</p>
+</div>
+</div>
+<div class="col-span-5 flex justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Present</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Absent</button>
+<button class="px-4 py-2 rounded-lg bg-tertiary-container text-white text-[10px] font-black uppercase tracking-widest transition-all">Late</button>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="grid grid-cols-12 items-center px-8 py-5 hover:bg-surface-container-low transition-colors group">
+<div class="col-span-7 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 border border-indigo-100 p-1 flex-shrink-0">
+<img alt="Student 5" class="w-full h-full object-cover rounded-lg" data-alt="portrait of a smiling female student with long hair wearing a black leather jacket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbWbfnwn3Y2tVZxtwDeiyWpPIBWuedVaf5SXOILQz57v3_2fkQayXLa5xH-deSH34sHOXs1g4KR9IlqkYgPICXFgXaDWFPqrQX546G7sOEe2_GOCwtEEheGDsI4djWrclIDJ45f62ZkE95WoTf6DZ8qlIzsv48KAiTnvFz5rP2_epePkNl73zSAS40n4FExXVMCMJqXKO5PWPQKiSeyz06D_W4KaFvwAaKSIIUZEm1Uyp2jRPZU6WTISmsbLrdzpyi_Br4FvQdb2s"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Fiona Wells</p>
+<p class="text-[10px] geist-mono text-slate-500">STU-2024-0211</p>
+</div>
+</div>
+<div class="col-span-5 flex justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest transition-all">Present</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Absent</button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-slate-500 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 transition-all">Late</button>
+</div>
+</div>
+</div>
+<!-- Footer Section (Right Aligned Action) -->
+<div class="px-8 py-10 bg-slate-50 flex justify-end">
+<button class="ink-bleed px-12 py-4 text-white font-black text-sm uppercase tracking-[0.2em] rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="cloud_upload">cloud_upload</span>
+                        Save All Records
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-white/85 dark:bg-slate-950/85 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(11,28,48,0.06)]">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="home">home</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-xl px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="calendar_today">calendar_today</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Schedule</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="analytics">analytics</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Gradebook</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="auto_stories">auto_stories</span>
+<span class="font-mono text-[10px] uppercase tracking-widest mt-1">Lesson Log</span>
+</div>
+</nav>
+</body></html>
