@@ -1,15 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GithubReviewService {
   private readonly logger = new Logger(GithubReviewService.name);
 
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   async processPrEvent(payload: any) {
     try {
@@ -32,7 +28,7 @@ export class GithubReviewService {
   private async fetchPrDiff(owner: string, repo: string, prNumber: number): Promise<string> {
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}.diff`;
     const headers: Record<string, string> = { Accept: 'application/vnd.github.v3.diff' };
-    const token = this.configService.get<string>('GH_TOKEN');
+    const token = process.env.GH_TOKEN;
     if (token) headers.Authorization = `token ${token}`;
     const response = await this.httpService.axiosRef.get(url, { headers });
     return response.data;
@@ -62,7 +58,7 @@ Focus on: obvious bugs, security issues, and major style problems. Be concise an
         },
         {
           headers: {
-            'x-api-key': this.configService.get<string>('CLAUDE_API_KEY') || '',
+            'x-api-key': process.env.CLAUDE_API_KEY || '',
             'anthropic-version': '2023-06-01',
             'content-type': 'application/json',
           },
@@ -83,7 +79,7 @@ Focus on: obvious bugs, security issues, and major style problems. Be concise an
         body: `## 🤖 Claude Code Review\n\n${comment}\n\n*This is an automated review. Feedback is advisory only.*`,
       },
       {
-        headers: { Authorization: `token ${this.configService.get<string>('GH_TOKEN') || ''}` },
+        headers: { Authorization: `token ${process.env.GH_TOKEN || ''}` },
       },
     );
   }

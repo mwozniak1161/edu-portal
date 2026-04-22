@@ -1,21 +1,17 @@
 import { Controller, Post, Body, Headers, UnauthorizedException } from '@nestjs/common';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { GithubReviewService } from './github-review.service';
-import { ConfigService } from '@nestjs/config';
 
 @Controller('github-webhook')
 export class GithubReviewController {
-  constructor(
-    private readonly githubService: GithubReviewService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly githubService: GithubReviewService) {}
 
   @Post()
   async handleWebhook(
     @Headers('x-hub-signature-256') signature: string,
     @Body() payload: any,
   ): Promise<{ status: string }> {
-    const secret = this.configService.get<string>('GH_WEBHOOK_SECRET') || '';
+    const secret = process.env.GH_WEBHOOK_SECRET || '';
     if (!this.validateSignature(signature, JSON.stringify(payload), secret)) {
       throw new UnauthorizedException('Invalid webhook signature');
     }
