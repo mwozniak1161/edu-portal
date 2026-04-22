@@ -57,14 +57,13 @@ jobs:
         working-directory: apps/api
         run: pnpm exec prisma generate
 
-      # TODO: replace with proper ESLint lint once .eslintrc is configured per app
-      - name: Type-check API (temporary — no ESLint config exists yet)
+      - name: Lint API
         working-directory: apps/api
-        run: pnpm exec tsc --noEmit
+        run: pnpm exec eslint src --ext .ts,.tsx
 
-      - name: Type-check Web (temporary — no ESLint config exists yet)
+      - name: Lint Web
         working-directory: apps/web
-        run: pnpm exec tsc --noEmit
+        run: pnpm exec eslint src --ext .ts,.tsx,.js,.jsx
 
       - name: Run migrations
         working-directory: apps/api

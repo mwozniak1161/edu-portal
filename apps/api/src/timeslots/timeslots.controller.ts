@@ -11,7 +11,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -33,10 +39,7 @@ export class TimeslotsController {
   @ApiQuery({ name: 'teacherClassId', required: false })
   @ApiQuery({ name: 'classId', required: false })
   @ApiOkResponse({ description: 'List of timeslots' })
-  findAll(
-    @Query('teacherClassId') teacherClassId?: string,
-    @Query('classId') classId?: string,
-  ) {
+  findAll(@Query('teacherClassId') teacherClassId?: string, @Query('classId') classId?: string) {
     return this.timeslotsService.findAll(teacherClassId, classId);
   }
 

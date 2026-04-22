@@ -46,10 +46,7 @@ export class LessonInstancesController {
   @ApiQuery({ name: 'teacherClassId', required: false })
   @ApiQuery({ name: 'date', required: false })
   @ApiOkResponse({ description: 'List of lesson instances' })
-  findAll(
-    @Query('teacherClassId') teacherClassId?: string,
-    @Query('date') date?: string,
-  ) {
+  findAll(@Query('teacherClassId') teacherClassId?: string, @Query('date') date?: string) {
     return this.lessonInstancesService.findAll(teacherClassId, date);
   }
 
@@ -63,20 +60,14 @@ export class LessonInstancesController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({ description: 'Lesson instance created' })
-  create(
-    @Body() dto: CreateLessonInstanceDto,
-    @Request() req: RequestWithUser,
-  ) {
+  create(@Body() dto: CreateLessonInstanceDto, @Request() req: RequestWithUser) {
     return this.lessonInstancesService.create(dto, req.user.id);
   }
 
   @Post('generate-for-date')
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({ description: 'Lesson instances generated from timeslots for date' })
-  generateForDate(
-    @Body() dto: GenerateLessonInstancesDto,
-    @Request() req: RequestWithUser,
-  ) {
+  generateForDate(@Body() dto: GenerateLessonInstancesDto, @Request() req: RequestWithUser) {
     return this.lessonInstancesService.generateForDate(dto, req.user.id);
   }
 

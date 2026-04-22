@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateLessonInstanceDto } from './dto/create-lesson-instance.dto';
 import { UpdateLessonInstanceDto } from './dto/update-lesson-instance.dto';
@@ -15,10 +10,7 @@ export class LessonInstancesService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  private async assertTeacherOwnsTeacherClass(
-    teacherClassId: string,
-    teacherId: string,
-  ) {
+  private async assertTeacherOwnsTeacherClass(teacherClassId: string, teacherId: string) {
     const tc = await this.prisma.teacherClass.findUniqueOrThrow({
       where: { id: teacherClassId },
     });
@@ -85,10 +77,7 @@ export class LessonInstancesService {
 
   async update(id: string, dto: UpdateLessonInstanceDto, teacherId: string) {
     const instance = await this.findOne(id);
-    await this.assertTeacherOwnsTeacherClass(
-      instance.teacherClassId,
-      teacherId,
-    );
+    await this.assertTeacherOwnsTeacherClass(instance.teacherClassId, teacherId);
 
     return this.prisma.lessonInstance.update({
       where: { id },
@@ -101,10 +90,7 @@ export class LessonInstancesService {
 
   async remove(id: string, teacherId: string) {
     const instance = await this.findOne(id);
-    await this.assertTeacherOwnsTeacherClass(
-      instance.teacherClassId,
-      teacherId,
-    );
+    await this.assertTeacherOwnsTeacherClass(instance.teacherClassId, teacherId);
     await this.prisma.lessonInstance.delete({ where: { id } });
   }
 
@@ -176,9 +162,7 @@ export class LessonInstancesService {
     // Process each teacher-class
     for (const teacherClass of teacherClasses) {
       // Filter timeslots for the specific weekday
-      const timeslotsForDay = teacherClass.timeslots.filter(
-        (ts) => ts.weekDay === weekDay,
-      );
+      const timeslotsForDay = teacherClass.timeslots.filter((ts) => ts.weekDay === weekDay);
 
       if (timeslotsForDay.length === 0) {
         continue;

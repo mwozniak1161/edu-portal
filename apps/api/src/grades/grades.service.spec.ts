@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { GradesService } from './grades.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { MailService } from '../mail/mail.service';
+
+const mockMailService = { sendGradeNotificationEmail: jest.fn().mockResolvedValue(undefined) };
 
 const TEACHER_ID = 'teacher-1';
 const STUDENT_ID = 'student-1';
@@ -63,6 +66,7 @@ describe('GradesService', () => {
       providers: [
         GradesService,
         { provide: PrismaService, useValue: prisma },
+        { provide: MailService, useValue: mockMailService },
       ],
     }).compile();
     service = module.get(GradesService);
@@ -140,7 +144,10 @@ describe('GradesService', () => {
 
   describe('ownership guard', () => {
     it('throws ConflictException when teacher does not own teacher-class', async () => {
-      prisma.teacherClass.findUniqueOrThrow.mockResolvedValue({ id: TC_ID, teacherId: 'other-teacher' });
+      prisma.teacherClass.findUniqueOrThrow.mockResolvedValue({
+        id: TC_ID,
+        teacherId: 'other-teacher',
+      });
       await expect(
         service.create({ value: 5, studentId: STUDENT_ID, teacherClassId: TC_ID }, TEACHER_ID),
       ).rejects.toThrow(ConflictException);
@@ -175,7 +182,9 @@ describe('GradesService', () => {
       const tx = {
         grade: {
           update: jest.fn().mockResolvedValue({ ...mockGrade, isExcluded: true }),
-          create: jest.fn().mockResolvedValue({ ...mockGrade, id: 'correction-id', correctionForId: GRADE_ID }),
+          create: jest
+            .fn()
+            .mockResolvedValue({ ...mockGrade, id: 'correction-id', correctionForId: GRADE_ID }),
         },
       };
       prisma.$transaction.mockImplementation((fn: (tx: typeof tx) => Promise<unknown>) => fn(tx));

@@ -39,10 +39,7 @@ describe('TeacherClassesService', () => {
   beforeEach(async () => {
     prisma = buildPrisma();
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        TeacherClassesService,
-        { provide: PrismaService, useValue: prisma },
-      ],
+      providers: [TeacherClassesService, { provide: PrismaService, useValue: prisma }],
     }).compile();
     service = module.get(TeacherClassesService);
   });

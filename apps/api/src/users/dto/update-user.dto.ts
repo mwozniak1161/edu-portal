@@ -1,5 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsOptional, IsString, MinLength, Matches, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MinLength,
+  Matches,
+  IsUUID,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 import { Role } from '../../generated/prisma/enums';
 

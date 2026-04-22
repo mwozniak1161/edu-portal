@@ -16,10 +16,7 @@ const lessonInstanceInclude = {
 export class AttendanceService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private async assertTeacherOwnsLessonInstance(
-    lessonInstanceId: string,
-    teacherId: string,
-  ) {
+  private async assertTeacherOwnsLessonInstance(lessonInstanceId: string, teacherId: string) {
     const instance = await this.prisma.lessonInstance.findUniqueOrThrow({
       where: { id: lessonInstanceId },
       include: { teacherClass: true },
@@ -32,10 +29,7 @@ export class AttendanceService {
     return instance;
   }
 
-  async assertTeacherOwnsTeacherClass(
-    teacherClassId: string,
-    teacherId: string,
-  ) {
+  async assertTeacherOwnsTeacherClass(teacherClassId: string, teacherId: string) {
     const tc = await this.prisma.teacherClass.findUniqueOrThrow({
       where: { id: teacherClassId },
     });

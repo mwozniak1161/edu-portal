@@ -4,12 +4,7 @@ import { LessonInstancesService } from '../lesson-instances/lesson-instances.ser
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-  imports: [
-    ScheduleModule.forRoot(),
-    PrismaModule,
-  ],
-  providers: [
-    LessonInstancesService,
-  ],
+  imports: [ScheduleModule.forRoot(), PrismaModule],
+  providers: [LessonInstancesService],
 })
 export class TasksModule {}

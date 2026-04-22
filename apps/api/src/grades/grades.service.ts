@@ -1,21 +1,22 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { CreateCorrectionGradeDto } from './dto/create-correction-grade.dto';
+import { MailService } from '../mail/mail.service';
+
+import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class GradesService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(GradesService.name);
 
-  private async assertTeacherOwnsTeacherClass(
-    teacherClassId: string,
-    teacherId: string,
-  ) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mail: MailService,
+  ) {}
+
+  private async assertTeacherOwnsTeacherClass(teacherClassId: string, teacherId: string) {
     const tc = await this.prisma.teacherClass.findUniqueOrThrow({
       where: { id: teacherClassId },
     });
@@ -69,7 +70,7 @@ export class GradesService {
   async create(dto: CreateGradeDto, teacherId: string) {
     await this.assertTeacherOwnsTeacherClass(dto.teacherClassId, teacherId);
 
-    return this.prisma.grade.create({
+    const grade = await this.prisma.grade.create({
       data: {
         value: dto.value,
         weight: dto.weight ?? 1,
@@ -78,6 +79,29 @@ export class GradesService {
         teacherClassId: dto.teacherClassId,
       },
     });
+
+    // Send grade notification email to student
+    try {
+      const student = await this.prisma.user.findUnique({
+        where: { id: dto.studentId },
+        select: { id: true, email: true, firstName: true, lastName: true },
+      });
+
+      if (student) {
+        await this.mail.sendGradeNotificationEmail(
+          student.email,
+          student.firstName,
+          String(dto.value),
+          dto.weight ?? 1,
+          dto.comment,
+        );
+      }
+    } catch (error) {
+      // Log error but don't fail the grade creation if email fails
+      this.logger.error(`Failed to send grade notification email: ${(error as Error).message}`);
+    }
+
+    return grade;
   }
 
   async update(id: string, dto: UpdateGradeDto, teacherId: string) {
@@ -100,20 +124,14 @@ export class GradesService {
     await this.prisma.grade.delete({ where: { id } });
   }
 
-  async createCorrection(
-    dto: CreateCorrectionGradeDto,
-    teacherId: string,
-  ) {
+  async createCorrection(dto: CreateCorrectionGradeDto, teacherId: string) {
     const original = await this.findOne(dto.correctionForId);
 
     if (original.correction) {
       throw new ConflictException('This grade already has a correction');
     }
 
-    await this.assertTeacherOwnsTeacherClass(
-      original.teacherClassId,
-      teacherId,
-    );
+    await this.assertTeacherOwnsTeacherClass(original.teacherClassId, teacherId);
 
     return this.prisma.$transaction(async (tx) => {
       await tx.grade.update({
@@ -144,10 +162,7 @@ export class GradesService {
     }
 
     const totalWeight = grades.reduce((sum, g) => sum + g.weight, 0);
-    const weightedSum = grades.reduce(
-      (sum, g) => sum + Number(g.value) * g.weight,
-      0,
-    );
+    const weightedSum = grades.reduce((sum, g) => sum + Number(g.value) * g.weight, 0);
 
     return {
       average: totalWeight > 0 ? weightedSum / totalWeight : null,

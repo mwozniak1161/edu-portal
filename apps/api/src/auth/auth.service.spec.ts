@@ -156,24 +156,30 @@ describe('AuthService', () => {
       const hashed = await bcrypt.hash('correct', 1);
       mockPrisma.user.findUnique.mockResolvedValue({ ...baseUser, password: hashed });
 
-      await expect(
-        service.login({ email: 'test@example.com', password: 'wrong' }),
-      ).rejects.toThrow(UnauthorizedException);
+      await expect(service.login({ email: 'test@example.com', password: 'wrong' })).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
   });
 
   describe('refresh', () => {
     it('rotates refresh token and returns new tokens', async () => {
       const hashed = await bcrypt.hash('old-refresh-token', 1);
-      mockJwt.verify.mockReturnValue({ sub: 'user-uuid', email: 'test@example.com', role: Role.STUDENT });
-      mockPrisma.refreshToken.findMany.mockResolvedValue([{
-        id: 'rt-id',
-        token: hashed,
-        revoked: false,
-        expiresAt: new Date(Date.now() + 60000),
-        userId: 'user-uuid',
-        user: baseUser,
-      }]);
+      mockJwt.verify.mockReturnValue({
+        sub: 'user-uuid',
+        email: 'test@example.com',
+        role: Role.STUDENT,
+      });
+      mockPrisma.refreshToken.findMany.mockResolvedValue([
+        {
+          id: 'rt-id',
+          token: hashed,
+          revoked: false,
+          expiresAt: new Date(Date.now() + 60000),
+          userId: 'user-uuid',
+          user: baseUser,
+        },
+      ]);
       mockPrisma.refreshToken.update.mockResolvedValue({});
       mockPrisma.refreshToken.create.mockResolvedValue({ token: 'new-rt' });
       mockJwt.sign.mockReturnValueOnce('new-access').mockReturnValueOnce('new-refresh');
@@ -188,13 +194,19 @@ describe('AuthService', () => {
     });
 
     it('throws UnauthorizedException when JWT verify fails', async () => {
-      mockJwt.verify.mockImplementation(() => { throw new Error('bad token'); });
+      mockJwt.verify.mockImplementation(() => {
+        throw new Error('bad token');
+      });
 
       await expect(service.refresh('bad-token')).rejects.toThrow(UnauthorizedException);
     });
 
     it('throws UnauthorizedException when no matching stored token found', async () => {
-      mockJwt.verify.mockReturnValue({ sub: 'user-uuid', email: 'test@example.com', role: Role.STUDENT });
+      mockJwt.verify.mockReturnValue({
+        sub: 'user-uuid',
+        email: 'test@example.com',
+        role: Role.STUDENT,
+      });
       mockPrisma.refreshToken.findMany.mockResolvedValue([]);
 
       await expect(service.refresh('some-token')).rejects.toThrow(UnauthorizedException);
@@ -202,15 +214,21 @@ describe('AuthService', () => {
 
     it('throws UnauthorizedException for expired token', async () => {
       const hashed = await bcrypt.hash('old-token', 1);
-      mockJwt.verify.mockReturnValue({ sub: 'user-uuid', email: 'test@example.com', role: Role.STUDENT });
-      mockPrisma.refreshToken.findMany.mockResolvedValue([{
-        id: 'rt-id',
-        token: hashed,
-        revoked: false,
-        expiresAt: new Date(Date.now() - 1000),
-        userId: 'user-uuid',
-        user: baseUser,
-      }]);
+      mockJwt.verify.mockReturnValue({
+        sub: 'user-uuid',
+        email: 'test@example.com',
+        role: Role.STUDENT,
+      });
+      mockPrisma.refreshToken.findMany.mockResolvedValue([
+        {
+          id: 'rt-id',
+          token: hashed,
+          revoked: false,
+          expiresAt: new Date(Date.now() - 1000),
+          userId: 'user-uuid',
+          user: baseUser,
+        },
+      ]);
 
       await expect(service.refresh('old-token')).rejects.toThrow(UnauthorizedException);
     });

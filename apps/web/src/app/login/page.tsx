@@ -1,57 +1,62 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { useAuthStore } from '@/store/auth.store'
-import { authApi } from '@/lib/api/auth'
-import { ApiError } from '@/lib/api/client'
-import { Role } from '@/types'
-import { GraduationCap, ArrowRight, ShieldCheck } from 'lucide-react'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useAuthStore } from '@/store/auth.store';
+import { authApi } from '@/lib/api/auth';
+import { ApiError } from '@/lib/api/client';
+import { Role } from '@/types';
+import Link from 'next/link';
+import { GraduationCap, ArrowRight, ShieldCheck } from 'lucide-react';
 
-const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO_ENABLED === 'true'
+const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO_ENABLED === 'true';
 
 const ROLE_HOME: Record<Role, string> = {
   [Role.ADMIN]: '/admin',
   [Role.TEACHER]: '/teacher',
   [Role.STUDENT]: '/student',
-}
+};
 
 interface FormValues {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export default function LoginPage() {
-  const router = useRouter()
-  const setAuth = useAuthStore((s) => s.setAuth)
-  const [serverError, setServerError] = useState<string | null>(null)
+  const router = useRouter();
+  const setAuth = useAuthStore((s) => s.setAuth);
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>()
-  const [demoLoading, setDemoLoading] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
+  const [demoLoading, setDemoLoading] = useState(false);
 
   async function onDemoLogin() {
-    setDemoLoading(true)
-    setServerError(null)
+    setDemoLoading(true);
+    setServerError(null);
     try {
-      const { accessToken, user } = await authApi.demoLogin()
-      setAuth(user, accessToken)
-      router.replace(ROLE_HOME[user.role] ?? '/')
+      const { accessToken, user } = await authApi.demoLogin();
+      setAuth(user, accessToken);
+      router.replace(ROLE_HOME[user.role] ?? '/');
     } catch {
-      setServerError('Demo login unavailable')
+      setServerError('Demo login unavailable');
     } finally {
-      setDemoLoading(false)
+      setDemoLoading(false);
     }
   }
 
   async function onSubmit(values: FormValues) {
-    setServerError(null)
+    setServerError(null);
     try {
-      const { accessToken, user } = await authApi.login(values.email, values.password)
-      setAuth(user, accessToken)
-      router.replace(ROLE_HOME[user.role] ?? '/')
+      const { accessToken, user } = await authApi.login(values.email, values.password);
+      setAuth(user, accessToken);
+      router.replace(ROLE_HOME[user.role] ?? '/');
     } catch (err) {
-      setServerError(err instanceof ApiError ? err.message : 'Login failed')
+      setServerError(err instanceof ApiError ? err.message : 'Login failed');
     }
   }
 
@@ -78,11 +83,7 @@ export default function LoginPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <EduField
-              id="email"
-              label="Email"
-              error={errors.email?.message}
-            >
+            <EduField id="email" label="Email" error={errors.email?.message}>
               <input
                 id="email"
                 type="email"
@@ -95,7 +96,17 @@ export default function LoginPage() {
 
             <EduField
               id="password"
-              label="Password"
+              label={
+                <span className="flex items-center justify-between">
+                  Password
+                  <Link
+                    href="/forgot-password"
+                    className="text-edu-primary hover:underline normal-case tracking-normal font-medium"
+                  >
+                    Forgot password?
+                  </Link>
+                </span>
+              }
               error={errors.password?.message}
             >
               <input
@@ -139,14 +150,12 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-12 text-center">
-            <p className="font-mono text-xs text-edu-on-surface-variant/50">
-              The Eduportal · v1.0
-            </p>
+            <p className="font-mono text-xs text-edu-on-surface-variant/50">The Eduportal · v1.0</p>
           </div>
         </div>
       </div>
     </main>
-  )
+  );
 }
 
 function EduField({
@@ -155,14 +164,17 @@ function EduField({
   error,
   children,
 }: {
-  id: string
-  label: string
-  error?: string
-  children: React.ReactNode
+  id: string;
+  label: React.ReactNode;
+  error?: string;
+  children: React.ReactNode;
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-widest mb-2 px-1 text-edu-on-surface-variant">
+      <label
+        htmlFor={id}
+        className="flex text-xs font-semibold uppercase tracking-widest mb-2 px-1 text-edu-on-surface-variant"
+      >
         {label}
       </label>
       <div className="relative group">
@@ -170,9 +182,7 @@ function EduField({
         <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-edu-primary origin-center scale-y-0 group-focus-within:scale-y-100 transition-transform duration-200" />
         {children}
       </div>
-      {error && (
-        <p className="mt-1.5 px-1 text-xs text-edu-error">{error}</p>
-      )}
+      {error && <p className="mt-1.5 px-1 text-xs text-edu-error">{error}</p>}
     </div>
-  )
+  );
 }

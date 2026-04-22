@@ -50,14 +50,18 @@ export class TimeslotsService {
     const existingTimeslot = await this.findExistingTimeslot(
       dto.weekDay,
       startingHour,
-      dto.teacherClassId ?? null
+      dto.teacherClassId ?? null,
     );
 
     if (existingTimeslot) {
       throw new ConflictException('A timeslot already exists for this slot');
     }
 
-    const timeslotData = this.prepareTimeslotData(dto.weekDay, startingHour, dto.teacherClassId ?? null);
+    const timeslotData = this.prepareTimeslotData(
+      dto.weekDay,
+      startingHour,
+      dto.teacherClassId ?? null,
+    );
 
     return this.prisma.timeslot.create({
       data: timeslotData,

@@ -1,4 +1,11 @@
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import * as crypto from 'crypto';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -6,6 +13,7 @@ import { MailService } from '../mail/mail.service';
 import { Role } from '../generated/prisma/enums';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { ForgotPasswordDto, ResetPasswordDto } from './dto/password-reset.dto';
 
 const BCRYPT_ROUNDS = 12;
 
@@ -18,7 +26,14 @@ export interface JwtPayload {
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
-  user: { id: string; email: string; firstName: string; lastName: string; role: Role; classId: string | null };
+  user: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: Role;
+    classId: string | null;
+  };
 }
 
 @Injectable()
@@ -126,6 +141,55 @@ export class AuthService {
     return this.issueTokens(user);
   }
 
+  async forgotPassword(dto: ForgotPasswordDto): Promise<{ message: string }> {
+    const user = await this.prisma.user.findUnique({ where: { email: dto.email } });
+    if (!user) {
+      return { message: 'If the email exists, a reset link has been sent' };
+    }
+
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken, resetTokenExpiresAt: expiresAt },
+    });
+
+    const baseUrl = process.env['APP_URL'] ?? 'http://localhost:3001';
+    const resetLink = `${baseUrl}/reset-password?token=${resetToken}`;
+
+    void this.mail.sendPasswordResetEmail(user.email, user.firstName, resetLink);
+
+    return { message: 'If the email exists, a reset link has been sent' };
+  }
+
+  async resetPassword(dto: ResetPasswordDto): Promise<{ message: string }> {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        resetToken: dto.token,
+        resetTokenExpiresAt: { gt: new Date() },
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Invalid or expired reset token');
+    }
+
+    const hashedPassword = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: user.id },
+        data: { password: hashedPassword, resetToken: null, resetTokenExpiresAt: null },
+      }),
+      this.prisma.refreshToken.updateMany({
+        where: { userId: user.id },
+        data: { revoked: true },
+      }),
+    ]);
+
+    return { message: 'Password has been reset successfully' };
+  }
+
   async logout(userId: string): Promise<void> {
     await this.prisma.refreshToken.updateMany({
       where: { userId, revoked: false },
@@ -133,7 +197,14 @@ export class AuthService {
     });
   }
 
-  private async issueTokens(user: { id: string; email: string; firstName: string; lastName: string; role: Role; classId?: string | null }): Promise<AuthTokens> {
+  private async issueTokens(user: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: Role;
+    classId?: string | null;
+  }): Promise<AuthTokens> {
     const payload: JwtPayload = { sub: user.id, email: user.email, role: user.role };
 
     const accessToken = this.jwt.sign(payload);
@@ -146,17 +217,20 @@ export class AuthService {
     expiresAt.setDate(expiresAt.getDate() + 7);
 
     await this.prisma.refreshToken.create({
-      data: {
-        token: hashedRefresh,
-        expiresAt,
-        userId: user.id,
-      },
+      data: { token: hashedRefresh, expiresAt, userId: user.id },
     });
 
     return {
       accessToken,
       refreshToken: rawRefresh,
-      user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, role: user.role, classId: user.classId ?? null },
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        classId: user.classId ?? null,
+      },
     };
   }
 }

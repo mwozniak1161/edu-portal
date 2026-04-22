@@ -20,7 +20,8 @@ export class TasksService {
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Set to start of today
 
-      const result = await this.lessonInstancesService.generateLessonInstancesForAllTeacherClasses(today);
+      const result =
+        await this.lessonInstancesService.generateLessonInstancesForAllTeacherClasses(today);
 
       this.logger.log(
         `Daily lesson instance generation completed. Generated: ${result.generated}, Skipped: ${result.skipped}`,

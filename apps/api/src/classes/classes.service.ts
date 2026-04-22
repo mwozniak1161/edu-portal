@@ -36,7 +36,17 @@ export class ClassesService {
     await this.findOne(classId);
     return this.prisma.user.findMany({
       where: { classId, role: 'STUDENT' },
-      select: { id: true, firstName: true, lastName: true, email: true, role: true, isActive: true, classId: true, createdAt: true, updatedAt: true },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        role: true,
+        isActive: true,
+        classId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
       orderBy: { lastName: 'asc' },
     });
   }

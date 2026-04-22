@@ -11,7 +11,13 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -47,10 +53,7 @@ export class AttendanceController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({ description: 'Batch attendance saved' })
-  batchUpsertAttendance(
-    @Body() dto: CreateAttendanceDto,
-    @Request() req: RequestWithUser,
-  ) {
+  batchUpsertAttendance(@Body() dto: CreateAttendanceDto, @Request() req: RequestWithUser) {
     return this.attendanceService.batchUpsertAttendance(
       dto.lessonInstanceId,
       dto.entries,

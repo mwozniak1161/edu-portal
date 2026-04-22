@@ -28,10 +28,7 @@ describe('LessonInstancesService', () => {
     };
 
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        LessonInstancesService,
-        { provide: PrismaService, useValue: prisma },
-      ],
+      providers: [LessonInstancesService, { provide: PrismaService, useValue: prisma }],
     }).compile();
 
     service = module.get(LessonInstancesService);
@@ -80,9 +77,9 @@ describe('LessonInstancesService', () => {
       prisma.teacherClass.findMany.mockRejectedValue(new Error('Database error'));
 
       // Act & Assert
-      await expect(
-        service.generateLessonInstancesForAllTeacherClasses(new Date())
-      ).rejects.toThrow('Database error');
+      await expect(service.generateLessonInstancesForAllTeacherClasses(new Date())).rejects.toThrow(
+        'Database error',
+      );
 
       expect(prisma.teacherClass.findMany).toHaveBeenCalled();
     });

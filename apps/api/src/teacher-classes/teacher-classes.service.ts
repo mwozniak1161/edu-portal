@@ -42,7 +42,8 @@ export class TeacherClassesService {
         },
       },
     });
-    if (existing) throw new ConflictException('This teacher-subject-class combination already exists');
+    if (existing)
+      throw new ConflictException('This teacher-subject-class combination already exists');
 
     return this.prisma.teacherClass.create({
       data: dto,

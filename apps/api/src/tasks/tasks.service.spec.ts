@@ -34,20 +34,24 @@ describe('TasksService', () => {
     it('should call lesson instances service to generate lesson instances', async () => {
       // Arrange
       const mockResult = { generated: 5, skipped: 2 };
-      lessonInstancesService.generateLessonInstancesForAllTeacherClasses.mockResolvedValue(mockResult);
+      lessonInstancesService.generateLessonInstancesForAllTeacherClasses.mockResolvedValue(
+        mockResult,
+      );
 
       // Act
       await service.handleDailyLessonInstanceGeneration();
 
       // Assert
-      expect(lessonInstancesService.generateLessonInstancesForAllTeacherClasses).toHaveBeenCalledWith(
-        expect.any(Date)
-      );
+      expect(
+        lessonInstancesService.generateLessonInstancesForAllTeacherClasses,
+      ).toHaveBeenCalledWith(expect.any(Date));
     });
 
     it('should handle errors gracefully', async () => {
       // Arrange
-      lessonInstancesService.generateLessonInstancesForAllTeacherClasses.mockRejectedValue(new Error('Database error'));
+      lessonInstancesService.generateLessonInstancesForAllTeacherClasses.mockRejectedValue(
+        new Error('Database error'),
+      );
 
       // Act & Assert
       await expect(service.handleDailyLessonInstanceGeneration()).resolves.toBeUndefined();

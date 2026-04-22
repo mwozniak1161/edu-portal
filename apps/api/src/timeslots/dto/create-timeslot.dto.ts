@@ -14,6 +14,8 @@ export class CreateTimeslotDto {
   weekDay!: number;
 
   @ApiProperty({ example: '08:00:00', description: 'Time in HH:MM:SS format' })
-  @Matches(/^\d{2}:\d{2}(:\d{2})?$/, { message: 'startingHour must be a time string HH:MM or HH:MM:SS' })
+  @Matches(/^\d{2}:\d{2}(:\d{2})?$/, {
+    message: 'startingHour must be a time string HH:MM or HH:MM:SS',
+  })
   startingHour!: string;
 }

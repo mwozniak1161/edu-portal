@@ -27,7 +27,8 @@ export class SubjectsService {
     await this.findOne(id);
     if (dto.name) {
       const existing = await this.prisma.subject.findUnique({ where: { name: dto.name } });
-      if (existing && existing.id !== id) throw new ConflictException('Subject name already exists');
+      if (existing && existing.id !== id)
+        throw new ConflictException('Subject name already exists');
     }
     return this.prisma.subject.update({ where: { id }, data: dto });
   }

@@ -35,26 +35,26 @@ describe('AttendanceService', () => {
   beforeEach(async () => {
     prisma = buildPrisma();
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        AttendanceService,
-        { provide: PrismaService, useValue: prisma },
-      ],
+      providers: [AttendanceService, { provide: PrismaService, useValue: prisma }],
     }).compile();
     service = module.get(AttendanceService);
   });
 
   describe('assertTeacherOwnsTeacherClass', () => {
     it('succeeds when teacher owns the class', async () => {
-      await expect(
-        service.assertTeacherOwnsTeacherClass(TC_ID, TEACHER_ID),
-      ).resolves.toEqual(mockTeacherClass);
+      await expect(service.assertTeacherOwnsTeacherClass(TC_ID, TEACHER_ID)).resolves.toEqual(
+        mockTeacherClass,
+      );
     });
 
     it('throws ConflictException when teacher does not own the class', async () => {
-      prisma.teacherClass.findUniqueOrThrow.mockResolvedValue({ id: TC_ID, teacherId: 'other-teacher' });
-      await expect(
-        service.assertTeacherOwnsTeacherClass(TC_ID, TEACHER_ID),
-      ).rejects.toThrow(ConflictException);
+      prisma.teacherClass.findUniqueOrThrow.mockResolvedValue({
+        id: TC_ID,
+        teacherId: 'other-teacher',
+      });
+      await expect(service.assertTeacherOwnsTeacherClass(TC_ID, TEACHER_ID)).rejects.toThrow(
+        ConflictException,
+      );
     });
   });
 
@@ -69,7 +69,7 @@ describe('AttendanceService', () => {
       // Mock lesson instance to belong to the teacher (ownership check passes)
       prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
         id: TC_ID,
-        teacherClass: { teacherId: TEACHER_ID }
+        teacherClass: { teacherId: TEACHER_ID },
       });
       prisma.$transaction.mockResolvedValue([]);
       await service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID);
@@ -81,11 +81,11 @@ describe('AttendanceService', () => {
       // Mock lesson instance to belong to a different teacher (ownership check fails)
       prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
         id: TC_ID,
-        teacherClass: { teacherId: 'different-teacher' }
+        teacherClass: { teacherId: 'different-teacher' },
       });
-      await expect(
-        service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID),
-      ).rejects.toThrow(ConflictException);
+      await expect(service.batchUpsertAttendance(TC_ID, entries, TEACHER_ID)).rejects.toThrow(
+        ConflictException,
+      );
       expect(prisma.$transaction).not.toHaveBeenCalled();
     });
 
@@ -93,7 +93,7 @@ describe('AttendanceService', () => {
       // Mock lesson instance to belong to the teacher (ownership check passes)
       prisma.lessonInstance.findUniqueOrThrow.mockResolvedValue({
         id: TC_ID,
-        teacherClass: { teacherId: TEACHER_ID }
+        teacherClass: { teacherId: TEACHER_ID },
       });
       let capturedOps: unknown[] = [];
       prisma.$transaction.mockImplementation((ops: unknown[]) => {

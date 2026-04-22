@@ -80,20 +80,13 @@ export class GradesController {
   @Post('correction')
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({ description: 'Correction grade created, original marked as excluded' })
-  createCorrection(
-    @Body() dto: CreateCorrectionGradeDto,
-    @Request() req: RequestWithUser,
-  ) {
+  createCorrection(@Body() dto: CreateCorrectionGradeDto, @Request() req: RequestWithUser) {
     return this.gradesService.createCorrection(dto, req.user.id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ description: 'Grade updated' })
-  update(
-    @Param('id') id: string,
-    @Body() dto: UpdateGradeDto,
-    @Request() req: RequestWithUser,
-  ) {
+  update(@Param('id') id: string, @Body() dto: UpdateGradeDto, @Request() req: RequestWithUser) {
     return this.gradesService.update(id, dto, req.user.id);
   }
 
