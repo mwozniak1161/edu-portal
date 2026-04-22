@@ -1,10 +1,12 @@
 # Educational ERP — Claude Instructions
 
 ## What We're Building
+
 Portfolio-grade Educational ERP (Librus/Moodle-style).
 Stack showcases: modular NestJS, Prisma, Claude, Next.js App Router.
 
 ## Tech Stack
+
 - **Backend**: NestJS, TypeScript, Prisma + PostgreSQL
 - **Frontend**: Next.js 16 (App Router), Tailwind, Shadcn/ui
 - **State**: TanStack Query (server state) + Zustand (UI/client state)
@@ -14,11 +16,13 @@ Stack showcases: modular NestJS, Prisma, Claude, Next.js App Router.
 - **Docs**: Auto-Swagger at /api via @nestjs/swagger
 
 ## Architecture
+
 - `apps/api` — NestJS backend (port 3000)
 - `apps/web` — Next.js frontend (port 3001)
 - `packages/shared` — Zod schemas, shared types, DTOs
 
 ## Infrastructure
+
 - All services run in Docker (`docker-compose.yml`): Postgres, pgAdmin, API, Web
 - Do NOT suggest local Postgres installation
 - Migrations run automatically via `entrypoint.sh` on API container start
@@ -26,6 +30,7 @@ Stack showcases: modular NestJS, Prisma, Claude, Next.js App Router.
 - CI: GitHub Actions (`.github/workflows/ci.yml`) — lint + tests + Docker build on every PR to master
 
 ## Key Docs (read when relevant)
+
 - Schema & relations: `docs/Database-Schema-Design.md`
 - API conventions: `docs/API-Design-Standards.md`
 - Auth flow: `docs/Authentication-System.md`
@@ -33,11 +38,14 @@ Stack showcases: modular NestJS, Prisma, Claude, Next.js App Router.
 - Current tasks: `docs/PROGRESS.md`
 - Reusable UI components registry: `docs/ReusableComponents.md`
 - Design system & style guide: `docs/StyleGuide.md`
+- EC2 setup, SSL, nginx template: `docs/Infrastructure.md`
 
 ## Rules
+
 See `.claude/rules/` for detailed topic rules.
 
 ## Database Conventions
+
 - snake_case column names
 - UUID primary keys named `id`
 - camelCase in Prisma schema (maps to snake_case in DB)
@@ -49,18 +57,22 @@ See `.claude/rules/` for detailed topic rules.
 - Run Prisma CLI via `pnpm exec prisma <cmd>` from `apps/api/`
 
 ## API Response Shape
+
 All responses wrapped by TransformInterceptor:
+
 ```
 { data: T }          // success
 { error, message }   // exceptions via GlobalExceptionFilter
 ```
 
 ## State Management
+
 - TanStack Query — all server data (API calls, caching, mutations)
 - Zustand — UI state only (modals, sidebar open/close, ephemeral state)
 - Never use Zustand to cache API responses
 
 ## Core Principles
+
 1. TypeScript strict mode — no `any`, no exceptions
 2. Only touch files relevant to current task
 3. Run lint + type-check before marking task done
@@ -72,6 +84,7 @@ All responses wrapped by TransformInterceptor:
 9. No `console.log` in committed code
 
 ## What Claude Must NOT Do
+
 - Do not use TypeORM — we use Prisma
 - Do not install Postgres locally — use docker-compose
 - Do not upgrade dependency versions unprompted
