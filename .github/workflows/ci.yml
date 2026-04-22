@@ -127,7 +127,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: 'docker-compose.prod.yml,nginx/nginx.conf'
+          source: 'docker-compose.prod.yml,nginx/nginx.conf.template'
           target: /home/ec2-user/app
 
       - name: Deploy on EC2
@@ -149,11 +149,12 @@ jobs:
           GH_WEBHOOK_SECRET: ${{ secrets.GH_WEBHOOK_SECRET }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          DOMAIN: ${{ secrets.DOMAIN }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: POSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DB,JWT_SECRET,CORS_ORIGIN,MAIL_HOST,MAIL_USER,MAIL_PASS,MAIL_FROM,ECR_API_URL,ECR_WEB_URL,AWS_REGION_NAME,DEMO_ENABLED,GH_WEBHOOK_SECRET,GH_TOKEN,CLAUDE_API_KEY
+          envs: POSTGRES_USER,POSTGRES_PASSWORD,POSTGRES_DB,JWT_SECRET,CORS_ORIGIN,MAIL_HOST,MAIL_USER,MAIL_PASS,MAIL_FROM,ECR_API_URL,ECR_WEB_URL,AWS_REGION_NAME,DEMO_ENABLED,GH_WEBHOOK_SECRET,GH_TOKEN,CLAUDE_API_KEY,DOMAIN
           script: |
             set -e
             cd /home/ec2-user/app
@@ -179,6 +180,7 @@ jobs:
             printf 'GH_WEBHOOK_SECRET=%s\n' "$GH_WEBHOOK_SECRET" >> .env
             printf 'GH_TOKEN=%s\n' "$GH_TOKEN" >> .env
             printf 'CLAUDE_API_KEY=%s\n' "$CLAUDE_API_KEY" >> .env
+            printf 'DOMAIN=%s\n' "$DOMAIN" >> .env
 
             # Login to ECR from EC2 (uses instance IAM role — no credentials needed)
             aws ecr get-login-password --region "$AWS_REGION_NAME" \
