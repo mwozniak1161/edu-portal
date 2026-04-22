@@ -15,7 +15,7 @@ export class GithubReviewController {
     @Headers('x-hub-signature-256') signature: string,
     @Body() payload: any,
   ): Promise<{ status: string }> {
-    const secret = this.configService.get<string>('GITHUB_WEBHOOK_SECRET') || '';
+    const secret = this.configService.get<string>('GH_WEBHOOK_SECRET') || '';
     if (!this.validateSignature(signature, JSON.stringify(payload), secret)) {
       throw new UnauthorizedException('Invalid webhook signature');
     }
