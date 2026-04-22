@@ -1,38 +1,38 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { ShieldCheck, ArrowRight } from 'lucide-react'
-import { authApi } from '@/lib/api/auth'
-import { useAuthStore } from '@/store/auth.store'
-import { Role } from '@/types'
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
+import { authApi } from '@/lib/api/auth';
+import { useAuthStore } from '@/store/auth.store';
+import { Role } from '@/types';
 
-const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO_ENABLED === 'true'
+const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO_ENABLED === 'true';
 
 const ROLE_HOME: Record<Role, string> = {
   [Role.ADMIN]: '/admin',
   [Role.TEACHER]: '/teacher',
   [Role.STUDENT]: '/student',
-}
+};
 
 export default function Home() {
-  const router = useRouter()
-  const setAuth = useAuthStore((s) => s.setAuth)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
+  const setAuth = useAuthStore((s) => s.setAuth);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function onDemoLogin() {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
     try {
-      const { accessToken, user } = await authApi.demoLogin()
-      setAuth(user, accessToken)
-      router.replace(ROLE_HOME[user.role] ?? '/')
+      const { accessToken, user } = await authApi.demoLogin();
+      setAuth(user, accessToken);
+      router.replace(ROLE_HOME[user.role] ?? '/');
     } catch {
-      setError('Demo login unavailable')
+      setError('Demo login unavailable');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -42,14 +42,13 @@ export default function Home() {
       <div className="fixed -bottom-24 -left-24 w-96 h-96 rounded-full blur-3xl -z-10 bg-edu-primary/5 pointer-events-none" />
 
       <div className="text-center max-w-lg">
-        <h1 className="text-4xl font-black tracking-tighter text-edu-primary mb-3">
-          EduPortal
-        </h1>
+        <h1 className="text-4xl font-black tracking-tighter text-edu-primary mb-3">EduPortal</h1>
         <p className="text-edu-on-surface-variant text-base mb-10">
-          A portfolio-grade Educational ERP — manage classes, grades, attendance, and schedules in one place.
+          A portfolio-grade Educational ERP — manage classes, grades, attendance, and schedules in
+          one place.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col gap-3 justify-center">
           {DEMO_ENABLED && (
             <>
               <button
@@ -93,10 +92,8 @@ export default function Home() {
           </a>
         </div>
 
-        {error && (
-          <p className="mt-4 text-sm text-edu-error">{error}</p>
-        )}
+        {error && <p className="mt-4 text-sm text-edu-error">{error}</p>}
       </div>
     </main>
-  )
+  );
 }
