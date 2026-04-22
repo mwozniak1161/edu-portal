@@ -32,7 +32,7 @@ export class GithubReviewService {
   private async fetchPrDiff(owner: string, repo: string, prNumber: number): Promise<string> {
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}.diff`;
     const headers: Record<string, string> = { Accept: 'application/vnd.github.v3.diff' };
-    const token = this.configService.get<string>('GITHUB_TOKEN');
+    const token = this.configService.get<string>('GH_TOKEN');
     if (token) headers.Authorization = `token ${token}`;
     const response = await this.httpService.axiosRef.get(url, { headers });
     return response.data;
@@ -83,7 +83,7 @@ Focus on: obvious bugs, security issues, and major style problems. Be concise an
         body: `## 🤖 Claude Code Review\n\n${comment}\n\n*This is an automated review. Feedback is advisory only.*`,
       },
       {
-        headers: { Authorization: `token ${this.configService.get<string>('GITHUB_TOKEN') || ''}` },
+        headers: { Authorization: `token ${this.configService.get<string>('GH_TOKEN') || ''}` },
       },
     );
   }
