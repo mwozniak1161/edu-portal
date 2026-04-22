@@ -13,7 +13,8 @@
     "format": "pnpm -r format",
     "test": "pnpm -r test",
     "test:watch": "pnpm -r test:watch",
-    "setup": "pnpm install"
+    "setup": "pnpm install",
+    "prepare": "husky"
   },
   "pnpm": {
     "overrides": {
@@ -28,8 +29,10 @@
     }
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
+    "eslint": "^8.56.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.2.0",
-    "eslint": "^8.56.0"
+    "typescript": "^5.4.0"
   }
 }

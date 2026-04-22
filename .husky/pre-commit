@@ -1,0 +1,3 @@
+pnpm exec lint-staged
+pnpm --filter @edu-portal/api exec tsc --noEmit
+pnpm --filter @edu-portal/web exec tsc --noEmit

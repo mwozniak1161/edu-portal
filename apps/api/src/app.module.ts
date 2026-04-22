@@ -13,9 +13,24 @@ import { GradesModule } from './grades/grades.module';
 import { LessonInstancesModule } from './lesson-instances/lesson-instances.module';
 import { TasksModule } from './tasks/tasks.module';
 import { MailModule } from './mail/mail.module';
+import { GithubReviewModule } from './github-review/github-review.module';
 
 @Module({
-  imports: [MailModule, PrismaModule, AuthModule, UsersModule, ClassesModule, SubjectsModule, TeacherClassesModule, TimeslotsModule, AttendanceModule, GradesModule, LessonInstancesModule, TasksModule],
+  imports: [
+    MailModule,
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    ClassesModule,
+    SubjectsModule,
+    TeacherClassesModule,
+    TimeslotsModule,
+    AttendanceModule,
+    GradesModule,
+    LessonInstancesModule,
+    TasksModule,
+    GithubReviewModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
