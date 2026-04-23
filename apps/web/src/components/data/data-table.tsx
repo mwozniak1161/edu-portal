@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { Skeleton } from '@/components/ui/skeleton'
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -10,28 +10,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { EmptyState } from './empty-state'
-import { Pagination } from './pagination'
+} from '@/components/ui/table';
+import { EmptyState } from './empty-state';
+import { Pagination } from './pagination';
 
 export interface Column<T> {
-  header: string
-  accessor?: keyof T
-  cell?: (row: T) => React.ReactNode
-  className?: string
+  header: string;
+  accessor?: keyof T;
+  cell?: (row: T) => React.ReactNode;
+  className?: string;
 }
 
 interface DataTableProps<T> {
-  columns: Column<T>[]
-  data: T[]
-  isLoading?: boolean
-  searchPlaceholder?: string
-  searchKey?: keyof T
-  pageSize?: number
-  keyExtractor: (row: T) => string
-  emptyTitle?: string
-  emptyDescription?: string
-  action?: React.ReactNode
+  columns: Column<T>[];
+  data: T[];
+  isLoading?: boolean;
+  searchPlaceholder?: string;
+  searchKey?: keyof T;
+  pageSize?: number;
+  keyExtractor: (row: T) => string;
+  emptyTitle?: string;
+  emptyDescription?: string;
+  action?: React.ReactNode;
 }
 
 export function DataTable<T>({
@@ -46,21 +46,19 @@ export function DataTable<T>({
   emptyDescription,
   action,
 }: DataTableProps<T>) {
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
 
   const filtered = searchKey
-    ? data.filter((row) =>
-        String(row[searchKey]).toLowerCase().includes(search.toLowerCase()),
-      )
-    : data
+    ? data.filter((row) => String(row[searchKey]).toLowerCase().includes(search.toLowerCase()))
+    : data;
 
-  const totalPages = Math.ceil(filtered.length / pageSize)
-  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   function handleSearch(value: string) {
-    setSearch(value)
-    setPage(1)
+    setSearch(value);
+    setPage(1);
   }
 
   return (
@@ -73,7 +71,7 @@ export function DataTable<T>({
           className="max-w-sm"
         />
       )}
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
@@ -121,5 +119,5 @@ export function DataTable<T>({
       </div>
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
-  )
+  );
 }

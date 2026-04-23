@@ -5,6 +5,7 @@
 **Clean Modern SaaS** — inspired by Linear, Vercel Dashboard, and Notion.
 
 Core principles:
+
 - Flat UI — no gradients, no heavy shadows, no decorative flourishes
 - Generous whitespace — let content breathe, never feel cramped
 - High contrast text on neutral backgrounds
@@ -20,37 +21,41 @@ This aesthetic reads as professional and trustworthy for admin staff, teachers, 
 Built on top of shadcn CSS variables (`--background`, `--foreground`, etc.). Override in `globals.css` under `@layer base`.
 
 ### Base (Neutral — Slate)
-| Role | Tailwind | Hex | Usage |
-|------|----------|-----|-------|
-| Background | `slate-50` | `#f8fafc` | Page background |
-| Surface | `white` | `#ffffff` | Cards, sidebar, modals |
-| Border | `slate-200` | `#e2e8f0` | All dividers and outlines |
+
+| Role       | Tailwind    | Hex       | Usage                          |
+| ---------- | ----------- | --------- | ------------------------------ |
+| Background | `slate-50`  | `#f8fafc` | Page background                |
+| Surface    | `white`     | `#ffffff` | Cards, sidebar, modals         |
+| Border     | `slate-200` | `#e2e8f0` | All dividers and outlines      |
 | Muted text | `slate-500` | `#64748b` | Labels, captions, placeholders |
-| Body text | `slate-700` | `#334155` | Table cells, descriptions |
-| Heading | `slate-900` | `#0f172a` | Page titles, headings |
+| Body text  | `slate-700` | `#334155` | Table cells, descriptions      |
+| Heading    | `slate-900` | `#0f172a` | Page titles, headings          |
 
 ### Brand (Indigo)
-| Role | Tailwind | Hex | Usage |
-|------|----------|-----|-------|
-| Primary | `indigo-600` | `#4f46e5` | Primary buttons, active nav indicator |
-| Primary hover | `indigo-700` | `#4338ca` | Button hover state |
-| Primary subtle | `indigo-50` | `#eef2ff` | Active nav background, selected row |
-| Primary text | `indigo-700` | `#4338ca` | Links |
+
+| Role           | Tailwind     | Hex       | Usage                                 |
+| -------------- | ------------ | --------- | ------------------------------------- |
+| Primary        | `indigo-600` | `#4f46e5` | Primary buttons, active nav indicator |
+| Primary hover  | `indigo-700` | `#4338ca` | Button hover state                    |
+| Primary subtle | `indigo-50`  | `#eef2ff` | Active nav background, selected row   |
+| Primary text   | `indigo-700` | `#4338ca` | Links                                 |
 
 ### Semantic
-| Role | Tailwind | Hex | Usage |
-|------|----------|-----|-------|
-| Success | `emerald-500` | `#10b981` | Attendance PRESENT, active status badge |
-| Warning | `amber-500` | `#f59e0b` | Attendance LATE, pending |
-| Destructive | `red-500` | `#ef4444` | Errors, ABSENT, delete |
-| Info | `sky-500` | `#0ea5e9` | Informational badges, highlights |
+
+| Role        | Tailwind      | Hex       | Usage                                   |
+| ----------- | ------------- | --------- | --------------------------------------- |
+| Success     | `emerald-500` | `#10b981` | Attendance PRESENT, active status badge |
+| Warning     | `amber-500`   | `#f59e0b` | Attendance LATE, pending                |
+| Destructive | `red-500`     | `#ef4444` | Errors, ABSENT, delete                  |
+| Info        | `sky-500`     | `#0ea5e9` | Informational badges, highlights        |
 
 ### Role Colors (badges only)
-| Role | Color | Variant |
-|------|-------|---------|
-| Admin | Indigo | `default` (filled) |
-| Teacher | Sky | `secondary` |
-| Student | Slate | `outline` |
+
+| Role    | Color  | Variant            |
+| ------- | ------ | ------------------ |
+| Admin   | Indigo | `default` (filled) |
+| Teacher | Sky    | `secondary`        |
+| Student | Slate  | `outline`          |
 
 ---
 
@@ -58,15 +63,16 @@ Built on top of shadcn CSS variables (`--background`, `--foreground`, etc.). Ove
 
 Font: **Geist** (already loaded via `next/font`). Monospaced numbers use `font-mono` (Geist Mono) for grade values and averages.
 
-| Scale | Class | Usage |
-|-------|-------|-------|
-| Caption | `text-xs text-muted-foreground` | Table sub-labels, timestamps |
-| Body | `text-sm` | Table cells, form labels, nav items |
-| Default | `text-base` | Paragraph content |
-| Section title | `text-lg font-semibold` | Card headings, section headers |
-| Page title | `text-2xl font-semibold tracking-tight` | `<PageHeader>` title |
+| Scale         | Class                                   | Usage                               |
+| ------------- | --------------------------------------- | ----------------------------------- |
+| Caption       | `text-xs text-muted-foreground`         | Table sub-labels, timestamps        |
+| Body          | `text-sm`                               | Table cells, form labels, nav items |
+| Default       | `text-base`                             | Paragraph content                   |
+| Section title | `text-lg font-semibold`                 | Card headings, section headers      |
+| Page title    | `text-2xl font-semibold tracking-tight` | `<PageHeader>` title                |
 
 Weight rules:
+
 - `font-normal` — body copy
 - `font-medium` — nav labels, badge text, form field values
 - `font-semibold` — headings only
@@ -75,57 +81,94 @@ Weight rules:
 
 ## Spacing & Layout
 
-| Token | Value | Where |
-|-------|-------|-------|
-| Page padding | `px-6 py-8` | `PanelLayout` main content area |
-| Section gap | `space-y-6` | Between page sections |
-| Form field gap | `space-y-4` | Between form fields |
-| Card padding | `p-6` | Inside bordered card containers |
-| Table row height | `py-3 px-4` | Table cell padding |
-| Sidebar width | `w-60` | `NavSidebar` |
-| Content max-width | `max-w-7xl` | `PanelLayout` container |
-| Modal max-width | `max-w-md` | Standard dialog |
+| Token                 | Value                                     | Where                           |
+| --------------------- | ----------------------------------------- | ------------------------------- |
+| Page padding          | `px-4 py-6` mobile / `px-8 py-10` desktop | `PanelLayout` main content area |
+| Section gap           | `space-y-6`                               | Between page sections           |
+| Form field gap        | `space-y-4`                               | Between form fields             |
+| Card padding          | `p-6`                                     | Inside bordered card containers |
+| Table row height      | `py-3 px-4`                               | Table cell padding              |
+| Sidebar width         | `w-64`                                    | `NavSidebar`                    |
+| Content max-width     | `max-w-7xl`                               | `PanelLayout` container         |
+| Modal max-width       | `max-w-md`                                | Standard dialog                 |
+| Mobile top bar height | `h-14`                                    | `PanelLayout` mobile header     |
+
+---
+
+## Responsive Design
+
+Breakpoints follow Tailwind's mobile-first defaults:
+
+| Name    | Min-width   | Tailwind prefix |
+| ------- | ----------- | --------------- |
+| Mobile  | — (default) | (none)          |
+| Tablet  | 768px       | `md:`           |
+| Desktop | 1024px      | `lg:`           |
+| Wide    | 1280px      | `xl:`           |
+
+### Navigation
+
+- **Mobile (< 768px):** sidebar is hidden off-screen. A fixed top bar (`h-14`) shows the brand name and a hamburger button. Tapping the hamburger slides the sidebar in from the left as a drawer with a dimmed backdrop.
+- **Desktop (≥ 768px):** sidebar is permanently visible in the flex layout. Top bar is hidden (`md:hidden`).
+- Drawer close triggers: clicking the backdrop, or navigating to any nav item.
+
+### Page Content
+
+- `PageHeader` title scales: `text-2xl` mobile → `text-3xl` desktop.
+- Page bottom margin (`mb-6 md:mb-8`) reduces on mobile.
+- Padding inside `PanelLayout` is `px-4 py-6` on mobile and `px-8 py-10` on desktop.
+
+### Tables
+
+- `DataTable` wraps in `overflow-x-auto` — horizontal scrolling on narrow screens preserves table layout without breaking columns.
 
 ---
 
 ## Component Conventions
 
 ### Buttons
-| Intent | Variant | Example |
-|--------|---------|---------|
-| Primary action | `default` | Save, Create, Login |
-| Secondary action | `outline` | Cancel, Edit, Export |
-| Danger action | `destructive` | Delete, Disable |
-| Tertiary / icon-only | `ghost` | Row action icon buttons |
+
+| Intent               | Variant       | Example                 |
+| -------------------- | ------------- | ----------------------- |
+| Primary action       | `default`     | Save, Create, Login     |
+| Secondary action     | `outline`     | Cancel, Edit, Export    |
+| Danger action        | `destructive` | Delete, Disable         |
+| Tertiary / icon-only | `ghost`       | Row action icon buttons |
 
 ### Borders & Radius
+
 - `rounded-md` — inputs, badges, table rows
 - `rounded-lg` — cards, dialogs, dropdowns
 - `rounded-full` — avatars only
 - Border color: always `border-border` (`slate-200`) — never custom colors on structural borders
 
 ### Shadows
+
 - `shadow-sm` — floating elements only (dropdown menus, popovers)
 - No shadow on cards — use `border` for separation instead
 - No `shadow-md` or larger in the UI
 
 ### Tables
+
 - Header: `bg-muted/50` with `text-xs font-medium text-muted-foreground uppercase tracking-wide`
 - Row hover: `hover:bg-muted/40`
 - Row divider: `divide-y divide-border`
 - No zebra striping — hover state is enough visual feedback
 
 ### Forms
+
 - Label above input, never inline placeholder as the only label
 - Error state: red border + `<FormError>` message below the field
 - Required fields: asterisk `*` in label, `text-destructive`
 - Full-width inputs inside forms, `max-w-sm` for standalone search inputs
 
 ### Empty states
+
 - Centered in the table/panel, `InboxIcon` + title + optional CTA button
 - Tone: neutral, not apologetic ("No students found" not "Oops, nothing here!")
 
 ### Navigation (sidebar)
+
 - Active item: `bg-indigo-50 text-indigo-700 font-medium`
 - Inactive item: `text-slate-600 hover:bg-slate-100`
 - Icon size: `h-4 w-4`, always `shrink-0`
