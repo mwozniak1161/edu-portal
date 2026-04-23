@@ -63,7 +63,6 @@ describe('AttendanceService', () => {
       { studentId: STUDENT_ID, status: AttendanceStatus.PRESENT },
       { studentId: 'student-2', status: AttendanceStatus.ABSENT },
     ];
-    const date = new Date('2024-03-15');
 
     it('calls prisma.$transaction with correct upsert operations', async () => {
       // Mock lesson instance to belong to the teacher (ownership check passes)

@@ -18,5 +18,5 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     '@typescript-eslint/no-floating-promises': 'off',
   },
-  ignorePatterns: ['node_modules', 'dist'],
+  ignorePatterns: ['node_modules', 'dist', 'src/generated'],
 };
