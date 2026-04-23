@@ -27,7 +27,7 @@ export class GithubReviewController {
       throw new UnauthorizedException('Invalid webhook signature');
     }
 
-    if (['opened', 'synchronized', 'reopened'].includes(payload.action)) {
+    if (['opened', 'synchronize', 'reopened'].includes(payload.action)) {
       await this.githubService.processPrEvent(payload);
     }
 
